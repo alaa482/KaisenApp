@@ -37,5 +37,6 @@ public class MainActivity extends AppCompatActivity {
         FilmAdapter animeAdapter = new FilmAdapter(this,anime);
         recyclerViewAnime.setAdapter(animeAdapter);
         recyclerViewFilm.setAdapter(filmAdapter);
+        //ciao
     }
 }
