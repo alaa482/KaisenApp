@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "877905966180",
+    "project_id": "progettok-362fa",
+    "storage_bucket": "progettok-362fa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:877905966180:android:87567a5858f85d64615b71",
+        "android_client_info": {
+          "package_name": "it.unimib.kaisenapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "877905966180-51vhll435ercrmgpdhqn5dirj959p9rd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQS1ysvRzCOkRv2damWZF9XcjnBdG1yo4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "877905966180-51vhll435ercrmgpdhqn5dirj959p9rd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
