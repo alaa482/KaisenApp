@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -44,7 +45,7 @@ public class ProfileActivity extends AppCompatActivity {
         });
 
         user = FirebaseAuth.getInstance().getCurrentUser();
-        reference = FirebaseDatabase.getInstance().getReference("Users");
+        reference = FirebaseDatabase.getInstance("https://progettok-362fa-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Users");
         userID = user.getUid();
 
         final TextView greetingTextView = (TextView) findViewById(R.id.txtBenvenuto);
@@ -68,6 +69,8 @@ public class ProfileActivity extends AppCompatActivity {
                     txtMail.setText(email);
                     txtAge.setText(age);
                 }
+
+
             }
 
             @Override
