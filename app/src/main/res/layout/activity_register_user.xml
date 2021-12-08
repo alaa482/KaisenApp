@@ -25,14 +25,14 @@
         android:layout_marginBottom="160dp"
         android:text="Create Account"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/EditTextFullName"
+        app:layout_constraintBottom_toTopOf="@+id/editTextFullName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/EditTextFullName"
+        android:id="@+id/editTextFullName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="48dp"
@@ -88,7 +88,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <ProgressBar
-        android:id="@+id/progressBar"
+        android:id="@+id/progressBarRegister"
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

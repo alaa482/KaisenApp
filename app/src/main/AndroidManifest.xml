@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.KaisenApp">
-
+        <activity
+            android:name=".ProfileActivity"
+            android:exported="false" />
         <!--
         <activity
             android:name=".RegisterUser"
@@ -23,9 +25,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- Activity per RegisterUser. (Senza questo è impossibile eseguire RegisterUser.java) -->
+        </activity> <!-- Activity per RegisterUser. (Senza questo è impossibile eseguire RegisterUser.java) -->
         <activity
             android:name=".RegisterUser"
             android:exported="true">
@@ -35,20 +35,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".LoginUser"
             android:exported="true">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
-
-
     </application>
 
 </manifest>
