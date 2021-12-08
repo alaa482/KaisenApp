@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.KaisenApp">
         <activity
+            android:name=".ForgotPassword"
+            android:exported="false" />
+        <activity
             android:name=".ProfileActivity"
             android:exported="false" />
         <!--
