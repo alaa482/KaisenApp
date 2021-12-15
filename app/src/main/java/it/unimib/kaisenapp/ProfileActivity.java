@@ -71,6 +71,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         GoogleSignInAccount signInAccount = GoogleSignIn.getLastSignedInAccount(this);
         if(signInAccount != null){
+            greetingTextView.setText("Welcome, " + signInAccount.getDisplayName() + "!");
             txtFullName.setText(signInAccount.getDisplayName());
             txtMail.setText(signInAccount.getEmail());
         }
