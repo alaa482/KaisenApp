@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">KaisenApp</string>
+    <string name="film_plot">Trama</string>
+    <string name="production_companies">Compagnie produttrici</string>
+</resources>
