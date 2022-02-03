@@ -3,19 +3,19 @@ package it.unimib.kaisenapp.data;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SerieTv {
+public class TvSeries extends ContenutoMultimediale {
     private String titolo;
     private int thumbnail;
     private Map<Integer,Integer> stagioni; //stagione - # episodi
 
-    public SerieTv(String titolo, int thumbnail, Map<Integer, Integer> stagioni) {
+    public TvSeries(String titolo, int thumbnail, Map<Integer, Integer> stagioni) {
         this.titolo = titolo;
         this.thumbnail = thumbnail;
         this.stagioni = new HashMap<>();
         this.stagioni.putAll(stagioni);
     }
 
-    public SerieTv(String titolo, int thumbnail) {
+    public TvSeries(String titolo, int thumbnail) {
         this.titolo = titolo;
         this.thumbnail = thumbnail;
         this.stagioni = new HashMap<>();

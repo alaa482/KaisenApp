@@ -1,6 +1,6 @@
 package it.unimib.kaisenapp.data;
 
-public class Film {
+public class Movie extends ContenutoMultimediale {
     private String titolo;
     private int rating;
     private String descrizione;
@@ -8,7 +8,7 @@ public class Film {
     private int durata;
     private String trailerURL;
 
-    public Film(String titolo, int rating, String descrizione,int anteprima, int durata, String trailerURL) {
+    public Movie(String titolo, int rating, String descrizione, int anteprima, int durata, String trailerURL) {
         this.titolo = titolo;
         this.anteprima=anteprima;
         this.rating = rating;
@@ -17,7 +17,7 @@ public class Film {
         this.trailerURL = trailerURL;
     }
 
-    public Film(String titolo, int anteprima) {
+    public Movie(String titolo, int anteprima) {
         this.titolo = titolo;
         this.anteprima = anteprima;
     }

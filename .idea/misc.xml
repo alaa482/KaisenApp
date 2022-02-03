@@ -3,9 +3,28 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Mohamed/Desktop/RepositoryKaisenApp/KaisenApp/app/src/main/res/drawable/background.xml" value="0.24791666666666667" />
+        <entry key="..\:/Users/Mohamed/Desktop/RepositoryKaisenApp/KaisenApp/app/src/main/res/drawable/ic_account.xml" value="0.20885416666666667" />
+        <entry key="..\:/Users/Mohamed/Desktop/RepositoryKaisenApp/KaisenApp/app/src/main/res/drawable/ic_baseline_account_circle_24.xml" value="0.24791666666666667" />
+        <entry key="..\:/Users/Mohamed/Desktop/RepositoryKaisenApp/KaisenApp/app/src/main/res/drawable/ic_baseline_format_list_bulleted_24.xml" value="0.1" />
+        <entry key="..\:/Users/Mohamed/Desktop/RepositoryKaisenApp/KaisenApp/app/src/main/res/drawable/ic_baseline_movie_24.xml" value="0.24791666666666667" />
+        <entry key="..\:/Users/Mohamed/Desktop/RepositoryKaisenApp/KaisenApp/app/src/main/res/drawable/ic_home.xml" value="0.2598958333333333" />
+        <entry key="..\:/Users/Mohamed/Desktop/RepositoryKaisenApp/KaisenApp/app/src/main/res/drawable/ic_mylist.xml" value="0.1574074074074074" />
+        <entry key="..\:/Users/Mohamed/Desktop/RepositoryKaisenApp/KaisenApp/app/src/main/res/drawable/ic_search.xml" value="0.24791666666666667" />
+        <entry key="..\:/Users/Mohamed/Desktop/RepositoryKaisenApp/KaisenApp/app/src/main/res/drawable/item_selector.xml" value="0.246875" />
+        <entry key="..\:/Users/Mohamed/Desktop/RepositoryKaisenApp/KaisenApp/app/src/main/res/drawable/round_corners.xml" value="0.18055555555555555" />
         <entry key="..\:/Users/Mohamed/Desktop/RepositoryKaisenApp/KaisenApp/app/src/main/res/layout/activity_main.xml" value="0.25" />
-        <entry key="..\:/Users/Mohamed/Desktop/RepositoryKaisenApp/KaisenApp/app/src/main/res/layout/item_film_serietv.xml" value="0.33" />
-        <entry key="..\:/Users/Mohamed/Desktop/RepositoryKaisenApp/KaisenApp/app/src/main/res/layout/item_film_seritetv.xml" value="0.17" />
+        <entry key="..\:/Users/Mohamed/Desktop/RepositoryKaisenApp/KaisenApp/app/src/main/res/layout/activity_splash_screen.xml" value="0.33" />
+        <entry key="..\:/Users/Mohamed/Desktop/RepositoryKaisenApp/KaisenApp/app/src/main/res/layout/category_row_items.xml" value="0.25" />
+        <entry key="..\:/Users/Mohamed/Desktop/RepositoryKaisenApp/KaisenApp/app/src/main/res/layout/fragment_home.xml" value="0.16641337386018237" />
+        <entry key="..\:/Users/Mohamed/Desktop/RepositoryKaisenApp/KaisenApp/app/src/main/res/layout/fragment_movies.xml" value="0.5" />
+        <entry key="..\:/Users/Mohamed/Desktop/RepositoryKaisenApp/KaisenApp/app/src/main/res/layout/fragment_profile.xml" value="0.1859375" />
+        <entry key="..\:/Users/Mohamed/Desktop/RepositoryKaisenApp/KaisenApp/app/src/main/res/layout/fragment_search.xml" value="0.1" />
+        <entry key="..\:/Users/Mohamed/Desktop/RepositoryKaisenApp/KaisenApp/app/src/main/res/layout/horizontal_single_row.xml" value="0.1" />
+        <entry key="..\:/Users/Mohamed/Desktop/RepositoryKaisenApp/KaisenApp/app/src/main/res/layout/item_film_serietv.xml" value="0.1" />
+        <entry key="..\:/Users/Mohamed/Desktop/RepositoryKaisenApp/KaisenApp/app/src/main/res/layout/main_recycle_row_item.xml" value="0.33" />
+        <entry key="..\:/Users/Mohamed/Desktop/RepositoryKaisenApp/KaisenApp/app/src/main/res/menu/item_menu.xml" value="0.1" />
+        <entry key="..\:/Users/Mohamed/Desktop/RepositoryKaisenApp/KaisenApp/app/src/main/res/menu/menu_items.xml" value="0.21388888888888888" />
       </map>
     </option>
   </component>
