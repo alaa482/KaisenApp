@@ -1,5 +1,7 @@
 package it.unimib.kaisenapp.request;
 
+import android.util.Log;
+
 import it.unimib.kaisenapp.utils.Credentials;
 import it.unimib.kaisenapp.utils.MovieApi;
 import retrofit2.Retrofit;

@@ -6,5 +6,6 @@ public enum TypeOfRequest {
     NOW_PLAYING,
     LASTEST,
     POPULAR_TV_SHOWS,
-    TOP_RATED
+    TOP_RATED,
+    DETAILS;
 }

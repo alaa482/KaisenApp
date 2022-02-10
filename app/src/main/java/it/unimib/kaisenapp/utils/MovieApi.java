@@ -1,10 +1,10 @@
 package it.unimib.kaisenapp.utils;
 
 import it.unimib.kaisenapp.models.MovieModel;
+import it.unimib.kaisenapp.response.MovieDetailsResponse;
 import it.unimib.kaisenapp.response.MovieSearchResponse;
 import retrofit2.Call;
 import retrofit2.http.GET;
-import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -34,6 +34,14 @@ public interface MovieApi {
             @Query("api_key") String key,
             @Query("language") String language,
             @Query("page") int page
+    );
+
+    @GET("movie/{movie_id}?")
+    Call<MovieDetailsResponse> getMovieDetail(
+            @Path("movie_id") int movie_id,
+            @Query("api_key") String key,
+            @Query("language") String language
+
     );
 
 

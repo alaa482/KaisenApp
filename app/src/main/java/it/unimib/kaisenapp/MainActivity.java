@@ -70,7 +70,6 @@ public class MainActivity extends AppCompatActivity implements CategoryItemRecyc
         mainCategoryRecycler = findViewById(R.id.recyclerViewHome);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         mainCategoryRecycler.setLayoutManager(layoutManager);
-
     }
 
     private void addMoviesType(List<String> moviesType) {

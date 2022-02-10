@@ -33,4 +33,6 @@ public class MovieListViewModel extends ViewModel {
     public void searchMostPopularMovies(TypeOfRequest typeOfRequest, int page) {
         movieRepository.searchMostPopularMovies(typeOfRequest, page);
     }
+
+
 }

@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    tools:context=".ui.FilmSpec">
+    tools:context=".ui.FilmSpec"
+    android:background="@drawable/background"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -31,9 +33,11 @@
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:layout_alignParentStart="true"
-                    android:background="#00FFFFFF"
+                    android:background="@null"
                     android:src="@drawable/ic_baseline_arrow_back_ios_24"
-                    tools:ignore="SpeakableTextPresentCheck" />
+                    tools:ignore="SpeakableTextPresentCheck"
+                    tools:srcCompat="@drawable/ic_baseline_arrow_back_ios_24"
+                    app:tint="@color/white" />
 
             </RelativeLayout>
 
@@ -49,7 +53,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-
                 <TextView
                     android:id="@+id/film_title"
                     android:layout_width="match_parent"
@@ -58,12 +61,15 @@
                     android:textColor="@color/white"
                     android:textFontWeight="800"
                     android:textSize="25dp"
-                    android:text="ciao"/>
+                    android:text="@string/title"
+                    />
+
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal"
                 android:weightSum="10">
 
@@ -79,7 +85,7 @@
                         android:id="@+id/poster"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        tools:srcCompat="@drawable/fui_idp_button_background_github" />
+                        tools:srcCompat="@drawable/background" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -89,6 +95,66 @@
 
                     android:orientation="vertical">
 
+                    <TextView
+                        android:id="@+id/GenresTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="15dp"
+                        android:text="@string/genres"
+                        android:textColor="@color/white"
+                        android:textSize="17sp" />
+
+                    <TextView
+                        android:id="@+id/Genres"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="test,testdadsadasdasasdadasasdadad,test,test,test,testtes,testestsetestegsggesgdgesdgesdgesdgesdgesdgesdgetest,test"
+                        android:textColor="@color/white"
+                        android:textSize="15dp"
+                        android:paddingHorizontal="30dp"
+                        android:paddingVertical="10dp"
+                        android:ellipsize="end"
+                        android:maxLines="3"
+
+                        />
+
+                    <TextView
+                        android:id="@+id/OriginalTitleT"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/originalTitle"
+                        android:textColor="@color/white"
+                        android:textSize="17sp"
+                        android:paddingLeft="15dp"/>
+
+                    <TextView
+                        android:id="@+id/OriginalTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="test"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:paddingHorizontal="30dp"
+                        android:paddingVertical="10dp"
+                        android:ellipsize="end"
+                        android:maxLines="1"/>
+
+                    <RatingBar
+                        android:id="@+id/ratingBar"
+                        style="@style/Widget.AppCompat.RatingBar.Indicator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginVertical="7dp"
+                        android:backgroundTint="#ff0000"
+                        android:clickable="false"
+                        android:numStars="5"
+                        android:progressBackgroundTint="#ff0000"
+                        android:progressTint="#ff0000"
+                        android:rating="2.45"
+                        android:secondaryProgressTint="@color/fui_transparent"
+                        android:stepSize="0.01"
+                        app:layout_constraintEnd_toEndOf="parent" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
@@ -113,7 +179,9 @@
                 android:layout_height="wrap_content"
                 android:lineSpacingExtra="8dp"
                 android:text="@string/sample"
-                android:paddingVertical="10dp"/>
+                android:paddingVertical="10dp"
+                android:textColor="@color/white"
+                />
 
         </LinearLayout>
 
@@ -126,7 +194,7 @@
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/production_companies"
+                android:text="@string/recommendation"
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textFontWeight="800"
