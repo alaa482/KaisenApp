@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name" translatable="false">KaisenApp</string>
     <string name="film_plot">Trama</string>
-    <string name="recommendation">Raccomandati</string>
+    <string name="recommendation">Simili</string>
     <string name="sample" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque laoreet tincidunt lorem, nec eleifend urna faucibus quis. Proin efficitur ex quis dolor vulputate porta. In hac habitasse platea dictumst. In laoreet venenatis lorem in porta. Aenean metus tortor, dignissim nec imperdiet at, cursus sit amet nulla. Suspendisse sapien ex, tincidunt at dui id, lobortis commodo elit. Mauris feugiat at metus sit amet feugiat. Phasellus sed tortor leo. In hac habitasse platea dictumst. Vestibulum at feugiat mauris. Suspendisse placerat, tortor ac finibus tempor, mi odio malesuada nibh, sit amet imperdiet sapien metus eget arcu. Donec ut metus interdum, ornare erat id, volutpat ligula. Duis eu tellus mi. Mauris convallis, risus quis hendrerit consectetur, tortor erat feugiat nisl, non accumsan risus eros eu massa. In hac habitasse platea dictumst.</string>
     <string name="contentDescriptionWallpaper" translatable="false">Wallpaper</string>
     <string name="logo" translatable="false">Logo</string>

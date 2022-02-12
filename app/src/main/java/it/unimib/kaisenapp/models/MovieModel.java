@@ -10,7 +10,7 @@ public class MovieModel implements Parcelable {
     private String title;
     private String poster_path;
     private String release_date;
-    private int movie_id;
+    private int id;
     private float vote_average;
     private String overview;
 
@@ -18,7 +18,7 @@ public class MovieModel implements Parcelable {
         this.title = title;
         this.poster_path = poster_path;
         this.release_date = release_date;
-        this.movie_id = movie_id;
+        this.id = movie_id;
         this.vote_average = vote_average;
         this.overview = overview;
     }
@@ -27,7 +27,7 @@ public class MovieModel implements Parcelable {
         title = in.readString();
         poster_path = in.readString();
         release_date = in.readString();
-        movie_id = in.readInt();
+        id = in.readInt();
         vote_average = in.readFloat();
         overview = in.readString();
     }
@@ -57,7 +57,7 @@ public class MovieModel implements Parcelable {
     }
 
     public int getMovie_id() {
-        return movie_id;
+        return id;
     }
 
     public float getVote_average() {
@@ -79,7 +79,7 @@ public class MovieModel implements Parcelable {
         parcel.writeString(title);
         parcel.writeString(poster_path);
         parcel.writeString(release_date);
-        parcel.writeInt(movie_id);
+        parcel.writeInt(id);
         parcel.writeFloat(vote_average);
         parcel.writeString(overview);
     }
@@ -90,7 +90,7 @@ public class MovieModel implements Parcelable {
                 "title='" + title + '\'' +
                 ", poster_path='" + poster_path + '\'' +
                 ", release_date='" + release_date + '\'' +
-                ", movie_id=" + movie_id +
+                ", movie_id=" + id +
                 ", vote_average=" + vote_average +
                 ", movie_overview='" + overview + '\'' +
                 '}';

@@ -1,8 +1,11 @@
 package it.unimib.kaisenapp.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -15,17 +18,20 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import java.util.ArrayList;
 import java.util.List;
 import it.unimib.kaisenapp.R;
+import it.unimib.kaisenapp.adapter.SimilarReciclerAdapter;
 import it.unimib.kaisenapp.models.GenresModel;
+import it.unimib.kaisenapp.models.MovieModel;
 import it.unimib.kaisenapp.models.ProductionCompaniesModel;
 import it.unimib.kaisenapp.request.Service;
 import it.unimib.kaisenapp.response.MovieDetailsResponse;
+import it.unimib.kaisenapp.response.SimilarResponse;
 import it.unimib.kaisenapp.utils.Credentials;
 import it.unimib.kaisenapp.utils.MovieApi;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FilmSpec extends AppCompatActivity {
+public class FilmSpec extends AppCompatActivity implements SimilarReciclerAdapter.OnClickListener{
     private ImageButton backBTNUI;
     private TextView plotUI;
     private TextView titleUI;
@@ -40,7 +46,12 @@ public class FilmSpec extends AppCompatActivity {
     private float avarageVote;
     private String title;
     private String plot;
+    private List<MovieModel> recommendations;
     String prefix="https://image.tmdb.org/t/p/w500/";
+    MovieApi movieApi = Service.getMovieApi();
+    RecyclerView recyclerView;
+    SimilarReciclerAdapter recommendationsRecyclerAdapter;
+
 
 
     @Override
@@ -55,6 +66,8 @@ public class FilmSpec extends AppCompatActivity {
         originalTitleUI=(TextView)findViewById(R.id.OriginalTitle);
         genresUI = (TextView)findViewById(R.id.Genres);
         ratingBar = (RatingBar)findViewById(R.id.ratingBar);
+        recyclerView=(RecyclerView)findViewById(R.id.similar);
+
         backBTNUI.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -67,11 +80,13 @@ public class FilmSpec extends AppCompatActivity {
         });
         int id = getIntent().getIntExtra("id",634649);
         GetRetrofitResponse(id);
+        GetRetrofitResponseRecommendations(id);
 
     }
 
+
     private void GetRetrofitResponse(int id) {
-        MovieApi movieApi = Service.getMovieApi();
+
 
         Call<MovieDetailsResponse> responseCall = movieApi
                 .getMovieDetail(
@@ -106,7 +121,7 @@ public class FilmSpec extends AppCompatActivity {
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(posterUI);
                 String aus ="";
-                Log.v("test", genresList.toString());
+
                 for (int i = 0 ; i< genresList.size();i++){
                    aus+=String.valueOf(genresList.get(i));
                    if (i==genresList.size()-1){
@@ -123,5 +138,53 @@ public class FilmSpec extends AppCompatActivity {
 
             }
         });
+
+
+    }
+    private void GetRetrofitResponseRecommendations(int id) {
+
+        Call<SimilarResponse> responseCall = movieApi
+                .getMovieRecommendation(
+                        id,
+                        Credentials.API_KEY,
+                        Credentials.LANGUAGE
+
+                );
+
+        responseCall.enqueue(new Callback<SimilarResponse>() {
+            @Override
+            public void onResponse(Call<SimilarResponse> call, Response<SimilarResponse> response) {
+
+                if (response.code() == 200) {
+                    recommendationsRecyclerAdapter=new SimilarReciclerAdapter(FilmSpec.this,response.body().getMovies(),FilmSpec.this);
+                    RecyclerView.LayoutManager layout = new LinearLayoutManager(FilmSpec.this, RecyclerView.HORIZONTAL, false);
+                    recyclerView.setLayoutManager(layout);
+                    recyclerView.setAdapter(recommendationsRecyclerAdapter);
+
+                }
+
+
+
+
+
+
+
+
+
+            }
+
+            @Override
+            public void onFailure(Call<SimilarResponse> call, Throwable t) {
+
+            }
+        });
+    }
+
+    @Override
+    public void onClick(int id) {
+        Intent intent = new Intent(FilmSpec.this,FilmSpec.class);
+        intent.putExtra("id", id);
+        startActivity(intent);
+        finish();
     }
 }

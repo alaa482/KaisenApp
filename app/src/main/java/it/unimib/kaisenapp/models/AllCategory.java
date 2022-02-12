@@ -41,4 +41,12 @@ public class AllCategory {
     public int hashCode() {
         return Objects.hash(categoryTitle);
     }
+
+    @Override
+    public String toString() {
+        return "AllCategory{" +
+                "categoryTitle='" + categoryTitle + '\'' +
+                ", categoryItemList=" + categoryItemList +
+                '}';
+    }
 }

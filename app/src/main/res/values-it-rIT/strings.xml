@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="film_plot">Trama</string>
-    <string name="recommendation">Raccomandati</string>
+    <string name="recommendation">Simili</string>
     <string name="profile" translatable="false">Account</string>
     <string name="cerca" translatable="false">Cerca un film o una serie</string>
     <string name="search_movies">Cerca</string>
