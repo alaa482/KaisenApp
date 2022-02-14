@@ -146,7 +146,7 @@ public class LoginUser extends AppCompatActivity implements View.OnClickListener
 
                         } else {
                             // If sign in fails, display a message to the user.
-                            Toast.makeText(LoginUser.this, "Something get wrong!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(LoginUser.this, "Qualcosa è andato storto!", Toast.LENGTH_LONG).show();
 
                         }
                     }
@@ -179,31 +179,31 @@ public class LoginUser extends AppCompatActivity implements View.OnClickListener
 
         if(mail.isEmpty()){
 
-            editTextLoginEmail.setError("Email is required");
+            editTextLoginEmail.setError("Email richiesta");
             editTextLoginEmail.requestFocus();
             return;
         }
 
         if(!Patterns.EMAIL_ADDRESS.matcher(mail).matches()){
-            editTextLoginEmail.setError("Please enter a valid mail");
+            editTextLoginEmail.setError("Inserisci un email valida");
             editTextLoginEmail.requestFocus();
             return;
         }
 
         if(password.isEmpty()){
 
-            editTestLoginPassword.setError("Password is required");
+            editTestLoginPassword.setError("Password richiesta");
             editTestLoginPassword.requestFocus();
             return;
         }
 
         if(password.length() < 6){
-            editTestLoginPassword.setError("Min pass length is 6 characters");
+            editTestLoginPassword.setError("Password richiesta minimo 6 caratteri");
             editTestLoginPassword.requestFocus();
             return;
         }
 
-        progressBarLogin.setVisibility(View.VISIBLE);
+        //progressBarLogin.setVisibility(View.VISIBLE);
 
         mAuth.signInWithEmailAndPassword(mail,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
@@ -220,14 +220,15 @@ public class LoginUser extends AppCompatActivity implements View.OnClickListener
                     else
                     {
                         user.sendEmailVerification();
-                        Toast.makeText(LoginUser.this, "Check your email to verify your account!", Toast.LENGTH_LONG).show();
+                        FirebaseAuth.getInstance().signOut();
+                        Toast.makeText(LoginUser.this, "Veirifica il tuo account!", Toast.LENGTH_LONG).show();
                     }
 
 
                 }
                 else
                 {
-                   Toast.makeText(LoginUser.this, "Failed to login! Please check your credentials", Toast.LENGTH_LONG).show();
+                   Toast.makeText(LoginUser.this, "Log in fallito, controlla le credenziali!", Toast.LENGTH_LONG).show();
                 }
             }
         });

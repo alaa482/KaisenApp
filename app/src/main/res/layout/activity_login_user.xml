@@ -75,12 +75,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="12dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintBottom_toTopOf="@+id/textViewLoginPassDimenticata"
         app:layout_constraintEnd_toStartOf="@+id/textViewLoginRegistrati"
         app:layout_constraintTop_toBottomOf="@+id/btnLogin"
-        app:layout_constraintVertical_bias="0.0"
-        tools:ignore="MissingConstraints" >
+        app:layout_constraintVertical_bias="0.756"
+        tools:ignore="MissingConstraints">
 
     </com.google.android.gms.common.SignInButton>
 

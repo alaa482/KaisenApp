@@ -47,12 +47,12 @@ public class ForgotPassword extends AppCompatActivity {
         String email =editTextRecoveryMail.getText().toString().trim();
 
         if (email.isEmpty()){
-            editTextRecoveryMail.setError("Email is required");
+            editTextRecoveryMail.setError("Email richiesta");
             editTextRecoveryMail.requestFocus();
             return;
         }
         if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-            editTextRecoveryMail.setError("Please Provide a valid email");
+            editTextRecoveryMail.setError("Inserisci un email valida");
             editTextRecoveryMail.requestFocus();
             return;
         }
@@ -62,10 +62,10 @@ public class ForgotPassword extends AppCompatActivity {
             public void onComplete(@NonNull Task<Void> task) {
 
                 if(task.isSuccessful()){
-                    Toast.makeText(ForgotPassword.this,"Check your email for reset your password!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(ForgotPassword.this,"Controlla la tua email!", Toast.LENGTH_LONG).show();
                     startActivity(new Intent(ForgotPassword.this, LoginUser.class));
                 }else{
-                    Toast.makeText(ForgotPassword.this,"Try again, something wrong happened!",Toast.LENGTH_LONG).show();
+                    Toast.makeText(ForgotPassword.this,"Qualcosa è andato storto!",Toast.LENGTH_LONG).show();
                 }
             }
         });
