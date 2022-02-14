@@ -10,7 +10,12 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -19,6 +24,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import it.unimib.kaisenapp.adapter.CategoryItemRecyclerAdapter;
 import it.unimib.kaisenapp.adapter.MainRecyclerAdapter;
 import it.unimib.kaisenapp.fragment.HomeFragment;
@@ -27,19 +36,24 @@ import it.unimib.kaisenapp.fragment.ProfileFragment;
 import it.unimib.kaisenapp.fragment.SearchFragment;
 import it.unimib.kaisenapp.models.AllCategory;
 import it.unimib.kaisenapp.models.CategoryItem;
+import it.unimib.kaisenapp.models.MovieEntity;
 import it.unimib.kaisenapp.models.MovieModel;
+import it.unimib.kaisenapp.utils.Credentials;
 import it.unimib.kaisenapp.viewmodels.MovieListViewModel;
 ;
-
 public class MainActivity extends AppCompatActivity implements CategoryItemRecyclerAdapter.OnClickListener {
     private RecyclerView mainCategoryRecycler;
     private MainRecyclerAdapter mainRecyclerAdapter;
     private BottomNavigationView bottomNavigationView;
-    private List<List<CategoryItem>> categoryItemList;
+
+    private List<List<CategoryItem>> categoryItemList; //contiene i film di ogni recycleview
     private List<AllCategory> allCategoryList;
+
     private MovieListViewModel movieListViewModel;
-    private List<String> moviesType;
-    private static final int NUMBER_OF_RECYCLE_VIEW=10;
+    private List<String> moviesType; //categorie dei film: al cimena, pià votati ...
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,22 +63,30 @@ public class MainActivity extends AppCompatActivity implements CategoryItemRecyc
         moviesType=new ArrayList<>();
         allCategoryList=new ArrayList<>();
         addMoviesType(moviesType);
-        for(List<CategoryItem> item: categoryItemList)
-            item=new ArrayList<>();
-        for(int i=0; i< NUMBER_OF_RECYCLE_VIEW; i++)
+        for(int i = 0; i< Constants.NUMBERS_OF_MOVIES_IN_A_RECYCLEVIEW; i++)
+            categoryItemList.add(new ArrayList<>());
+
+        for(int i=0; i< moviesType.size(); i++)
             allCategoryList.add(new AllCategory(moviesType.get(i), categoryItemList.get(i)));
-        
-        
+
         bottomNavigationView=findViewById(R.id.bottomBar);
-       // bottomNavigationClick();
+        bottomNavigationClick();
         //setupSearchView();
-
         movieListViewModel= new ViewModelProvider(this).get(MovieListViewModel.class);
-        ObserverAnyChange(TypeOfRequest.MOST_POPULAR);
 
-        searchMostPopularMovies(TypeOfRequest.MOST_POPULAR, 1);
+        ObserverAnyChange();
+
+        if(isConnected()){
+            getMovies(TypeOfRequest.TOP_RATED_MOVIES, Constants.PAGE);
+            getMovies(TypeOfRequest.UPCOMING_MOVIES, Constants.PAGE);
+            getMovies(TypeOfRequest.NOW_PLAYING_MOVIES, Constants.PAGE);
+            getMovies(TypeOfRequest.SIMILAR_TO_MOVIES, 634649, Constants.PAGE);
+            getMovies(TypeOfRequest.MOST_POPULAR_MOVIES, Constants.PAGE);
+        }else
+            Toast.makeText(this, "BRO HAI LA CONNESSIONE SPENTA",Toast.LENGTH_LONG).show();
 
 
+        insertDataToDatabase();
 
 
         mainCategoryRecycler = findViewById(R.id.recyclerViewHome);
@@ -73,20 +95,32 @@ public class MainActivity extends AppCompatActivity implements CategoryItemRecyc
 
     }
 
-    private void addMoviesType(List<String> moviesType) {
-        moviesType.add("Più pololari");
-        moviesType.add("I più votati");
-        moviesType.add("Prossimamente");
-        moviesType.add("Al cinema");
+    private void insertDataToDatabase(){
+        MovieEntity m = new MovieEntity(0,11, "immagine");
+        movieListViewModel.insertMovie(m);
+        Toast.makeText(this, "Aggiunto",Toast.LENGTH_LONG).show();
+
     }
 
-    //prendo i dati dalla barra di ricerca e chiamo le api
-    private void setupSearchView(){
-        final SearchView searchView=findViewById(R.id.searchView);
+
+    private void addMoviesType(List<String> moviesType) {
+        moviesType.add(Constants.MOST_POPULAR_MOVIES);
+        moviesType.add(Constants.UPCOMING_MOVIES);
+        moviesType.add(Constants.NOW_PLAYING_MOVIES);
+        moviesType.add(Constants.SIMILAR_TO_MOVIES);
+        moviesType.add(Constants.TOP_RATED_MOVIES);
+    }
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
+
+    /*private void setupSearchView(){
+        final SearchView searchView=null;//findViewById(R.id.searchView);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                movieListViewModel.searchMovie(query, 1);
+                //movieListViewModel.searchMovie(query, 1);
 
                 return false;
             }
@@ -96,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements CategoryItemRecyc
                 return false;
             }
         });
-    }
+    }*/
     private void bottomNavigationClick(){
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
@@ -105,9 +139,9 @@ public class MainActivity extends AppCompatActivity implements CategoryItemRecyc
                 Fragment selectedFragment =null;
                 switch(item.getItemId()){
 
-                    case R.id.home:
+                    /*case R.id.home:
                         selectedFragment=new HomeFragment();
-                        break;
+                        break;*/
                     case R.id.search:
                         selectedFragment=new SearchFragment();
                         break;
@@ -126,165 +160,89 @@ public class MainActivity extends AppCompatActivity implements CategoryItemRecyc
             }
         });
     }
+
     //Observering any data change (live data fa da observer)
-    private void ObserverAnyChange(TypeOfRequest typeOfRequest){
+    private void ObserverAnyChange(){
+
         movieListViewModel.getMovies().observe(this, new Observer<List<MovieModel>>() {
             @Override
             public void onChanged(List<MovieModel> movieModels) {
                 List<CategoryItem> list=new ArrayList<>();
+                TypeOfRequest lastRequest=null;
+
                 if(movieModels!=null){
-                    int index=0;
-                    for(MovieModel movieModel: movieModels){
-                        //get data
-                        list.add(new CategoryItem(index, movieModel.getPoster_path()));
-                        index++;
+                    synchronized (this){
+                        if(movieModels.size()>0){
+                            lastRequest=TypeOfRequest.valueOf(movieModels.get(0).getCategory());
+                            Log.v("Tag", "REQ : "+ lastRequest+ " - "+movieModels.get(0).getTitle());
+                        }
                     }
-                    if(typeOfRequest==TypeOfRequest.MOST_POPULAR)
-                        allCategoryList.get(allCategoryList.indexOf(new AllCategory(moviesType.get(0), null))).getCategoryItemList().addAll(list);
+
+                    for(MovieModel movieModel: movieModels){
+                        list.add(new CategoryItem(movieModel.getId(), movieModel.getPoster_path()));
+                       // Log.v("Tag", "TITOLO: "+ movieModel.getTitle()+" "+movieModel.getId());
+
+                    }
+
+                    if(allCategoryList!=null) {
+                        if(lastRequest == TypeOfRequest.MOST_POPULAR_MOVIES)
+                            allCategoryList.get(allCategoryList.indexOf(new AllCategory(new String(Constants.MOST_POPULAR_MOVIES), null))).getCategoryItemList().addAll(list);
+
+                        if (lastRequest == TypeOfRequest.UPCOMING_MOVIES)
+                            allCategoryList.get(allCategoryList.indexOf(new AllCategory(new String(Constants.UPCOMING_MOVIES), null))).getCategoryItemList().addAll(list);
+
+                        if (lastRequest == TypeOfRequest.TOP_RATED_MOVIES)
+                            allCategoryList.get(allCategoryList.indexOf(new AllCategory(new String(Constants.TOP_RATED_MOVIES), null))).getCategoryItemList().addAll(list);
+
+                        if (lastRequest == TypeOfRequest.NOW_PLAYING_MOVIES)
+                            allCategoryList.get(allCategoryList.indexOf(new AllCategory(new String(Constants.NOW_PLAYING_MOVIES), null))).getCategoryItemList().addAll(list);
+
+                        if (lastRequest == TypeOfRequest.SIMILAR_TO_MOVIES)
+                            allCategoryList.get(allCategoryList.indexOf(new AllCategory(new String(Constants.SIMILAR_TO_MOVIES), null))).getCategoryItemList().addAll(list);
+                    }
 
 
                     mainRecyclerAdapter = new MainRecyclerAdapter(MainActivity.this, allCategoryList, MainActivity.this);
                     mainCategoryRecycler.setAdapter(mainRecyclerAdapter);
 
+
                 }
 
             }
         });
     }
+
+    private synchronized void getMovies(TypeOfRequest typeOfRequest, int page){
+        movieListViewModel.getMovies(typeOfRequest, page);
+    }
+    private synchronized void getMovies(TypeOfRequest typeOfRequest,int id, int page){
+        movieListViewModel.getMovies(typeOfRequest,id, page);
+    }
+
+
     // 4 chiamata a searchMovie
-    private void searchMovieApi(String query, int page){
+   /*private void searchMovieApi(String query, int page){
         movieListViewModel.searchMovie(query, page);
-    }
-    private void searchMostPopularMovies(TypeOfRequest typeOfRequest, int page){
-        movieListViewModel.searchMostPopularMovies(typeOfRequest, page);
-    }
-
-
-
-
+    }*/
     @Override
-    public void onClick(int position) {
-        Toast.makeText(this, "nice cock", Toast.LENGTH_SHORT).show();
+    public void onClick(int id) {
+        Toast.makeText(this, "ID: "+id, Toast.LENGTH_SHORT).show();
        /* Intent intent = new Intent(this, ActivityTest.class);
         startActivity(intent);*/
 
     }
 
+    private boolean isConnected(){
+        ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        return (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED)? true: false;
 
-
-
-
-  /*  void setWallpaperHome(){
-        home_wallpaper=(ImageView) findViewById(R.id.wallpaper_id);
-        Glide.with(this).load(R.drawable.wallpaper_home).into(home_wallpaper);
-    }*/
-
-    //retrofit con chiamate sul thread pricipale
-  /*  private void GetRetrofitResponse() {
-        MovieApi movieApi= Service.getMovieApi();
-
-        Call<MovieSearchResponse> responseCall = movieApi
-                .searchMovie(
-                        Credentials.API_KEY,
-                        "Venom",
-                        1
-                        );
-
-        responseCall.enqueue(new Callback<MovieSearchResponse>() {
-            @Override
-            public void onResponse(Call<MovieSearchResponse> call, Response<MovieSearchResponse> response) {
-                if(response.code() == 200){ //caso ok
-                    Log.v("Body", "Response: " +response.body().toString());
-
-                    List<MovieModel> movies = new ArrayList<>(response.body().getMovies());
-
-                    for(MovieModel movie: movies)
-                        Log.v("Tag", "Film: "+movie.getMovie_overview());
-
-
-                }else{
-
-                    try {
-                        Log.v("Tag", "ERROR "+ response.errorBody().string());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<MovieSearchResponse> call, Throwable t) {
-                Log.d("", "ERROR");
-
-            }
-        });
     }
 
-    private void GetRetrofitResponseAccordingToId(){
-        MovieApi movieApi=Service.getMovieApi();
-        Call<MovieModel> responseCall = movieApi.getMovie(
-                550,
-                Credentials.API_KEY);
-        responseCall.enqueue(new Callback<MovieModel>() {
-            @Override
-            public void onResponse(Call<MovieModel> call, Response<MovieModel> response) {
-                if(response.code() == 200){
-                    MovieModel movie =response.body();
-                    Log.v("Tag", "Response: "+movie.getTitle());
-                }else{
-
-                    try {
-                        Log.v("Tag", "ERROR: "+response.errorBody().string());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<MovieModel> call, Throwable t) {
-
-            }
-        });
-    }
-
-    private void getPopularMovies(){
-        List<CategoryItem> popularMovies=new ArrayList<>();
-        MovieApi movieApi=Service.getMovieApi();
-        Call<MovieSearchResponse> responseCall = movieApi.getPopularMovies(
-                Credentials.API_KEY,
-                Credentials.LANGUAGE,
-                1);
-        responseCall.enqueue(new Callback<MovieSearchResponse>() {
-            @Override
-            public void onResponse(Call<MovieSearchResponse> call, Response<MovieSearchResponse> response) {
-                if(response.code() == 200){
-
-                    List<MovieModel> movies = new ArrayList<>(response.body().getMovies());
-                    for(int i=0; i<movies.size(); ++i)
-                        popularMovies.add(new CategoryItem(i, R.drawable.wallpaper_home));
-
-                    allCategoryList.add(new AllCategory("Most Popular", popularMovies));
 
 
-                }else{
 
-                    try {
-                        Log.v("Tag", "ERROR: "+response.errorBody().string());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
 
-                }
-            }
 
-            @Override
-            public void onFailure(Call<MovieSearchResponse> call, Throwable t) {
 
-            }
-        });
-
-    }*/
 }
