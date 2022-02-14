@@ -8,9 +8,8 @@ public class User {
 
     }
 
-    public User(String fullName, String age, String mail){
+    public User(String fullName, String mail){
         this.fullName = fullName;
-        this.age = age;
         this.mail = mail;
     }
 

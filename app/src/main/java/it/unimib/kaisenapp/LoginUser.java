@@ -27,13 +27,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
+import java.io.IOException;
+
 
 public class LoginUser extends AppCompatActivity implements View.OnClickListener{
 
     private TextView register, forgotPassword;
     private EditText editTextLoginEmail, editTestLoginPassword;
     private Button singIn;
-
     private FirebaseAuth mAuth;
     private ProgressBar progressBarLogin;
     private GoogleSignInClient mGoogleSignInClient;
@@ -58,13 +59,20 @@ public class LoginUser extends AppCompatActivity implements View.OnClickListener
         setContentView(R.layout.activity_login_user);
 
         createRequest();
-        findViewById(R.id.sign_in_button).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.bottone).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 signIn();
             }
+
+
+
         });
-        
+
+
+
+
+
 
         register = (TextView) findViewById(R.id.textViewLoginRegistrati);
         register.setOnClickListener(this);
@@ -119,6 +127,9 @@ public class LoginUser extends AppCompatActivity implements View.OnClickListener
             }
         }
     }
+
+
+
 
     private void firebaseAuthWithGoogle(String idToken) {
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);

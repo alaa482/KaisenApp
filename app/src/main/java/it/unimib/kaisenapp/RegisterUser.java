@@ -25,7 +25,7 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
     private FirebaseAuth mAuth;
     private TextView logIn;
     private TextView btnRegister;
-    private EditText editTextFullName, editTextAge, editTextMail, editTextPassword;
+    private EditText editTextFullName, editTextMail, editTextPassword;
     private ProgressBar progressBar;
 
 
@@ -46,7 +46,6 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
         btnRegister.setOnClickListener(this);
 
         editTextFullName = (EditText) findViewById(R.id.editTextFullName);
-        editTextAge = (EditText) findViewById(R.id.editTextAge);
         editTextMail = (EditText) findViewById(R.id.editTextMail);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
 
@@ -72,7 +71,6 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
         String mail = editTextMail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
         String fullName = editTextFullName.getText().toString().trim();
-        String age = editTextAge.getText().toString().trim();
 
         if(fullName.isEmpty()){
             editTextPassword.setError("Full name is required");
@@ -110,7 +108,7 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
             public void onComplete(@NonNull Task<AuthResult> task) {
 
                 if(task.isSuccessful()){
-                    User user = new User(fullName, age, mail);
+                    User user = new User(fullName, mail);
 
                     FirebaseDatabase.getInstance("https://progettok-362fa-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override

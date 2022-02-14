@@ -67,7 +67,6 @@ public class ProfileActivity extends AppCompatActivity {
         final TextView greetingTextView = (TextView) findViewById(R.id.txtBenvenuto);
         final TextView txtFullName = (TextView) findViewById(R.id.txtFullNameActivity);
         final TextView txtMail = (TextView) findViewById(R.id.txtMailActivity);
-        final TextView txtAge = (TextView) findViewById(R.id.txtAgeActivity);
 
         GoogleSignInAccount signInAccount = GoogleSignIn.getLastSignedInAccount(this);
         if(signInAccount != null){
@@ -86,12 +85,11 @@ public class ProfileActivity extends AppCompatActivity {
 
                     String fullName = userProfile.fullName;
                     String email = userProfile.mail;
-                    String age = userProfile.age;
 
                     greetingTextView.setText("Welcome, " + fullName + "!");
                     txtFullName.setText(fullName);
                     txtMail.setText(email);
-                    txtAge.setText(age);
+
                 }
 
 
