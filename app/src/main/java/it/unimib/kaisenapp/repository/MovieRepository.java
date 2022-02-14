@@ -1,16 +1,13 @@
 package it.unimib.kaisenapp.repository;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import java.util.List;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
 
-import it.unimib.kaisenapp.AppExecutor;
 import it.unimib.kaisenapp.TypeOfRequest;
-import it.unimib.kaisenapp.models.MovieDao;
-import it.unimib.kaisenapp.models.MovieEntity;
+import it.unimib.kaisenapp.database.MovieDao;
+import it.unimib.kaisenapp.database.MovieEntity;
 import it.unimib.kaisenapp.models.MovieModel;
 import it.unimib.kaisenapp.request.MovieApiClient;
 
@@ -43,18 +40,4 @@ public class MovieRepository {
         movieApiClient.getMovies(typeOfRequest, id, page);
     }
 
-
-    public LiveData<List<MovieEntity>> getAllData(){
-        return movieDao.getAllMovies();
-    }
-    public void insertMovie(MovieEntity movieEntity){
-        movieDao.insertMovie(movieEntity);
-    }
-
-    public MovieDao getMovieDao() {
-        return movieDao;
-    }
-    /*public void searchMovieApi(String query, int page){
-        movieApiClient.searchMoviesApi(query, page);
-    }*/
 }

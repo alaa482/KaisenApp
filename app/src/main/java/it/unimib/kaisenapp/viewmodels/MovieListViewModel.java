@@ -6,35 +6,26 @@ import android.util.Log;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
+
 import java.util.List;
-import java.util.concurrent.Executor;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 import it.unimib.kaisenapp.AppExecutor;
 import it.unimib.kaisenapp.TypeOfRequest;
-import it.unimib.kaisenapp.database.MovieRoomDatabase;
-import it.unimib.kaisenapp.models.MovieDao;
-import it.unimib.kaisenapp.models.MovieEntity;
+import it.unimib.kaisenapp.database.Database;
+import it.unimib.kaisenapp.database.MovieDao;
+import it.unimib.kaisenapp.database.MovieEntity;
 import it.unimib.kaisenapp.models.MovieModel;
 import it.unimib.kaisenapp.repository.MovieRepository;
 
 //class view model
-public class MovieListViewModel extends AndroidViewModel {
+public class MovieListViewModel extends ViewModel {
     private MovieRepository movieRepository;
     private LiveData<List<MovieEntity>> listMovies;
 
-
-
-    /* extends ViewModel
     public MovieListViewModel() {
         movieRepository=MovieRepository.getInstance();
-    }
-     */
-    public MovieListViewModel(Application application) {
-        super(application);
-        movieRepository=MovieRepository.getInstance();
-
     }
 
     public LiveData<List<MovieModel>> getMovies(){
@@ -49,37 +40,13 @@ public class MovieListViewModel extends AndroidViewModel {
         movieRepository.getMovies(typeOfRequest, id, page);
     }
 
-    public void getData(){
-        MovieDao m=MovieRoomDatabase.getDatabase(super.getApplication()).movieDao();
+    /*public void getData(){
+        MovieDao m= Database.getInstance(super.getApplication()).movieDao();
         movieRepository=MovieRepository.getInstance();
         listMovies=movieRepository.getAllData();
-    }
-
-    /**
-     * Inserimento del film nel database da parte di un thread in background
-     * @param movieEntity
-     */
-    public void insertMovie(MovieEntity movieEntity){
-        final Future myHandler = AppExecutor.getInstance().networkIO().submit(new Runnable() {
-            @Override
-            public void run() {
-                movieRepository.insertMovie(movieEntity);
-            }
-        });
-
-        AppExecutor.getInstance().networkIO().schedule(new Runnable() {
-            @Override
-            public void run() {
-                myHandler.cancel(true);
-            }
-        },5000, TimeUnit.MILLISECONDS);
-
-    }
-
-   /* public void searchMovie(String query, int page){
-        movieRepository.searchMovieApi(query, page);
-
     }*/
+
+
 
 
 }

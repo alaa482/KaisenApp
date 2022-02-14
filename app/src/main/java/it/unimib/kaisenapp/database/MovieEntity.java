@@ -1,5 +1,6 @@
-package it.unimib.kaisenapp.models;
+package it.unimib.kaisenapp.database;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -9,7 +10,9 @@ import it.unimib.kaisenapp.Constants;
 public class MovieEntity {
     @PrimaryKey(autoGenerate = true)
     private int id;
+    @ColumnInfo(name="movie_id")
     private int movie_id;
+    @ColumnInfo(name = "poster_path")
     private String poster_path;
 
     public MovieEntity(int id, int movie_id, String poster_path) {

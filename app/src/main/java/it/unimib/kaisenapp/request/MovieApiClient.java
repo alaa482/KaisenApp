@@ -20,12 +20,18 @@ import retrofit2.Response;
 
 public class MovieApiClient{
 
-    private MutableLiveData<List<MovieModel>> mMovies;
+    private LiveData<List<MovieModel>> mMovies;
     private static MovieApiClient instance;
     private RetrieveMoviesRunnable retrieveMoviesRunnable;     //global request
 
     private MovieApiClient(){
         mMovies=new MutableLiveData<>();
+        /* new LiveData<List<MovieModel>>() {
+            @Override
+            protected void postValue(List<MovieModel> value) {
+                super.postValue(value);
+            }
+        };*/
     }
 
     public static MovieApiClient getInstance(){
@@ -56,6 +62,16 @@ public class MovieApiClient{
                 myHandler.cancel(true);
             }
         },3000, TimeUnit.MILLISECONDS);
+    }*/
+
+   /* public void getMovies(List<TypeOfRequest> typeOfRequest, int page) {
+
+        for(TypeOfRequest t: typeOfRequest){
+            synchronized (this){
+                getMovies(t,page);
+            }
+        }
+
     }*/
 
     public void getMovies(TypeOfRequest typeOfRequest, int page) {
@@ -156,22 +172,22 @@ public class MovieApiClient{
                         m.setCategory(typeOfRequest.toString());
 
                     }
-                   /* synchronized (this){
+                   /*synchronized (this){
                         Log.v("Tag", "CATEGORIA:" + list.get(0).getCategory()+" - "+list.get(0).getTitle());
                         Log.v("Tag", "___________________________________________________________");
                     }*/
 
 
                     if(page == 1) {
-                        synchronized (this) {
-                            //Invio i dati al live date
-                            //PostValue: utilizzato per il background thread | setValue: non utilizzato per il background thread
-                            mMovies.postValue(list); // il background thread invia l'oggetto al main thread ->observer chiama la onchange
-                        }
+                        //Invio i dati al live date
+                        //PostValue: utilizzato per il background thread | setValue: non utilizzato per il background thread
+                        //mMovies.postValue(list); // il background thread invia l'oggetto al main thread ->observer chiama la onchange
+                        ((MutableLiveData<List<MovieModel>>) mMovies).postValue(list);
+
                     }else {
                         List<MovieModel> currentMovies = mMovies.getValue();
                         currentMovies.addAll(list);
-                        mMovies.postValue(currentMovies);
+                        ((MutableLiveData<List<MovieModel>>) mMovies).postValue(currentMovies);
                     }
                 }else { //caso non c'è connessione
                     Log.v("Tag", "Error " + response.errorBody().string());

@@ -1,6 +1,5 @@
-package it.unimib.kaisenapp.models;
+package it.unimib.kaisenapp.database;
 
-import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -21,7 +20,7 @@ public interface MovieDao {
     void insertAllMovies(MovieEntity... movieEntities);
 
     @Query("SELECT * FROM movie")
-    LiveData<List<MovieEntity>> getAllMovies();
+    List<MovieEntity> getAllMovies();
 
 
     @Delete

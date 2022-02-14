@@ -6,4 +6,6 @@ public enum TypeOfRequest {
     TOP_RATED_MOVIES,
     NOW_PLAYING_MOVIES,
     SIMILAR_TO_MOVIES,
+    MOST_POPULAR_TV_SHOWS
+
 }
