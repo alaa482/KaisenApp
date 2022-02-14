@@ -3,6 +3,7 @@ package it.unimib.kaisenapp.utils;
 import it.unimib.kaisenapp.models.MovieModel;
 import it.unimib.kaisenapp.response.MovieDetailsResponse;
 import it.unimib.kaisenapp.response.MovieSearchResponse;
+import it.unimib.kaisenapp.response.SerieDetailsResponse;
 import it.unimib.kaisenapp.response.SimilarResponse;
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -52,5 +53,19 @@ public interface MovieApi {
             @Query("language") String language
     );
 
+    @GET("tv/{tv_id}?")
+    Call<SerieDetailsResponse> getSerieDetail(
+            @Path("tv_id") int tv_id,
+            @Query("api_key") String key,
+            @Query("language") String language
+
+    );
+
+    @GET("tv/{tv_id}/similar?")
+    Call<SimilarResponse> getTvSimilar(
+            @Path("tv_id") int tv_id,
+            @Query("api_key") String key,
+            @Query("language") String language
+    );
 
 }

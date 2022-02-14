@@ -1,9 +1,5 @@
 package it.unimib.kaisenapp.ui;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,11 +9,16 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import it.unimib.kaisenapp.R;
 import it.unimib.kaisenapp.adapter.SeasonsReciclerAdapter;
 import it.unimib.kaisenapp.adapter.SimilarReciclerAdapter;
@@ -25,7 +26,7 @@ import it.unimib.kaisenapp.models.GenresModel;
 import it.unimib.kaisenapp.models.MovieModel;
 import it.unimib.kaisenapp.models.ProductionCompaniesModel;
 import it.unimib.kaisenapp.request.Service;
-import it.unimib.kaisenapp.response.MovieDetailsResponse;
+import it.unimib.kaisenapp.response.SerieDetailsResponse;
 import it.unimib.kaisenapp.response.SimilarResponse;
 import it.unimib.kaisenapp.utils.Credentials;
 import it.unimib.kaisenapp.utils.MovieApi;
@@ -33,7 +34,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FilmSpec extends AppCompatActivity implements SimilarReciclerAdapter.OnClickListener {
+public class SeriesSpec extends AppCompatActivity implements SimilarReciclerAdapter.OnClickListener, SeasonsReciclerAdapter.OnClickListener {
     private ImageButton backBTNUI;
     private TextView plotUI;
     private TextView titleUI;
@@ -62,15 +63,16 @@ public class FilmSpec extends AppCompatActivity implements SimilarReciclerAdapte
     String prefix="https://image.tmdb.org/t/p/w500/";
     MovieApi movieApi = Service.getMovieApi();
     RecyclerView recyclerView;
+    RecyclerView recyclerViewSeasons;
     SimilarReciclerAdapter recommendationsRecyclerAdapter;
-
+    SeasonsReciclerAdapter seasonsReciclerAdapter;
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_film_spec);
+        setContentView(R.layout.activity_series_spec);
 
         backBTNUI = (ImageButton) findViewById(R.id.back_button);
         titleUI = (TextView) findViewById(R.id.film_title);
@@ -80,6 +82,7 @@ public class FilmSpec extends AppCompatActivity implements SimilarReciclerAdapte
         genresUI = (TextView)findViewById(R.id.Genres);
         ratingBar = (RatingBar)findViewById(R.id.ratingBar);
         recyclerView=(RecyclerView)findViewById(R.id.similar);
+        recyclerViewSeasons=(RecyclerView)findViewById(R.id.seasons) ;
         bookmarkedUI=(ImageButton)findViewById(R.id.bookmarked);
         favoriteUI=(ImageButton)findViewById(R.id.favorite);
         starUI=(ImageButton)findViewById(R.id.star);
@@ -152,9 +155,10 @@ public class FilmSpec extends AppCompatActivity implements SimilarReciclerAdapte
 
             }
         });
-        int id = getIntent().getIntExtra("id",634649);
+        int id = getIntent().getIntExtra("id",99966);
         GetRetrofitResponse(id);
         GetRetrofitResponseRecommendations(id);
+
 
     }
 
@@ -162,26 +166,31 @@ public class FilmSpec extends AppCompatActivity implements SimilarReciclerAdapte
     private void GetRetrofitResponse(int id) {
 
 
-        Call<MovieDetailsResponse> responseCall = movieApi
-                .getMovieDetail(
+        Call<SerieDetailsResponse> responseCall = movieApi
+                .getSerieDetail(
                         id,
                         Credentials.API_KEY,
                         Credentials.LANGUAGE
 
                 );
 
-        responseCall.enqueue(new Callback<MovieDetailsResponse>() {
+        responseCall.enqueue(new Callback<SerieDetailsResponse>() {
             @Override
-            public void onResponse(Call<MovieDetailsResponse> call, Response<MovieDetailsResponse> response) {
+            public void onResponse(Call<SerieDetailsResponse> call, Response<SerieDetailsResponse> response) {
+
                 if (response.code() == 200) {
-                    genresList = new ArrayList<>(((MovieDetailsResponse) response.body()).getGenres());
-                    productionCompaniesList= new ArrayList<>(((MovieDetailsResponse) response.body()).getProductionCompanies());
-                    originalTitle= response.body().getOriginalTitle();
+
+                    genresList = new ArrayList<>(((SerieDetailsResponse) response.body()).getGenres());
+                    originalTitle= response.body().getOriginalName();
                     imagePath = response.body().getImage_path();
                     avarageVote = response.body().getVoteAvarege();
-                    title = response.body().getTitle();
+                    title = response.body().getName();
                     plot = response.body().getPlot();
-                    durata=String.valueOf(response.body().getRuntime());
+                    durata=String.valueOf(response.body().getEpisode_run_time().get(0));
+                    seasonsReciclerAdapter=new SeasonsReciclerAdapter(SeriesSpec.this,response.body().getSeasons(), SeriesSpec.this);
+                    RecyclerView.LayoutManager layout = new LinearLayoutManager(SeriesSpec.this, RecyclerView.HORIZONTAL, false);
+                    recyclerViewSeasons.setLayoutManager(layout);
+                    recyclerViewSeasons.setAdapter(seasonsReciclerAdapter);
                 }
 
                 ratingBar.setRating(avarageVote/2);
@@ -208,8 +217,8 @@ public class FilmSpec extends AppCompatActivity implements SimilarReciclerAdapte
             }
 
             @Override
-            public void onFailure(Call<MovieDetailsResponse> call, Throwable t) {
-
+            public void onFailure(Call<SerieDetailsResponse> call, Throwable t) {
+                Log.v("test",t.toString());
             }
         });
 
@@ -218,7 +227,7 @@ public class FilmSpec extends AppCompatActivity implements SimilarReciclerAdapte
     private void GetRetrofitResponseRecommendations(int id) {
 
         Call<SimilarResponse> responseCall = movieApi
-                .getMovieRecommendation(
+                .getTvSimilar(
                         id,
                         Credentials.API_KEY,
                         Credentials.LANGUAGE
@@ -230,8 +239,8 @@ public class FilmSpec extends AppCompatActivity implements SimilarReciclerAdapte
             public void onResponse(Call<SimilarResponse> call, Response<SimilarResponse> response) {
 
                 if (response.code() == 200) {
-                    recommendationsRecyclerAdapter=new SimilarReciclerAdapter(FilmSpec.this,response.body().getMovies(),FilmSpec.this);
-                    RecyclerView.LayoutManager layout = new LinearLayoutManager(FilmSpec.this, RecyclerView.HORIZONTAL, false);
+                    recommendationsRecyclerAdapter=new SimilarReciclerAdapter(SeriesSpec.this,response.body().getMovies(), SeriesSpec.this);
+                    RecyclerView.LayoutManager layout = new LinearLayoutManager(SeriesSpec.this, RecyclerView.HORIZONTAL, false);
                     recyclerView.setLayoutManager(layout);
                     recyclerView.setAdapter(recommendationsRecyclerAdapter);
 
@@ -248,12 +257,20 @@ public class FilmSpec extends AppCompatActivity implements SimilarReciclerAdapte
 
     @Override
     public void onClick(int id) {
-        Intent intent = new Intent(FilmSpec.this,FilmSpec.class);
-        intent.putExtra("id", id);
-        startActivity(intent);
-        finish();
+
+                Intent intent = new Intent(SeriesSpec.this, SeriesSpec.class);
+                intent.putExtra("id", id);
+                startActivity(intent);
+                finish();
+
+
+
+        }
+
+
+    @Override
+    public void onClick(int id, String s) {
+
+
     }
-
-
-
 }

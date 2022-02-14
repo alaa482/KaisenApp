@@ -7,20 +7,18 @@ import java.util.List;
 
 import it.unimib.kaisenapp.models.GenresModel;
 import it.unimib.kaisenapp.models.ProductionCompaniesModel;
+import it.unimib.kaisenapp.models.SeasonsModel;
 
 //Classe per la richiesta dei details del film
-public class MovieDetailsResponse {
+public class SerieDetailsResponse {
     @SerializedName("genres")
     @Expose()
     private List<GenresModel> genres;
 
-    @SerializedName("production_companies")
-    @Expose()
-    private List<ProductionCompaniesModel> productionCompanies;
 
-    @SerializedName("original_title")
+    @SerializedName("original_name")
     @Expose()
-    private String originalTitle;
+    private String originalName;
 
     @SerializedName("poster_path")
     @Expose()
@@ -30,28 +28,32 @@ public class MovieDetailsResponse {
     @Expose()
     private float voteAvarege;
 
-    @SerializedName("title")
+    @SerializedName("name")
     @Expose()
-    private String title;
+    private String name;
 
     @SerializedName("overview")
     @Expose()
     private String Plot;
 
-    @SerializedName("runtime")
+    @SerializedName("episode_run_time")
     @Expose
-    private int runtime;
+    private List<Integer> episode_run_time;
+
+    @SerializedName("seasons")
+    @Expose
+    private List<SeasonsModel> seasons;
+
+    public List<SeasonsModel> getSeasons() {
+        return seasons;
+    }
 
     public List<GenresModel> getGenres() {
         return genres;
     }
 
-    public List<ProductionCompaniesModel> getProductionCompanies() {
-        return productionCompanies;
-    }
-
-    public String getOriginalTitle() {
-        return originalTitle;
+    public String getOriginalName() {
+        return originalName;
     }
 
     public String getImage_path() {
@@ -62,28 +64,28 @@ public class MovieDetailsResponse {
         return voteAvarege;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
     public String getPlot() {
         return Plot;
     }
 
-    public int getRuntime() {
-        return runtime;
+    public List<Integer> getEpisode_run_time() {
+        return episode_run_time;
     }
 
     @Override
     public String toString() {
-        return "MovieDetailsResponse{" +
+        return "SerieDetailsResponse{" +
                 "genres=" + genres +
-                ", productionCompanies=" + productionCompanies +
-                ", originalTitle='" + originalTitle + '\'' +
+                ", originalName='" + originalName + '\'' +
                 ", image_path='" + image_path + '\'' +
                 ", voteAvarege=" + voteAvarege +
-                ", title='" + title + '\'' +
+                ", name='" + name + '\'' +
                 ", Plot='" + Plot + '\'' +
+                ", episode_run_time=" + episode_run_time +
                 '}';
     }
 }

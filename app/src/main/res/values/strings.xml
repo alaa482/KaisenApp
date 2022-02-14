@@ -13,6 +13,7 @@
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="cerca">Cerca un film o una serie</string>
     <string name="title">Titolo</string>
-    <string name="genres">Generi</string>
-    <string name="originalTitle">Titolo Originale</string>
+    <string name="genres">Generi :</string>
+    <string name="originalTitle">Titolo Originale :</string>
+    <string name="seasons">Stagioni</string>
 </resources>

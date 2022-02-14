@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    tools:context=".ui.FilmSpec"
+    tools:context=".ui.SeriesSpec"
     android:background="@drawable/background"
     >
 
@@ -250,6 +250,26 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/seasons"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textFontWeight="800"
+                android:textSize="20sp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+
+                android:id="@+id/seasons"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="15dp"
+                app:layout_constraintHorizontal_bias="0.01"
+                android:orientation="horizontal"
+
+                />
 
             <TextView
                 android:id="@+id/layoutSimilar"

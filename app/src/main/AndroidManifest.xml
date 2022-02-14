@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.KaisenApp">
         <activity
-            android:name=".ui.FilmSpec"
+            android:name=".ui.SeriesSpec"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
