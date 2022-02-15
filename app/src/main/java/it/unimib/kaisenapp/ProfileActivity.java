@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,7 +31,9 @@ import com.google.firebase.database.ValueEventListener;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    private TextView register;
+    private ImageButton backButton;
+    private ImageButton modifyImage;
+    private ImageView profileImage;
     private FirebaseUser user;
     private DatabaseReference reference;
     private String userID;  //id di firebase legato all'utente
@@ -55,22 +59,46 @@ public class ProfileActivity extends AppCompatActivity {
             }
 
 
+
+
+        });
+        backButton = (ImageButton) findViewById(R.id.back_button);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ProfileActivity.this, RegisterUser.class));
+            }
+
+
+
+
+        });
+        modifyImage = (ImageButton) findViewById(R.id.modifyImage);
+        modifyImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ProfileActivity.this, listProfilePic.class));
+            }
+
+
+
+
         });
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         reference = FirebaseDatabase.getInstance("https://progettok-362fa-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Users");
         userID = user.getUid();
 
-        register = (TextView) findViewById(R.id.prova);
-        register.setOnClickListener(this::onClick);
 
-        final TextView greetingTextView = (TextView) findViewById(R.id.txtBenvenuto);
+
+
+       // final TextView greetingTextView = (TextView) findViewById(R.id.txtBenvenuto);
         final TextView txtFullName = (TextView) findViewById(R.id.txtFullNameActivity);
         final TextView txtMail = (TextView) findViewById(R.id.txtMailActivity);
 
         GoogleSignInAccount signInAccount = GoogleSignIn.getLastSignedInAccount(this);
         if(signInAccount != null){
-            greetingTextView.setText("Welcome, " + signInAccount.getDisplayName() + "!");
+            //greetingTextView.setText("Welcome, " + signInAccount.getDisplayName() + "!");
             txtFullName.setText(signInAccount.getDisplayName());
             txtMail.setText(signInAccount.getEmail());
         }
@@ -86,7 +114,7 @@ public class ProfileActivity extends AppCompatActivity {
                     String fullName = userProfile.fullName;
                     String email = userProfile.mail;
 
-                    greetingTextView.setText("Welcome, " + fullName + "!");
+                    //greetingTextView.setText("Welcome, " + fullName + "!");
                     txtFullName.setText(fullName);
                     txtMail.setText(email);
 
@@ -126,11 +154,5 @@ public class ProfileActivity extends AppCompatActivity {
                 });
     }
 
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.prova:
-                startActivity(new Intent(this, RegisterUser.class));
-                break;
-        }
-    }
+
 }
