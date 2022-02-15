@@ -2,11 +2,8 @@ package it.unimib.kaisenapp.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-/*la classe implementa parcelable cosi posso
-    spedire gli oggetti tra i diversi intent
- */
+
 public class MovieModel implements Parcelable {
-    //Model class per i film
     private String title;
     private String poster_path;
     private String release_date;
@@ -15,14 +12,14 @@ public class MovieModel implements Parcelable {
     private String overview;
     private String category;
 
-    public MovieModel(String title, String poster_path, String release_date, int id, float vote_average, String overview) {
+    public MovieModel(String title, String poster_path, String release_date, int id, float vote_average, String overview, String category) {
         this.title = title;
         this.poster_path = poster_path;
         this.release_date = release_date;
         this.id = id;
         this.vote_average = vote_average;
         this.overview = overview;
-        this.category="";
+        this.category=category;
     }
 
 

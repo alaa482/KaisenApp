@@ -3,7 +3,7 @@ package it.unimib.kaisenapp.database;
 import android.content.Context;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
-import it.unimib.kaisenapp.Constants;
+import it.unimib.kaisenapp.utils.Constants;
 import kotlin.jvm.Volatile;
 
 @androidx.room.Database(entities = {MovieEntity.class}, version = Constants.DATABASE_VERSION, exportSchema = false)

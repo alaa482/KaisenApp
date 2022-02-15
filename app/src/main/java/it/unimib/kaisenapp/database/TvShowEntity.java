@@ -1,18 +1,18 @@
 package it.unimib.kaisenapp.database;
 
+
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import it.unimib.kaisenapp.utils.Constants;
 
-@Entity(tableName = Constants.MOVIE_TABLE_NAME)
-public class MovieEntity {
-
+@Entity(tableName = Constants.TV_SHOW_TABLE_NAME)
+public class TvShowEntity {
 
     @PrimaryKey()
-    @ColumnInfo(name="movie_id")
-    private int movie_id;
+    @ColumnInfo(name="id")
+    private int id;
     @ColumnInfo(name = "poster_path")
     private String poster_path;
     @ColumnInfo(name="category")
@@ -24,9 +24,8 @@ public class MovieEntity {
     @ColumnInfo(name="favorite")
     private boolean favorite;
 
-
-    public MovieEntity(int movie_id, String poster_path, String category, boolean watched, boolean saved, boolean favorite) {
-        this.movie_id = movie_id;
+    public TvShowEntity(int id, String poster_path, String category, boolean watched, boolean saved, boolean favorite) {
+        this.id = id;
         this.poster_path = poster_path;
         this.category=category;
         this.saved=saved;
@@ -36,12 +35,12 @@ public class MovieEntity {
 
 
 
-    public int getMovie_id() {
-        return movie_id;
+    public int getId() {
+        return id;
     }
 
-    public void setMovie_id(int movie_id) {
-        this.movie_id = movie_id;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getPoster_path() {
@@ -54,10 +53,6 @@ public class MovieEntity {
 
     public String getCategory() {
         return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
     }
 
     public boolean isWatched() {
@@ -82,5 +77,9 @@ public class MovieEntity {
 
     public void setFavorite(boolean favorite) {
         this.favorite = favorite;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }

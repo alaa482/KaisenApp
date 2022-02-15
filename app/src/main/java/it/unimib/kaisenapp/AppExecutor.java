@@ -3,6 +3,8 @@ package it.unimib.kaisenapp;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
+import it.unimib.kaisenapp.utils.Constants;
+
 //PATTERN SINGLETON
 //Classe Excecutor: esegue i threads per le chiamate api in background
 public class AppExecutor {
