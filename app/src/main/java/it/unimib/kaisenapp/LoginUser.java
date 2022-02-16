@@ -44,16 +44,6 @@ public class LoginUser extends AppCompatActivity implements View.OnClickListener
     private final static int RC_SIGN_IN = 123;
     private Button verify;
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        FirebaseUser user = mAuth.getCurrentUser();
-        if(user != null){
-            Intent intent = new Intent(getApplicationContext(),ProfileActivity.class);
-            startActivity(intent);
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +51,10 @@ public class LoginUser extends AppCompatActivity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_user);
 
+
+
         createRequest();
+
         findViewById(R.id.bottone).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -99,6 +92,11 @@ public class LoginUser extends AppCompatActivity implements View.OnClickListener
         forgotPassword = (TextView) findViewById(R.id.textViewLoginPassDimenticata);
         forgotPassword.setOnClickListener(this);
 
+        FirebaseUser user = mAuth.getCurrentUser();
+        if(user != null){
+            Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+            startActivity(intent);
+        }
 
     }
 
@@ -169,10 +167,10 @@ public class LoginUser extends AppCompatActivity implements View.OnClickListener
                                             FirebaseDatabase.getInstance("https://progettok-362fa-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("imId").setValue("pp0");
                                             FirebaseDatabase.getInstance("https://progettok-362fa-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("numSf").setValue(numSf);
                                             FirebaseDatabase.getInstance("https://progettok-362fa-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("ore").setValue(ore);
-                                            Intent intent = new Intent(getApplicationContext(),ProfileActivity.class);
+                                            Intent intent = new Intent(getApplicationContext(),MainActivity.class);
                                             startActivity(intent);
                                         }else{
-                                            Intent intent = new Intent(getApplicationContext(),ProfileActivity.class);
+                                           Intent intent = new Intent(getApplicationContext(),MainActivity.class);
                                             startActivity(intent);
                                         }
 
@@ -256,7 +254,7 @@ public class LoginUser extends AppCompatActivity implements View.OnClickListener
 
                     if(user.isEmailVerified()){
                         //redirect to user profile
-                        startActivity(new Intent(LoginUser.this, ProfileActivity.class));
+                        startActivity(new Intent(LoginUser.this, MainActivity.class));
                     }
                     else
                     {

@@ -42,7 +42,7 @@
 
         <activity
             android:name=".LoginUser"
-            android:exported="true" />
+            android:exported="false" />
 
         <activity
             android:name=".MainActivity"
