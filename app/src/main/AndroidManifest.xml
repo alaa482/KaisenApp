@@ -39,6 +39,10 @@
             android:exported="false" />
 
         <activity
+            android:name=".LoginUser"
+            android:exported="true" />
+
+        <activity
             android:name=".MainActivity"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.NoActionBar"
@@ -53,7 +57,7 @@
             android:exported="false"
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity
-            android:name=".LoginUser"
+            android:name=".SplashScreen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
