@@ -26,7 +26,7 @@
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity
             android:name=".ProfileActivity"
-            android:exported="false"
+            android:exported="true"
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity
             android:name=".listProfilePic"
@@ -42,7 +42,7 @@
 
         <activity
             android:name=".LoginUser"
-            android:exported="false" />
+            android:exported="true" />
 
         <activity
             android:name=".MainActivity"
