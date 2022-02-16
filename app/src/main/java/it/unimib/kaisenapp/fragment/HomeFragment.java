@@ -39,7 +39,6 @@ import it.unimib.kaisenapp.models.AllCategory;
 import it.unimib.kaisenapp.models.CategoryItem;
 import it.unimib.kaisenapp.models.MovieModel;
 import it.unimib.kaisenapp.models.TvShowModel;
-import it.unimib.kaisenapp.ui.FilmSpec;
 import it.unimib.kaisenapp.utils.Constants;
 import it.unimib.kaisenapp.utils.TypeOfRequest;
 import it.unimib.kaisenapp.viewmodels.MovieDatabaseViewModel;
@@ -131,14 +130,14 @@ public class HomeFragment extends Fragment  implements CategoryItemRecyclerAdapt
         if(list!=null && list.size()>0){
             for(MovieEntity movieEntity: list){
                 if(movieEntity.getCategory().equals(category))
-                    movies.add(new CategoryItem(movieEntity.getMovie_id(),movieEntity.getPoster_path()));
+                    movies.add(new CategoryItem(movieEntity.getMovie_id(),movieEntity.getPoster_path(),""));
             }
 
         }
         return movies;
     }
     private void getMoviesFromDatabase(){
-        movieDatabaseViewModel.getAllMoviesByCategory(Constants.MOST_POPULAR_MOVIES).observe(getViewLifecycleOwner(),new Observer<List<MovieEntity>>() {
+        movieDatabaseViewModel.getAllMoviesByCategory(Constants.MOST_POPULAR_MOVIES).observe(this, new Observer<List<MovieEntity>>() {
             @Override
             public void onChanged(List<MovieEntity> movieEntities) {
                 List<CategoryItem> list=new ArrayList<>();
@@ -180,7 +179,7 @@ public class HomeFragment extends Fragment  implements CategoryItemRecyclerAdapt
 
                     for(MovieModel movieModel: movieModels){
                         MovieEntity m=new MovieEntity(movieModel.getId(), movieModel.getPoster_path(), movieModel.getCategory(),false,false,false);
-                        list.add(new CategoryItem(movieModel.getId(), movieModel.getPoster_path()));
+                        list.add(new CategoryItem(movieModel.getId(), movieModel.getPoster_path(),"movie"));
 
                         movieDatabaseViewModel.addMovie(m);
 
@@ -220,7 +219,7 @@ public class HomeFragment extends Fragment  implements CategoryItemRecyclerAdapt
 
                     for (TvShowModel tvShowModel : tvShowModels) {
                         TvShowEntity t=new TvShowEntity(tvShowModel.getId(),tvShowModel.getPoster_path(),tvShowModel.getCategory(),false,false,false);
-                        list.add(new CategoryItem(tvShowModel.getId(), tvShowModel.getPoster_path()));
+                        list.add(new CategoryItem(tvShowModel.getId(), tvShowModel.getPoster_path(),"tv_serie"));
                         movieDatabaseViewModel.addTvShow(t);
                     }
 
@@ -277,7 +276,7 @@ public class HomeFragment extends Fragment  implements CategoryItemRecyclerAdapt
 
 
     @Override
-    public void onClick(int id) {
+    public void onClick(int id, String type) {
         Intent intent = new Intent(getContext(),FilmSpec.class);
         intent.putExtra("id", id);
         startActivity(intent);
