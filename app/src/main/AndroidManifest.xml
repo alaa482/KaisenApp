@@ -41,6 +41,10 @@
             />
 
         <activity
+            android:name=".LoginUser"
+            android:exported="true" />
+
+        <activity
             android:name=".MainActivity"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.NoActionBar"
