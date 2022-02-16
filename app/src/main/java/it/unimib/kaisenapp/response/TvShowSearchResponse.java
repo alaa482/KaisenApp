@@ -3,12 +3,12 @@ package it.unimib.kaisenapp.response;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Arrays;
 import java.util.List;
 
 import it.unimib.kaisenapp.models.MovieModel;
+import it.unimib.kaisenapp.models.TvShowModel;
 
-public class MovieSearchResponse {
+public class TvShowSearchResponse {
 
     @SerializedName("total_results") //tag json
     @Expose()
@@ -16,14 +16,14 @@ public class MovieSearchResponse {
 
     @SerializedName("results")
     @Expose()
-    private List<MovieModel> movies;
+    private List<TvShowModel> show;
 
     public int getTotal_count(){
         return total_count;
     }
 
-    public List<MovieModel> getMovies(){
-        return movies;
+    public List<TvShowModel> getTvShows(){
+        return show;
     }
 
 
@@ -31,7 +31,8 @@ public class MovieSearchResponse {
     public String toString() {
         return "MovieSearchResponse{" +
                 "total_count=" + total_count +
-                ", movies=" + movies +
+                ", show=" + show +
                 '}';
     }
+
 }

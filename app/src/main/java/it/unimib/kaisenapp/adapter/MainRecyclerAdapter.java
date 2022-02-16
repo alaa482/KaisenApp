@@ -25,6 +25,9 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
         this.onClickListener=onClickListener;
     }
 
+    public void addAllCategory(List<AllCategory> allCategoryList) {
+        this.allCategoryList=allCategoryList;
+    }
 
     @NonNull
     @Override
@@ -49,9 +52,6 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
         recyclerView.setAdapter(itemRecyclerAdapter);
 
     }
-
-
-
 
     public static final class MainViewHolder extends RecyclerView.ViewHolder{
         TextView categoryTitle;
