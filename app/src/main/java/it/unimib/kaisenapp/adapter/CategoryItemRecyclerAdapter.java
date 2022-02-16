@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.android.material.transition.Hold;
 
 
 import it.unimib.kaisenapp.R;
@@ -46,6 +47,7 @@ public class CategoryItemRecyclerAdapter extends RecyclerView.Adapter<CategoryIt
 
         holder.id.setText(categoryItemList.get(position).getItemId().toString());
         holder.id.setVisibility(View.INVISIBLE);
+        holder.type=categoryItemList.get(position).getType();
         Glide.get(holder.itemImage.getContext()).clearMemory();
 
     }
@@ -61,8 +63,11 @@ public class CategoryItemRecyclerAdapter extends RecyclerView.Adapter<CategoryIt
         TextView id;
         ImageView itemImage;
         OnClickListener onClickListener;
+        String type;
+
         public CategoryItemViewHolder(@NonNull View itemView, OnClickListener onClickListener) {
             super(itemView);
+            type="";
             itemImage = itemView.findViewById(R.id.item_image);
             id=itemView.findViewById(R.id.movie_id);
             this.onClickListener=onClickListener;
@@ -71,16 +76,12 @@ public class CategoryItemRecyclerAdapter extends RecyclerView.Adapter<CategoryIt
 
         @Override
         public void onClick(View view) {
-            onClickListener.onClick(Integer.parseInt(id.getText().toString()));
+            onClickListener.onClick(Integer.parseInt(id.getText().toString()), type);
         }
     }
     public interface OnClickListener{
-
-        void onClick(int position);
+        void onClick(int position,String type);
     }
 
 
-  /*  public void setCategoryItemList(List<CategoryItem> categoryItemList) {
-        this.categoryItemList = categoryItemList;
-    }*/
 }
