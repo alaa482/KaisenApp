@@ -22,18 +22,22 @@
         android:theme="@style/Theme.KaisenApp">
         <activity
             android:name=".ForgotPassword"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity
             android:name=".ProfileActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity
             android:name=".listProfilePic"
-            android:exported="false" />
-        <!--
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            />
+
         <activity
             android:name=".RegisterUser"
             android:exported="false" />
-        -->
+
         <activity
             android:name=".MainActivity"
             android:exported="false"
@@ -49,7 +53,7 @@
             android:exported="false"
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity
-            android:name=".SplashScreen"
+            android:name=".LoginUser"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

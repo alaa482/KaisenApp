@@ -39,6 +39,8 @@ import it.unimib.kaisenapp.models.AllCategory;
 import it.unimib.kaisenapp.models.CategoryItem;
 import it.unimib.kaisenapp.models.MovieModel;
 import it.unimib.kaisenapp.models.TvShowModel;
+import it.unimib.kaisenapp.ui.FilmSpec;
+import it.unimib.kaisenapp.ui.SeriesSpec;
 import it.unimib.kaisenapp.utils.Constants;
 import it.unimib.kaisenapp.utils.TypeOfRequest;
 import it.unimib.kaisenapp.viewmodels.MovieDatabaseViewModel;
@@ -137,7 +139,7 @@ public class HomeFragment extends Fragment  implements CategoryItemRecyclerAdapt
         return movies;
     }
     private void getMoviesFromDatabase(){
-        movieDatabaseViewModel.getAllMoviesByCategory(Constants.MOST_POPULAR_MOVIES).observe(this, new Observer<List<MovieEntity>>() {
+        movieDatabaseViewModel.getAllMoviesByCategory(Constants.MOST_POPULAR_MOVIES).observe(getViewLifecycleOwner(), new Observer<List<MovieEntity>>() {
             @Override
             public void onChanged(List<MovieEntity> movieEntities) {
                 List<CategoryItem> list=new ArrayList<>();
@@ -277,9 +279,16 @@ public class HomeFragment extends Fragment  implements CategoryItemRecyclerAdapt
 
     @Override
     public void onClick(int id, String type) {
-        Intent intent = new Intent(getContext(),FilmSpec.class);
-        intent.putExtra("id", id);
-        startActivity(intent);
+        if(type.equals("movie")){
+            Intent intent = new Intent(getContext(), FilmSpec.class);
+            intent.putExtra("id", id);
+            startActivity(intent);
+        }else  {
+            Intent intent = new Intent(getContext(), SeriesSpec.class);
+            intent.putExtra("id", id);
+            startActivity(intent);
+        }
+
         //new Intent(this, ActivityTest.class).startActivity(intent);
 
     }
