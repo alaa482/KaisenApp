@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -310,6 +311,7 @@ public class MainActivity extends AppCompatActivity {
                         selectedFragment=new MyMoviesFragment();
                         break;
                     case R.id.account:
+                        //startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
                         selectedFragment = new ProfileFragment();
                         break;
                     default:

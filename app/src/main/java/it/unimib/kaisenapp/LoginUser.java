@@ -116,8 +116,8 @@ public class LoginUser extends AppCompatActivity implements View.OnClickListener
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    //@Override
+    /*public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
@@ -133,7 +133,7 @@ public class LoginUser extends AppCompatActivity implements View.OnClickListener
                 Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }
-    }
+    }*/
 
 
 
