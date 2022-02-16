@@ -2,12 +2,17 @@ package it.unimib.kaisenapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,9 +34,12 @@ import com.google.firebase.database.ValueEventListener;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    private TextView register;
+    private ImageButton backButton;
+    private ImageButton modifyImage;
+    private ImageView profileImage;
     private FirebaseUser user;
     private DatabaseReference reference;
+    private DatabaseReference slot;
     private String userID;  //id di firebase legato all'utente
     private GoogleSignInClient mGoogleSignInClient;
 
@@ -55,23 +63,50 @@ public class ProfileActivity extends AppCompatActivity {
             }
 
 
+
+
+        });
+        backButton = (ImageButton) findViewById(R.id.back_button);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ProfileActivity.this, RegisterUser.class));
+            }
+
+
+
+
+        });
+        modifyImage = (ImageButton) findViewById(R.id.modifyImage);
+        modifyImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ProfileActivity.this, listProfilePic.class));
+            }
+
+
+
+
         });
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         reference = FirebaseDatabase.getInstance("https://progettok-362fa-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Users");
         userID = user.getUid();
 
-        register = (TextView) findViewById(R.id.prova);
-        register.setOnClickListener(this::onClick);
 
-        final TextView greetingTextView = (TextView) findViewById(R.id.txtBenvenuto);
+
+
+
+       // final TextView greetingTextView = (TextView) findViewById(R.id.txtBenvenuto);
         final TextView txtFullName = (TextView) findViewById(R.id.txtFullNameActivity);
         final TextView txtMail = (TextView) findViewById(R.id.txtMailActivity);
-        final TextView txtAge = (TextView) findViewById(R.id.txtAgeActivity);
+        final ImageView imageProfile = (ImageView) findViewById(R.id.imageProfile);
+        final TextView txtNumSf = (TextView) findViewById(R.id.textView4);
+        final TextView txtOre = (TextView) findViewById(R.id.textView6);
 
         GoogleSignInAccount signInAccount = GoogleSignIn.getLastSignedInAccount(this);
         if(signInAccount != null){
-            greetingTextView.setText("Welcome, " + signInAccount.getDisplayName() + "!");
+            //greetingTextView.setText("Welcome, " + signInAccount.getDisplayName() + "!");
             txtFullName.setText(signInAccount.getDisplayName());
             txtMail.setText(signInAccount.getEmail());
         }
@@ -86,12 +121,26 @@ public class ProfileActivity extends AppCompatActivity {
 
                     String fullName = userProfile.fullName;
                     String email = userProfile.mail;
-                    String age = userProfile.age;
+                    int numSf =  userProfile.numSf;
+                    int ore = userProfile.ore;
+                    String iid = userProfile.imId;
+                    Log.v("msg", userProfile.imId+"in profilo");
 
-                    greetingTextView.setText("Welcome, " + fullName + "!");
+
+                    //greetingTextView.setText("Welcome, " + fullName + "!");
                     txtFullName.setText(fullName);
                     txtMail.setText(email);
-                    txtAge.setText(age);
+                    String app = String.valueOf(numSf);
+                    txtNumSf.setText(app);
+                    app = String.valueOf(ore);
+                    txtOre.setText(app);
+
+                    //String iid = "pp1";
+                    int path = getResources().getIdentifier("it.unimib.kaisenapp:drawable/" + iid, null, null);
+                    Log.d("msg", String.valueOf(path));
+                    imageProfile.setImageResource(path);
+                   
+
                 }
 
 
@@ -128,11 +177,5 @@ public class ProfileActivity extends AppCompatActivity {
                 });
     }
 
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.prova:
-                startActivity(new Intent(this, RegisterUser.class));
-                break;
-        }
-    }
+
 }

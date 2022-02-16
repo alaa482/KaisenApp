@@ -9,6 +9,8 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
 
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -17,6 +19,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.KaisenApp"
         >
+        android:theme="@style/Theme.KaisenApp">
+        <activity
+            android:name=".ForgotPassword"
+            android:exported="false" />
+        <activity
+            android:name=".ProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".listProfilePic"
+            android:exported="false" />
+        <!--
+        <activity
+            android:name=".RegisterUser"
+            android:exported="false" />
+        -->
         <activity
             android:name=".MainActivity"
             android:exported="false"
@@ -40,7 +57,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>
