@@ -1,7 +1,10 @@
 package it.unimib.kaisenapp.request;
 
 import it.unimib.kaisenapp.models.MovieModel;
+import it.unimib.kaisenapp.response.MovieDetailsResponse;
 import it.unimib.kaisenapp.response.MovieSearchResponse;
+import it.unimib.kaisenapp.response.SerieDetailsResponse;
+import it.unimib.kaisenapp.response.SimilarResponse;
 import it.unimib.kaisenapp.response.TvShowSearchResponse;
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -89,10 +92,37 @@ public interface MovieApi {
             @Query("language") String language,
             @Query("page") int page
     );
+    @GET("tv/{tv_id}?")
+    Call<SerieDetailsResponse> getSerieDetail(
+            @Path("tv_id") int tv_id,
+            @Query("api_key") String key,
+            @Query("language") String language
+
+    );
+
+    @GET("tv/{tv_id}/similar?")
+    Call<SimilarResponse> getTvSimilar(
+            @Path("tv_id") int tv_id,
+            @Query("api_key") String key,
+            @Query("language") String language
+    );
 
 
 
+    @GET("movie/{movie_id}?")
+    Call<MovieDetailsResponse> getMovieDetail(
+            @Path("movie_id") int movie_id,
+            @Query("api_key") String key,
+            @Query("language") String language
 
+    );
+
+    @GET("movie/{movie_id}/similar?")
+    Call<SimilarResponse> getMovieRecommendation(
+            @Path("movie_id") int movie_id,
+            @Query("api_key") String key,
+            @Query("language") String language
+    );
 
 
 }

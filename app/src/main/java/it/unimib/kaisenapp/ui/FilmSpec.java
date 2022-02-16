@@ -19,16 +19,15 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import java.util.ArrayList;
 import java.util.List;
 import it.unimib.kaisenapp.R;
-import it.unimib.kaisenapp.adapter.SeasonsReciclerAdapter;
 import it.unimib.kaisenapp.adapter.SimilarReciclerAdapter;
 import it.unimib.kaisenapp.models.GenresModel;
 import it.unimib.kaisenapp.models.MovieModel;
 import it.unimib.kaisenapp.models.ProductionCompaniesModel;
+import it.unimib.kaisenapp.request.MovieApi;
 import it.unimib.kaisenapp.request.Service;
 import it.unimib.kaisenapp.response.MovieDetailsResponse;
 import it.unimib.kaisenapp.response.SimilarResponse;
 import it.unimib.kaisenapp.utils.Credentials;
-import it.unimib.kaisenapp.utils.MovieApi;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -71,6 +70,12 @@ public class FilmSpec extends AppCompatActivity implements SimilarReciclerAdapte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_film_spec);
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
 
         backBTNUI = (ImageButton) findViewById(R.id.back_button);
         titleUI = (TextView) findViewById(R.id.film_title);
@@ -251,7 +256,6 @@ public class FilmSpec extends AppCompatActivity implements SimilarReciclerAdapte
         Intent intent = new Intent(FilmSpec.this,FilmSpec.class);
         intent.putExtra("id", id);
         startActivity(intent);
-        finish();
     }
 
 

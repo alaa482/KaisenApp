@@ -1,6 +1,7 @@
 package it.unimib.kaisenapp.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -38,6 +39,7 @@ import it.unimib.kaisenapp.models.AllCategory;
 import it.unimib.kaisenapp.models.CategoryItem;
 import it.unimib.kaisenapp.models.MovieModel;
 import it.unimib.kaisenapp.models.TvShowModel;
+import it.unimib.kaisenapp.ui.FilmSpec;
 import it.unimib.kaisenapp.utils.Constants;
 import it.unimib.kaisenapp.utils.TypeOfRequest;
 import it.unimib.kaisenapp.viewmodels.MovieDatabaseViewModel;
@@ -136,7 +138,7 @@ public class HomeFragment extends Fragment  implements CategoryItemRecyclerAdapt
         return movies;
     }
     private void getMoviesFromDatabase(){
-        movieDatabaseViewModel.getAllMoviesByCategory(Constants.MOST_POPULAR_MOVIES).observe(this, new Observer<List<MovieEntity>>() {
+        movieDatabaseViewModel.getAllMoviesByCategory(Constants.MOST_POPULAR_MOVIES).observe(getViewLifecycleOwner(),new Observer<List<MovieEntity>>() {
             @Override
             public void onChanged(List<MovieEntity> movieEntities) {
                 List<CategoryItem> list=new ArrayList<>();
@@ -167,7 +169,7 @@ public class HomeFragment extends Fragment  implements CategoryItemRecyclerAdapt
 
     private void ObserverAnyChange(){
 
-        movieListViewModel.getMovies().observe(this, new Observer<List<MovieModel>>() {
+        movieListViewModel.getMovies().observe(getViewLifecycleOwner(), new Observer<List<MovieModel>>() {
             @Override
             public void onChanged(List<MovieModel> movieModels) {
                 List<CategoryItem> list=new ArrayList<>();
@@ -205,7 +207,7 @@ public class HomeFragment extends Fragment  implements CategoryItemRecyclerAdapt
             }
         });
 
-        movieListViewModel.getTvShows().observe(this, new Observer<List<TvShowModel>>() {
+        movieListViewModel.getTvShows().observe(getViewLifecycleOwner(), new Observer<List<TvShowModel>>() {
             @Override
             public void onChanged(List<TvShowModel> tvShowModels) {
                 List<CategoryItem> list=new ArrayList<>();
@@ -276,7 +278,9 @@ public class HomeFragment extends Fragment  implements CategoryItemRecyclerAdapt
 
     @Override
     public void onClick(int id) {
-        Toast.makeText(getContext(), "ID: "+id, Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getContext(),FilmSpec.class);
+        intent.putExtra("id", id);
+        startActivity(intent);
         //new Intent(this, ActivityTest.class).startActivity(intent);
 
     }

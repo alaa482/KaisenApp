@@ -25,11 +25,11 @@ import it.unimib.kaisenapp.adapter.SimilarReciclerAdapter;
 import it.unimib.kaisenapp.models.GenresModel;
 import it.unimib.kaisenapp.models.MovieModel;
 import it.unimib.kaisenapp.models.ProductionCompaniesModel;
+import it.unimib.kaisenapp.request.MovieApi;
 import it.unimib.kaisenapp.request.Service;
 import it.unimib.kaisenapp.response.SerieDetailsResponse;
 import it.unimib.kaisenapp.response.SimilarResponse;
 import it.unimib.kaisenapp.utils.Credentials;
-import it.unimib.kaisenapp.utils.MovieApi;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -73,6 +73,12 @@ public class SeriesSpec extends AppCompatActivity implements SimilarReciclerAdap
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_series_spec);
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
 
         backBTNUI = (ImageButton) findViewById(R.id.back_button);
         titleUI = (TextView) findViewById(R.id.film_title);
@@ -87,6 +93,7 @@ public class SeriesSpec extends AppCompatActivity implements SimilarReciclerAdap
         favoriteUI=(ImageButton)findViewById(R.id.favorite);
         starUI=(ImageButton)findViewById(R.id.star);
         durataUI=(TextView)findViewById(R.id.durata);
+
 
         bookmarkedUI.setOnClickListener(new View.OnClickListener() {
 
@@ -261,7 +268,7 @@ public class SeriesSpec extends AppCompatActivity implements SimilarReciclerAdap
                 Intent intent = new Intent(SeriesSpec.this, SeriesSpec.class);
                 intent.putExtra("id", id);
                 startActivity(intent);
-                finish();
+
 
 
 

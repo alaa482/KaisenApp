@@ -64,7 +64,7 @@ public class SimilarReciclerAdapter extends RecyclerView.Adapter<SimilarRecicler
 
         @Override
         public void onClick(View view) {
-            onClickListener.onClick(recommendations.get(getAdapterPosition()).getMovie_id());
+            onClickListener.onClick(recommendations.get(getAdapterPosition()).getId());
         }
     }
     public interface OnClickListener{
