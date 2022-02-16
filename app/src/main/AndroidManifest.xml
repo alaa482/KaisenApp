@@ -21,6 +21,10 @@
             android:exported="false"
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity
+            android:name=".HolderData"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity
             android:name=".SplashScreen"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.NoActionBar">

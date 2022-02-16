@@ -26,4 +26,5 @@ public class Constants {
     public static final String TV_SHOW_TABLE_NAME = "tv_show" ;
     public static final String NEWS_DATABASE_NAME = "Database";
 
+    public static final String CONNECTION = "Connessione spenta";
 }

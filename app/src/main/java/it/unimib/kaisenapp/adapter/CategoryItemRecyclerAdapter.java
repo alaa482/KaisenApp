@@ -31,6 +31,10 @@ public class CategoryItemRecyclerAdapter extends RecyclerView.Adapter<CategoryIt
         this.onClickListener=onClickListener;
     }
 
+    public OnClickListener getOnClickListener() {
+        return onClickListener;
+    }
+
     @NonNull
     @Override
     public CategoryItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
