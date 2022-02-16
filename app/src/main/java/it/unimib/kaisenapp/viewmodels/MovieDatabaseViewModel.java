@@ -79,23 +79,30 @@ public class MovieDatabaseViewModel extends AndroidViewModel {
 
     }
     public void addAllMovies(List<MovieEntity> movieEntityList){
-        final Future myHandler = AppExecutor.getInstance().networkIO().submit(new Runnable() {
+        movieDatabaseRepository.addAllMovies(movieEntityList);
+        /*final Future myHandler = AppExecutor.getInstance().networkIO().submit(new Runnable() {
             @Override
             public void run() {
-                movieDatabaseRepository.addAllMovies(movieEntityList);
+
             }
-        });
+        });*/
 
     }
     public void addAllTvShows(List<TvShowEntity> tvShowsEntityList){
         final Future myHandler = AppExecutor.getInstance().networkIO().submit(new Runnable() {
             @Override
             public void run() {
-               // movieDatabaseRepository.addAllTvShows(tvShowsEntityList);
+                movieDatabaseRepository.addAllTvShows(tvShowsEntityList);
             }
         });
 
     }
 
+    public void deleteAllMovies(){
+        movieDatabaseRepository.deleteAllMovies();
+    }
+    public void deleteAllTvShows(){
+        movieDatabaseRepository.deleteAllTvShows();
+    }
 
 }

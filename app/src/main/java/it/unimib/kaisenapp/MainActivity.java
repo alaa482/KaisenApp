@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.Toast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -22,6 +23,8 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 import it.unimib.kaisenapp.adapter.CategoryItemRecyclerAdapter;
 import it.unimib.kaisenapp.adapter.MainRecyclerAdapter;
+import it.unimib.kaisenapp.database.TvShowEntity;
+import it.unimib.kaisenapp.fragment.HomeFragment;
 import it.unimib.kaisenapp.fragment.MyMoviesFragment;
 import it.unimib.kaisenapp.fragment.ProfileFragment;
 import it.unimib.kaisenapp.fragment.SearchFragment;
@@ -35,7 +38,7 @@ import it.unimib.kaisenapp.utils.TypeOfRequest;
 import it.unimib.kaisenapp.viewmodels.MovieDatabaseViewModel;
 import it.unimib.kaisenapp.viewmodels.MovieListViewModel;
 
-public class MainActivity extends AppCompatActivity implements CategoryItemRecyclerAdapter.OnClickListener {
+public class MainActivity extends AppCompatActivity {
     //RecycleView - Adapter
     private RecyclerView mainCategoryRecycler;
     private MainRecyclerAdapter mainRecyclerAdapter;
@@ -56,41 +59,45 @@ public class MainActivity extends AppCompatActivity implements CategoryItemRecyc
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-        mainCategoryRecycler = findViewById(R.id.recyclerViewHome);
+       /* mainCategoryRecycler = findViewById(R.id.recyclerViewHome);
         categoryItemList=new ArrayList<>();
         moviesType=new ArrayList<>();
         allCategoryList=new ArrayList<>();
 
-        addMoviesType(moviesType);
+       addMoviesType(moviesType);
         for(int i = 0; i< Constants.NUMBERS_OF_MOVIES_IN_A_RECYCLEVIEW; i++)
             categoryItemList.add(new ArrayList<>());
 
         mainRecyclerAdapter = new MainRecyclerAdapter(MainActivity.this, allCategoryList, MainActivity.this);
         for(int i=0; i< moviesType.size(); i++)
-            allCategoryList.add(new AllCategory(moviesType.get(i), categoryItemList.get(i)));
+            allCategoryList.add(new AllCategory(moviesType.get(i), categoryItemList.get(i)));*/
 
 
         bottomNavigationView=findViewById(R.id.bottomBar);
         bottomNavigationClick();
-        //setupSearchView();
-        movieListViewModel= new ViewModelProvider(this).get(MovieListViewModel.class);
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, new HomeFragment()).commit();
+
+       /* movieListViewModel= new ViewModelProvider(this).get(MovieListViewModel.class);
         movieDatabaseViewModel=new ViewModelProvider(this).get(MovieDatabaseViewModel.class);
 
+        movieDatabaseViewModel.deleteAllTvShows();
+        movieDatabaseViewModel.deleteAllMovies();
 
         ObserverAnyChange();
-        //getMoviesFromDatabase();
+        getMoviesFromDatabase();
         if(isConnected()){
             getAllMoviesToSetupHome();
 
         }else
-            Toast.makeText(this, "BRO HAI LA CONNESSIONE SPENTA",Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "BRO HAI LA CONNESSIONE SPENTA",Toast.LENGTH_LONG).show();*/
 
 
 
 
 
     }
-
+/*
     private void getAllMoviesToSetupHome() {
         AppExecutor.getInstance().networkIO().schedule(() -> getMovies(TypeOfRequest.MOST_POPULAR_MOVIES, Constants.PAGE), 0,  TimeUnit.MILLISECONDS);
 
@@ -131,30 +138,21 @@ public class MainActivity extends AppCompatActivity implements CategoryItemRecyc
                 List<CategoryItem> list=new ArrayList<>();
 
                 if(movieEntities!=null && movieEntities.size()>0){
+                    for(MovieEntity m: movieEntities){
+                        Log.v("Tag", m.getCategory());
+                    }
 
-
-                    /*list=filter(movieEntities, Constants.MOST_POPULAR_MOVIES);
+                    list=filter(movieEntities, Constants.MOST_POPULAR_MOVIES);
                     for(CategoryItem c: list)
                         Log.v("Tag", c.toString());
 
 
-                    allCategoryList.get(allCategoryList.indexOf(new AllCategory(new String(Constants.MOST_POPULAR_MOVIES), null))).getCategoryItemList().addAll(list);
+                    if(allCategoryList!=null)
+                        allCategoryList.get(allCategoryList.indexOf(new AllCategory(Constants.MOST_POPULAR_MOVIES, null))).getCategoryItemList().addAll(list);
 
-                    list=filter(movieEntities, Constants.TOP_RATED_MOVIES);
-                    allCategoryList.get(allCategoryList.indexOf(new AllCategory(new String(Constants.TOP_RATED_MOVIES), null))).getCategoryItemList().addAll(list);
-
-                    list=filter(movieEntities, Constants.UPCOMING_MOVIES);
-                    allCategoryList.get(allCategoryList.indexOf(new AllCategory(new String(Constants.UPCOMING_MOVIES), null))).getCategoryItemList().addAll(list);
-
-                    list=filter(movieEntities, Constants.SIMILAR_TO_MOVIES);
-                    allCategoryList.get(allCategoryList.indexOf(new AllCategory(new String(Constants.SIMILAR_TO_MOVIES), null))).getCategoryItemList().addAll(list);
-
-
-                    list=filter(movieEntities, Constants.NOW_PLAYING_MOVIES);
-                    allCategoryList.get(allCategoryList.indexOf(new AllCategory(new String(Constants.NOW_PLAYING_MOVIES), null))).getCategoryItemList().addAll(list);
 
                     mainRecyclerAdapter = new MainRecyclerAdapter(MainActivity.this, allCategoryList, MainActivity.this);
-                    mainCategoryRecycler.setAdapter(mainRecyclerAdapter);*/
+                    mainCategoryRecycler.setAdapter(mainRecyclerAdapter);
 
                 }
             }
@@ -168,7 +166,6 @@ public class MainActivity extends AppCompatActivity implements CategoryItemRecyc
         movieListViewModel.getMovies().observe(this, new Observer<List<MovieModel>>() {
             @Override
             public void onChanged(List<MovieModel> movieModels) {
-                List<MovieEntity> entities=new ArrayList<>();
                 List<CategoryItem> list=new ArrayList<>();
                 TypeOfRequest lastRequest=null;
                 if(movieModels!=null){
@@ -176,11 +173,12 @@ public class MainActivity extends AppCompatActivity implements CategoryItemRecyc
                         lastRequest=TypeOfRequest.valueOf(movieModels.get(0).getCategory());
 
                     for(MovieModel movieModel: movieModels){
+                        MovieEntity m=new MovieEntity(movieModel.getId(), movieModel.getPoster_path(), movieModel.getCategory(),false,false,false);
                         list.add(new CategoryItem(movieModel.getId(), movieModel.getPoster_path()));
-                        entities.add(new MovieEntity(movieModel.getId(), movieModel.getPoster_path(), movieModel.getCategory(),false,false,false));
-                    }
-                    movieDatabaseViewModel.addAllMovies(entities);
 
+                        movieDatabaseViewModel.addMovie(m);
+
+                    }
 
                     if(allCategoryList!=null) {
                         if (lastRequest == TypeOfRequest.MOST_POPULAR_MOVIES)
@@ -199,9 +197,7 @@ public class MainActivity extends AppCompatActivity implements CategoryItemRecyc
                             allCategoryList.get(allCategoryList.indexOf(new AllCategory(Constants.SIMILAR_TO_MOVIES, null))).getCategoryItemList().addAll(list);
                     }
 
-                }else
-                    Log.v("Tag", "NULL");
-
+                }
             }
         });
 
@@ -212,20 +208,16 @@ public class MainActivity extends AppCompatActivity implements CategoryItemRecyc
                 TypeOfRequest lastRequest=null;
 
                 if(tvShowModels!=null) {
-
-                    if (tvShowModels.size() > 0) {
+                    if (tvShowModels.size() > 0)
                         lastRequest = TypeOfRequest.valueOf(tvShowModels.get(0).getCategory());
-                        Log.v("Tag", "REQ Tv : "+ lastRequest+ " - "+tvShowModels.get(0).getId());
-                    }
 
 
                     for (TvShowModel tvShowModel : tvShowModels) {
+                        TvShowEntity t=new TvShowEntity(tvShowModel.getId(),tvShowModel.getPoster_path(),tvShowModel.getCategory(),false,false,false);
                         list.add(new CategoryItem(tvShowModel.getId(), tvShowModel.getPoster_path()));
-                       // Log.v("Tag", tvShowModel.toString());
+                        movieDatabaseViewModel.addTvShow(t);
                     }
 
-
-                   // movieDatabaseViewModel.addAllTvShows(entities);
 
                     if (allCategoryList != null) {
                         if (lastRequest == TypeOfRequest.MOST_POPULAR_TV_SHOWS)
@@ -240,9 +232,6 @@ public class MainActivity extends AppCompatActivity implements CategoryItemRecyc
 
                         if (lastRequest == TypeOfRequest.ON_THE_AIR_TODAY_TV_SHOWS)
                             allCategoryList.get(allCategoryList.indexOf(new AllCategory(Constants.ON_THE_AIR_TODAY_TV_SHOWS, null))).getCategoryItemList().addAll(list);
-
-
-
 
                     }
                 }
@@ -295,8 +284,7 @@ public class MainActivity extends AppCompatActivity implements CategoryItemRecyc
 
     }
 
-
-
+*/
     private void bottomNavigationClick(){
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
@@ -306,7 +294,7 @@ public class MainActivity extends AppCompatActivity implements CategoryItemRecyc
                 switch(item.getItemId()){
 
                     case R.id.home:
-                        selectedFragment= getSupportFragmentManager().getPrimaryNavigationFragment();
+                        selectedFragment= new HomeFragment();
                         break;
                     case R.id.search:
                         selectedFragment=new SearchFragment();
@@ -326,6 +314,7 @@ public class MainActivity extends AppCompatActivity implements CategoryItemRecyc
             }
         });
     }
+
 /*  @Override
     public void onBackPressed() {
         moveTaskToBack(true);

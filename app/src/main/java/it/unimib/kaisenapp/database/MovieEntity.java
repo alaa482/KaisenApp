@@ -9,7 +9,6 @@ import it.unimib.kaisenapp.utils.Constants;
 @Entity(tableName = Constants.MOVIE_TABLE_NAME)
 public class MovieEntity {
 
-
     @PrimaryKey()
     @ColumnInfo(name="movie_id")
     private int movie_id;

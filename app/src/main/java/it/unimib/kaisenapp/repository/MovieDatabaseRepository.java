@@ -109,5 +109,12 @@ public class MovieDatabaseRepository {
         return liveData;
     }
 
+    public void deleteAllMovies(){
+        movieDao.deleteAllMovies();
+    }
+    public void deleteAllTvShows(){
+        movieDao.deleteAllMovies();
+    }
+
 
 }
