@@ -17,6 +17,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="#FFFFFF"
         android:textSize="34sp"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -80,6 +81,7 @@
         android:layout_width="330dp"
         android:layout_height="48dp"
         android:layout_marginTop="8dp"
+        app:colorScheme="dark"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -297,26 +297,30 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 //Toast.makeText(MainActivity.this, item.getTitle(), Toast.LENGTH_SHORT).show();
-                Fragment selectedFragment =null;
-                switch(item.getItemId()){
 
-                    case R.id.home:
-                        selectedFragment= new HomeFragment();
-                        break;
-                    case R.id.search:
-                        selectedFragment=new SearchFragment();
-                        break;
-                    case R.id.mylist:
-                        selectedFragment=new MyMoviesFragment();
-                        break;
-                    case R.id.account:
-                        selectedFragment = new ProfileFragment();
-                        break;
-                    default:
-                        break;
-                }
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        selectedFragment).commit();
+                Fragment selectedFragment =null;
+
+                    switch(item.getItemId()){
+
+                        case R.id.home:
+                            selectedFragment= new HomeFragment();
+                            break;
+                        case R.id.search:
+                            selectedFragment=new SearchFragment();
+                            break;
+                        case R.id.mylist:
+                            selectedFragment=new MyMoviesFragment();
+                            break;
+                        case R.id.account:
+                            selectedFragment = new ProfileFragment();
+                            break;
+                        default:
+                            break;
+                    }
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                            selectedFragment).commit();
+
+
                 return true;
             }
         });

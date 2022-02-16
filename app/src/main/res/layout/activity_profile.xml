@@ -12,6 +12,7 @@
         android:id="@+id/btnLogout"
         android:layout_width="322dp"
         android:layout_height="48dp"
+        android:background="#fd1212"
         android:text="Logout"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"

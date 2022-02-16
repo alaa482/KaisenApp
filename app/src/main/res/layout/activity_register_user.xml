@@ -12,6 +12,7 @@
         android:layout_width="198dp"
         android:layout_height="48dp"
         android:layout_marginBottom="144dp"
+        android:background="#fd1212"
         android:text="Register"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
