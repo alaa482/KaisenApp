@@ -268,7 +268,7 @@ public class SeriesSpec extends AppCompatActivity implements SimilarReciclerAdap
                 Intent intent = new Intent(SeriesSpec.this, SeriesSpec.class);
                 intent.putExtra("id", id);
                 startActivity(intent);
-finish();
+                finish();
 
 
 
@@ -277,7 +277,7 @@ finish();
 
     @Override
     public void onClick(int id, String s) {
-
+        // intent all'unica pagina che quel terrone non ha ancora finito
 
     }
 }
