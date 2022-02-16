@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -26,6 +27,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.IOException;
 
@@ -141,8 +144,40 @@ public class LoginUser extends AppCompatActivity implements View.OnClickListener
                             // Sign in success, update UI with the signed-in user's information
                             //Toast.makeText(LoginUser.this, "Something get wrong!", Toast.LENGTH_LONG).show();
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Intent intent = new Intent(getApplicationContext(),ProfileActivity.class);
-                            startActivity(intent);
+                            int numSf = 0;
+                            int ore = 0;
+
+                            FirebaseDatabase.getInstance("https://progettok-362fa-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("mail").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                    String email;
+                                    String idU = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                                    if (!task.isSuccessful()) {
+                                        Log.e("firebase", "Error getting data", task.getException());
+                                    }
+                                    else {
+                                        Log.v("firebasem", String.valueOf(task.getResult().getValue()));
+                                        if(String.valueOf(task.getResult().getValue()).equals("null")){
+                                            FirebaseDatabase.getInstance("https://progettok-362fa-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Users").child(idU).child("mail").setValue(user.getEmail());
+                                            FirebaseDatabase.getInstance("https://progettok-362fa-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("fullName").setValue(user.getDisplayName());
+                                            FirebaseDatabase.getInstance("https://progettok-362fa-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("imId").setValue("pp0");
+                                            FirebaseDatabase.getInstance("https://progettok-362fa-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("numSf").setValue(numSf);
+                                            FirebaseDatabase.getInstance("https://progettok-362fa-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("ore").setValue(ore);
+                                            Intent intent = new Intent(getApplicationContext(),ProfileActivity.class);
+                                            startActivity(intent);
+                                        }else{
+                                            Intent intent = new Intent(getApplicationContext(),ProfileActivity.class);
+                                            startActivity(intent);
+                                        }
+
+                                    }
+                                }
+                            });
+
+
+
+
+
 
                         } else {
                             // If sign in fails, display a message to the user.

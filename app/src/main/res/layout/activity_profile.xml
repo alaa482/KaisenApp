@@ -15,15 +15,16 @@
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.85" />
+        app:layout_constraintVertical_bias="0.931" />
 
     <TextView
         android:id="@+id/emailAddressTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
         android:text="Email Address:"
         android:textColor="#FFFFFF"
         android:textSize="20sp"
@@ -39,6 +40,7 @@
         android:id="@+id/fullNameTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
         android:layout_marginBottom="460dp"
         android:text="Full Name:"
         android:textColor="#FFFFFF"
@@ -53,6 +55,7 @@
         android:id="@+id/txtMailActivity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="12dp"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
@@ -66,6 +69,7 @@
         android:id="@+id/txtFullNameActivity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="12dp"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
@@ -95,6 +99,7 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="16dp"
         android:text="Film/Serie viste"
         android:textColor="#FFFFFF"
@@ -109,6 +114,7 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="12dp"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
@@ -122,6 +128,7 @@
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="16dp"
         android:text="Tempo speso"
         android:textColor="#FFFFFF"
@@ -136,6 +143,7 @@
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="12dp"
         android:textColor="#FBFBFB"
         android:textSize="16sp"
@@ -164,10 +172,11 @@
             app:cardCornerRadius="250dp">
 
             <ImageView
+                android:id="@+id/imageProfile"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_launcher_foreground" />
+                />
 
         </androidx.cardview.widget.CardView>
 
@@ -175,11 +184,12 @@
 
     <ImageButton
         android:id="@+id/modifyImage"
-        android:layout_width="50dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="144dp"
+        android:layout_width="39dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="152dp"
+        android:background="#00534B4B"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.725"
+        app:layout_constraintHorizontal_bias="0.72"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_menu_edit"

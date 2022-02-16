@@ -2,8 +2,11 @@ package it.unimib.kaisenapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -36,6 +39,7 @@ public class ProfileActivity extends AppCompatActivity {
     private ImageView profileImage;
     private FirebaseUser user;
     private DatabaseReference reference;
+    private DatabaseReference slot;
     private String userID;  //id di firebase legato all'utente
     private GoogleSignInClient mGoogleSignInClient;
 
@@ -92,9 +96,13 @@ public class ProfileActivity extends AppCompatActivity {
 
 
 
+
        // final TextView greetingTextView = (TextView) findViewById(R.id.txtBenvenuto);
         final TextView txtFullName = (TextView) findViewById(R.id.txtFullNameActivity);
         final TextView txtMail = (TextView) findViewById(R.id.txtMailActivity);
+        final ImageView imageProfile = (ImageView) findViewById(R.id.imageProfile);
+        final TextView txtNumSf = (TextView) findViewById(R.id.textView4);
+        final TextView txtOre = (TextView) findViewById(R.id.textView6);
 
         GoogleSignInAccount signInAccount = GoogleSignIn.getLastSignedInAccount(this);
         if(signInAccount != null){
@@ -113,10 +121,25 @@ public class ProfileActivity extends AppCompatActivity {
 
                     String fullName = userProfile.fullName;
                     String email = userProfile.mail;
+                    int numSf =  userProfile.numSf;
+                    int ore = userProfile.ore;
+                    String iid = userProfile.imId;
+                    Log.v("msg", userProfile.imId+"in profilo");
+
 
                     //greetingTextView.setText("Welcome, " + fullName + "!");
                     txtFullName.setText(fullName);
                     txtMail.setText(email);
+                    String app = String.valueOf(numSf);
+                    txtNumSf.setText(app);
+                    app = String.valueOf(ore);
+                    txtOre.setText(app);
+
+                    //String iid = "pp1";
+                    int path = getResources().getIdentifier("it.unimib.kaisenapp:drawable/" + iid, null, null);
+                    Log.d("msg", String.valueOf(path));
+                    imageProfile.setImageResource(path);
+                   
 
                 }
 
