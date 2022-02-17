@@ -4,6 +4,7 @@ package it.unimib.kaisenapp.utils;
 public class Constants {
     public static final int NUMBER_OF_RECYCLE_VIEW=5;
     public static final int NUMBERS_OF_MOVIES_IN_A_RECYCLEVIEW=20;
+    public static final int NUMBERS_OF_FAV_IN_A_RECYCLEVIEW=20;
     public static final int PAGE=1;
 
     public static final String MOST_POPULAR_MOVIES="Film più popolari";
@@ -11,6 +12,9 @@ public class Constants {
     public static final String TOP_RATED_MOVIES ="Film più votati";
     public static final String NOW_PLAYING_MOVIES="Film al cinema";
     public static final String SIMILAR_TO_MOVIES ="Film simili a";
+    public static final String WATCHED="VISTI";
+    public static final String FAVORITES = "PREFERITI";
+    public static final String PLAN_TO_WATCH ="DA GUARDARE";
 
     public static final String MOST_POPULAR_TV_SHOWS = "Serie Tv più polari";
     public static final String TOP_RATED_TV_SHOWS = "Serie Tv più votati ";
