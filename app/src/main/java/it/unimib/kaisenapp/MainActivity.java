@@ -27,13 +27,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Intent intent = getIntent();
-        Bundle args= intent.getBundleExtra("list");
-
-        List<AllCategory> allCategoryList = (ArrayList<AllCategory>) args.getSerializable("ARRAYLIST");
-        for(AllCategory c: allCategoryList){
-            Log.v("Tag", c.toString());
-        }
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         bottomNavigationView=findViewById(R.id.bottomBar);

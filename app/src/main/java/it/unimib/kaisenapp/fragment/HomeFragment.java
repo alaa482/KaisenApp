@@ -67,7 +67,7 @@ public class HomeFragment extends Fragment  implements CategoryItemRecyclerAdapt
         holderData=new HolderData();
         mainCategoryRecycler = homeView.findViewById(R.id.recyclerViewHome);
         categoryItemList=new ArrayList<>();
-         moviesType=new ArrayList<>();
+        moviesType=new ArrayList<>();
         allCategoryList=new ArrayList<>();
 
         addMoviesType(moviesType);
@@ -78,7 +78,7 @@ public class HomeFragment extends Fragment  implements CategoryItemRecyclerAdapt
         for(int i=0; i< moviesType.size(); i++)
             allCategoryList.add(new AllCategory(moviesType.get(i), categoryItemList.get(i)));
 
-        allCategoryList=holderData.getAllCategoryList();
+        //allCategoryList=holderData.getAllCategoryList();
 
         mainRecyclerAdapter.addAllCategory(allCategoryList);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());

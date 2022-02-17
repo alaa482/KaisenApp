@@ -168,11 +168,6 @@ public class HolderData extends AppCompatActivity {
                     }
                 }
 
-                Intent intent = new Intent(HolderData.this, MainActivity.class);
-                Bundle args = new Bundle();
-                args.putSerializable("ARRAYLIST",(Serializable)allCategoryList);
-                intent.putExtra("list",args);
-                startActivity(intent);
 
             }
         });

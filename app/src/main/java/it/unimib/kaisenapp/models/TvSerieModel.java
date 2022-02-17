@@ -2,7 +2,6 @@ package it.unimib.kaisenapp.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-// Parcelable implementation
 public class TvSerieModel implements Parcelable {
 
     private String name;        // nome episodio

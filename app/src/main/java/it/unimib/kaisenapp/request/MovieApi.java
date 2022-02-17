@@ -91,7 +91,7 @@ public interface MovieApi {
             @Query("page") int page
     );
 
-    @GET("/tv/{tv_id}/season/{season_number}/episode/{episode_number}?")
+    @GET("/tv/{tv_id}/season/{season_number}?")
     Call<EpisodeResponse> getAllEpisode(
             @Path("tv_id") int tv_id,
             @Path("season_number") int season_number,
