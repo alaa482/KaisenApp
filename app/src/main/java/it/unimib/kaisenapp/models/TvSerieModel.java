@@ -68,6 +68,17 @@ public class TvSerieModel implements Parcelable {
     }
 
     @Override
+    public String toString() {
+        return "TvSerieModel{" +
+                "name='" + name + '\'' +
+                ", still_path='" + still_path + '\'' +
+                ", overview='" + overview + '\'' +
+                ", episode_number=" + episode_number +
+                ", id=" + id +
+                '}';
+    }
+
+    @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(name);
         dest.writeString(still_path);

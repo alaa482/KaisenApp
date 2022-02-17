@@ -11,20 +11,23 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+
+import java.util.List;
+
 import it.unimib.kaisenapp.R;
+import it.unimib.kaisenapp.models.TvSerieModel;
+import it.unimib.kaisenapp.response.TvShowSearchResponse;
 
 public class TvSerieAdapter extends RecyclerView.Adapter<TvSerieAdapter.MyViewHolder> {
 
-    String data1[], data2[], data3[];
-    int images[];
-    Context context;
+    private List<TvSerieModel> episodes;
+    private Context context;
 
-    public TvSerieAdapter(Context ct, String s1[], String s2[], String s3[], int img[]) {
+    public TvSerieAdapter(Context ct, List<TvSerieModel> episodes) {
         context = ct;
-        data1 = s1;
-        data2 = s2;
-        data3 = s3;
-        images = img;
+       this.episodes=episodes;
     }
 
     @NonNull
@@ -37,27 +40,32 @@ public class TvSerieAdapter extends RecyclerView.Adapter<TvSerieAdapter.MyViewHo
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.episode_names.setText(data1[position]);
-        holder.episode_desctiptions.setText(data2[position]);
-        holder.episode_time.setText(data3[position]);
-        holder.image_episode.setImageResource(images[position]);
+        holder.episode_names.setText(episodes.get(position).getName());
+        holder.episode_desctiptions.setText(episodes.get(position).getOverview());
+        holder.episode_number.setText(String.valueOf(episodes.get(position).getEpisode_number()));
+        String prefix="https://image.tmdb.org/t/p/w500/";
+        Glide.with(holder.image_episode)
+                .load(prefix+episodes.get(position).getStill_path())
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(holder.image_episode);
+
     }
 
     @Override
     public int getItemCount() {
-        return data1.length;
+        return episodes.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView episode_names, episode_desctiptions, episode_time;
+        TextView episode_names, episode_desctiptions, episode_number;
         ImageView image_episode;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             episode_names = itemView.findViewById(R.id.episode_name_txt);
             episode_desctiptions = itemView.findViewById(R.id.episode_overview_txt);
-            episode_time = itemView.findViewById(R.id.episode_time_txt);
+            episode_number = itemView.findViewById(R.id.episode_number_txt);
             image_episode = itemView.findViewById(R.id.image_episode);
         }
     }

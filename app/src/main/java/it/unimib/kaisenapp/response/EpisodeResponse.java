@@ -9,17 +9,11 @@ import it.unimib.kaisenapp.models.TvSerieModel;
 
 public class EpisodeResponse {
 
-    @SerializedName("total_results")
-    @Expose()
-    private int total_count;
 
-    @SerializedName("results")
+    @SerializedName("episodes")
     @Expose
     private List<TvSerieModel> tvSeries;
 
-    public int getTotal_count() {
-        return total_count;
-    }
 
     public List<TvSerieModel> getTvSeries() {
         return tvSeries;
@@ -28,7 +22,6 @@ public class EpisodeResponse {
     @Override
     public String toString() {
         return "TvSerieResponse{" +
-                "total_count=" + total_count +
                 ", tvSeries=" + tvSeries +
                 '}';
     }

@@ -59,6 +59,7 @@ public class SeriesSpec extends AppCompatActivity implements SimilarReciclerAdap
     private Boolean favorite=false;
     private Boolean star=false;
     private int icon;
+    int id;
 
     String prefix="https://image.tmdb.org/t/p/w500/";
     MovieApi movieApi = Service.getMovieApi();
@@ -162,7 +163,7 @@ public class SeriesSpec extends AppCompatActivity implements SimilarReciclerAdap
 
             }
         });
-        int id = getIntent().getIntExtra("id",99966);
+        id= getIntent().getIntExtra("id",99966);
         GetRetrofitResponse(id);
         GetRetrofitResponseRecommendations(id);
 
@@ -266,7 +267,7 @@ public class SeriesSpec extends AppCompatActivity implements SimilarReciclerAdap
     public void onClick(int id) {
 
                 Intent intent = new Intent(SeriesSpec.this, SeriesSpec.class);
-                intent.putExtra("id", id);
+                intent.putExtra("id",id );
                 startActivity(intent);
                 finish();
 
@@ -277,10 +278,9 @@ public class SeriesSpec extends AppCompatActivity implements SimilarReciclerAdap
 
     @Override
     public void onClick(int id, int s) {
-        Log.v("test","asdrubale");
         // intent all'unica pagina che quel terrone non ha ancora finito
         Intent intent = new Intent(SeriesSpec.this, Episodes.class);
-        intent.putExtra("id", id);
+        intent.putExtra("id", this.id);
         intent.putExtra("number", s);
         startActivity(intent);
 

@@ -36,6 +36,7 @@ public class MovieApiClient{
     private MovieApiClient(){
         mMovies=new MutableLiveData<>();
         mTvShows=new MutableLiveData<>();
+        mTvSerieEpisode=new MutableLiveData<>();
     }
 
     public static MovieApiClient getInstance(){
@@ -320,9 +321,10 @@ public class MovieApiClient{
                     return;
 
                 if(response.code() == 200) {
-                    List<TvSerieModel> list = new ArrayList<>(((EpisodeResponse) response.body()).getTvSeries());
+
+                    List<TvSerieModel> list = new ArrayList<TvSerieModel>(((EpisodeResponse) response.body()).getTvSeries());
                     mTvSerieEpisode.postValue(list);
-                    Log.v("test", list.toString());
+
                 }else
                     Log.v("Tag", "Response error: " + response.errorBody().string());
 
