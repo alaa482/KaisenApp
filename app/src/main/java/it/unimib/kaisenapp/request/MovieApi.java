@@ -1,6 +1,7 @@
 package it.unimib.kaisenapp.request;
 
 import it.unimib.kaisenapp.models.MovieModel;
+import it.unimib.kaisenapp.response.EpisodeResponse;
 import it.unimib.kaisenapp.response.MovieSearchResponse;
 import it.unimib.kaisenapp.response.TvShowSearchResponse;
 import retrofit2.Call;
@@ -89,6 +90,18 @@ public interface MovieApi {
             @Query("language") String language,
             @Query("page") int page
     );
+
+    @GET("/tv/{tv_id}/season/{season_number}/episode/{episode_number}?")
+    Call<EpisodeResponse> getAllEpisode(
+            @Path("tv_id") int tv_id,
+            @Path("season_number") int season_number,
+            @Path("episode_number") int episode_number,
+            @Query("api_key") String key,
+            @Query("language") String language
+    );
+
+
+
 
 
 

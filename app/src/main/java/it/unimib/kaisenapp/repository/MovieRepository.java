@@ -3,7 +3,9 @@ package it.unimib.kaisenapp.repository;
 import androidx.lifecycle.LiveData;
 import java.util.List;
 
+import it.unimib.kaisenapp.models.TvSerieModel;
 import it.unimib.kaisenapp.models.TvShowModel;
+import it.unimib.kaisenapp.response.EpisodeResponse;
 import it.unimib.kaisenapp.utils.TypeOfRequest;
 import it.unimib.kaisenapp.database.MovieDao;
 import it.unimib.kaisenapp.models.MovieModel;
@@ -33,6 +35,12 @@ public class MovieRepository {
         return movieApiClient.getTvShows();
     }
 
+    public LiveData<List<TvSerieModel>> getEpisode(){
+        return movieApiClient.getEpisode();
+    }
+
+
+
     public void getMovies(TypeOfRequest typeOfRequest, int page) {
         movieApiClient.getMovies(typeOfRequest, page);
     }
@@ -42,6 +50,11 @@ public class MovieRepository {
     }
     public void getTvShows(TypeOfRequest typeOfRequest, int page){
         movieApiClient.getTvShows(typeOfRequest,page);
+    }
+
+    public void getEpisode(int tv_id, int season_number, int episode_number){
+        movieApiClient.getEpisode(tv_id,season_number,episode_number);
+
     }
 
 

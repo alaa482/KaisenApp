@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel;
 
 import java.util.List;
 
+import it.unimib.kaisenapp.models.TvSerieModel;
 import it.unimib.kaisenapp.models.TvShowModel;
 import it.unimib.kaisenapp.utils.TypeOfRequest;
 import it.unimib.kaisenapp.database.MovieEntity;
@@ -27,6 +28,10 @@ public class MovieListViewModel extends ViewModel {
         return movieRepository.getTvShows();
     }
 
+    public LiveData<List<TvSerieModel>> getEpisode(){
+        return movieRepository.getEpisode();
+    }
+
     public void getMovies(TypeOfRequest typeOfRequest, int page) {
         movieRepository.getMovies(typeOfRequest, page);
     }
@@ -37,6 +42,10 @@ public class MovieListViewModel extends ViewModel {
 
     public void getTvShows(TypeOfRequest typeOfRequest, int page) {
         movieRepository.getTvShows(typeOfRequest, page);
+    }
+
+    public void getEpisode(int tv_id, int season_number, int episode_number) {
+        movieRepository.getEpisode(tv_id, season_number, episode_number);
     }
 
 }
