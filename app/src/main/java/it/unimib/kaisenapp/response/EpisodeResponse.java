@@ -9,7 +9,7 @@ import it.unimib.kaisenapp.models.TvSerieModel;
 
 public class EpisodeResponse {
 
-
+    
     @SerializedName("episodes")
     @Expose
     private List<TvSerieModel> tvSeries;

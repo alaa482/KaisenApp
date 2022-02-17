@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class Episodes extends AppCompatActivity {
 
     RecyclerView recyclerView;
     private ImageButton backBTNUI;
-
+    private TextView title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,10 +36,10 @@ public class Episodes extends AppCompatActivity {
         int id = getIntent().getIntExtra("id",44797);
         int number = getIntent().getIntExtra("number",0);
         backBTNUI = (ImageButton) findViewById(R.id.arrow_back);
-
+        title=(TextView) findViewById(R.id.title);
         recyclerView = findViewById(R.id.recyclerView);
         movieListViewModel= new ViewModelProvider(this).get(MovieListViewModel.class);
-
+        title.setText(getIntent().getStringExtra("title"));
         backBTNUI.setOnClickListener(new View.OnClickListener() {
 
             @Override

@@ -8,15 +8,15 @@
     tools:context=".ui.Episodes">
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
+        android:id="@+id/title"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/montserrat_bold"
         android:text="SQUID GAME"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/recyclerView"
-
+        android:textAlignment="center"
         app:layout_constraintStart_toEndOf="@+id/arrow_back" />
 
     <ImageButton

@@ -282,6 +282,7 @@ public class SeriesSpec extends AppCompatActivity implements SimilarReciclerAdap
         Intent intent = new Intent(SeriesSpec.this, Episodes.class);
         intent.putExtra("id", this.id);
         intent.putExtra("number", s);
+        intent.putExtra("title", title);
         startActivity(intent);
 
     }
