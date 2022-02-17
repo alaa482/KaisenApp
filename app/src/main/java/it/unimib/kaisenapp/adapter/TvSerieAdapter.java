@@ -43,7 +43,7 @@ public class TvSerieAdapter extends RecyclerView.Adapter<TvSerieAdapter.MyViewHo
         holder.episode_names.setText(episodes.get(position).getName());
         holder.episode_desctiptions.setText(episodes.get(position).getOverview());
         holder.episode_number.setText(String.valueOf(episodes.get(position).getEpisode_number()));
-        String prefix="https://image.tmdb.org/t/p/w500/";
+        String prefix="https://image.tmdb.org/t/p/w500";
         Glide.with(holder.image_episode)
                 .load(prefix+episodes.get(position).getStill_path())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)

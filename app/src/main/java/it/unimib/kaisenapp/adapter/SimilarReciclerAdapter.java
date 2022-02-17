@@ -36,7 +36,7 @@ public class SimilarReciclerAdapter extends RecyclerView.Adapter<SimilarRecicler
 
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
-        String prefix="https://image.tmdb.org/t/p/w500/";
+        String prefix="https://image.tmdb.org/t/p/w500";
         Glide.with(holder.itemImage)
                 .load(prefix+recommendations.get(position).getPoster_path())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)

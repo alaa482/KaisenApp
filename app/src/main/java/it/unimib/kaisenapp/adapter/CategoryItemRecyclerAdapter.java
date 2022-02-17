@@ -39,7 +39,7 @@ public class CategoryItemRecyclerAdapter extends RecyclerView.Adapter<CategoryIt
 
     @Override
     public void onBindViewHolder(@NonNull CategoryItemViewHolder holder, int position) {
-        String prefix="https://image.tmdb.org/t/p/w500/";
+        String prefix="https://image.tmdb.org/t/p/w500";
         Glide.with(holder.itemImage)
                 .load(prefix+categoryItemList.get(position).getImageUrl())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)

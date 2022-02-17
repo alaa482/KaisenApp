@@ -10,6 +10,8 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,6 +24,8 @@ import java.util.List;
 import it.unimib.kaisenapp.R;
 import it.unimib.kaisenapp.adapter.SeasonsReciclerAdapter;
 import it.unimib.kaisenapp.adapter.SimilarReciclerAdapter;
+import it.unimib.kaisenapp.database.MovieEntity;
+import it.unimib.kaisenapp.database.TvShowEntity;
 import it.unimib.kaisenapp.models.GenresModel;
 import it.unimib.kaisenapp.models.MovieModel;
 import it.unimib.kaisenapp.models.ProductionCompaniesModel;
@@ -30,6 +34,7 @@ import it.unimib.kaisenapp.request.Service;
 import it.unimib.kaisenapp.response.SerieDetailsResponse;
 import it.unimib.kaisenapp.response.SimilarResponse;
 import it.unimib.kaisenapp.utils.Credentials;
+import it.unimib.kaisenapp.viewmodels.MovieDatabaseViewModel;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -60,6 +65,8 @@ public class SeriesSpec extends AppCompatActivity implements SimilarReciclerAdap
     private Boolean star=false;
     private int icon;
     int id;
+    private MovieDatabaseViewModel movieDatabaseViewModel;
+    private TvShowEntity m;
 
     String prefix="https://image.tmdb.org/t/p/w500/";
     MovieApi movieApi = Service.getMovieApi();
@@ -94,26 +101,46 @@ public class SeriesSpec extends AppCompatActivity implements SimilarReciclerAdap
         favoriteUI=(ImageButton)findViewById(R.id.favorite);
         starUI=(ImageButton)findViewById(R.id.star);
         durataUI=(TextView)findViewById(R.id.durata);
+        movieDatabaseViewModel= new ViewModelProvider(this).get(MovieDatabaseViewModel.class);
 
 
         bookmarkedUI.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
 
 
+                movieDatabaseViewModel.getAllTvShows().observe(SeriesSpec.this, new Observer<List<TvShowEntity>>() {
+                    @Override
+                    public void onChanged(List<TvShowEntity> movieEntities) {
+                        for (TvShowEntity mm : movieEntities) {
+                            if (mm.equals(m)) {
+                                if (bookmarked) {
 
-                if (bookmarked) {
-                    Log.v("test","false");
-                    bookmarked = false;
-                    icon = R.drawable.bookmark_border;
-                }
-                else {
-                    Log.v("test","true");
-                    bookmarked = true;
-                    icon = R.drawable.bookmark;
-                }
-                bookmarkedUI.setImageResource(icon);
+                                    mm.setWatched(!bookmarked);
+                                    m.setWatched(!bookmarked);
+                                    movieDatabaseViewModel.updateSerie(mm);
+                                    Log.v("test", String.valueOf(mm.isWatched()));
+
+                                    icon = R.drawable.bookmark_border;
+                                    bookmarked=!bookmarked;
+
+
+                                }
+                                else {
+                                    mm.setWatched(!bookmarked);
+                                    m.setWatched(!bookmarked);
+                                    movieDatabaseViewModel.updateSerie(mm);
+                                    Log.v("test", String.valueOf(mm.isWatched()));
+                                    icon = R.drawable.bookmark;
+                                    bookmarked=!bookmarked;
+                                }
+                                bookmarkedUI.setImageResource(icon);
+                            }
+
+                        }
+                    }
+                });
+
 
             }
         });
@@ -122,17 +149,38 @@ public class SeriesSpec extends AppCompatActivity implements SimilarReciclerAdap
             @Override
             public void onClick(View v) {
 
-                if (favorite) {
-                    Log.v("test","false");
-                    favorite = false;
-                    icon = R.drawable.not_favorite;
-                }
-                else {
-                    Log.v("test","true");
-                    favorite = true;
-                    icon = R.drawable.favorite;
-                }
-                favoriteUI.setImageResource(icon);
+
+                movieDatabaseViewModel.getAllTvShows().observe(SeriesSpec.this, new Observer<List<TvShowEntity>>() {
+                    @Override
+                    public void onChanged(List<TvShowEntity> movieEntities) {
+                        for (TvShowEntity mm : movieEntities) {
+                            if (mm.equals(m)) {
+                                if (favorite) {
+
+                                    mm.setFavorite(!favorite);
+                                    m.setFavorite(!favorite);
+                                    movieDatabaseViewModel.updateSerie(mm);
+                                    Log.v("test", String.valueOf(mm.isFavorite()));
+
+                                    icon = R.drawable.not_favorite;
+                                    favorite=!favorite;
+
+
+                                }
+                                else {
+                                    mm.setFavorite(!favorite);
+                                    m.setFavorite(!favorite);
+                                    movieDatabaseViewModel.updateSerie(mm);
+                                    Log.v("test", String.valueOf(mm.isFavorite()));
+                                    icon = R.drawable.favorite;
+                                    favorite=!favorite;
+                                }
+                                favoriteUI.setImageResource(icon);
+                            }
+
+                        }
+                    }
+                });
             }
         });
         starUI.setOnClickListener(new View.OnClickListener() {
@@ -140,17 +188,40 @@ public class SeriesSpec extends AppCompatActivity implements SimilarReciclerAdap
             @Override
             public void onClick(View v) {
 
-                if (star) {
-                    Log.v("test","false");
-                    star = false;
-                    icon = R.drawable.not_star;
-                }
-                else {
-                    Log.v("test","true");
-                    star = true;
-                    icon = R.drawable.star;
-                }
-                starUI.setImageResource(icon);
+                Log.v("test",movieDatabaseViewModel.toString());
+                movieDatabaseViewModel.getAllTvShows().observe(SeriesSpec.this, new Observer<List<TvShowEntity>>() {
+                    @Override
+                    public void onChanged(List<TvShowEntity> movieEntities) {
+                        for (TvShowEntity mm : movieEntities) {
+                            if (mm.equals(m)) {
+                                if (star) {
+
+                                    mm.setSaved(!star);
+                                    m.setSaved(!star);
+                                    movieDatabaseViewModel.updateSerie(mm);
+                                    Log.v("test", String.valueOf(mm.isSaved()));
+
+                                    icon = R.drawable.not_star;
+                                    star = !star;
+
+
+                                } else {
+                                    mm.setSaved(!star);
+                                    m.setSaved(!star);
+                                    movieDatabaseViewModel.updateSerie(mm);
+                                    Log.v("test", String.valueOf(mm.isSaved()));
+                                    icon = R.drawable.star;
+                                    star = !star;
+                                }
+                                starUI.setImageResource(icon);
+                            }
+
+                        }
+                    }
+
+                });
+
+
             }
         });
         backBTNUI.setOnClickListener(new View.OnClickListener() {
@@ -221,7 +292,69 @@ public class SeriesSpec extends AppCompatActivity implements SimilarReciclerAdap
                    }
                 }
                 genresUI.setText(aus);
+                m = new TvShowEntity(id,imagePath,null,bookmarked,star,favorite);
 
+
+
+                Log.v("test",movieDatabaseViewModel.getAllTvShows().toString());
+                /*movieDatabaseViewModel.getAllTvShows().observe(SeriesSpec.this, new Observer<List<TvShowEntity>>() {
+                    @Override
+                    public void onChanged(List<TvShowEntity> movieEntityList) {
+                        if(movieEntityList!=null){
+
+                            for (TvShowEntity mm: movieEntityList) {
+
+
+
+                                if(mm.equals(m)){
+                                    Log.v("test",mm.toString()+" mm");
+                                    favorite = mm.isFavorite();
+                                    bookmarked = mm.isWatched();
+                                    star = mm.isSaved();
+                                    if (!mm.isSaved()) {
+
+                                        icon = R.drawable.not_star;
+                                    }
+                                    else {
+
+                                        icon = R.drawable.star;
+                                    }
+                                    starUI.setImageResource(icon);
+
+                                    if (!mm.isFavorite()) {
+
+                                        icon = R.drawable.not_favorite;
+                                    }
+                                    else {
+
+                                        icon = R.drawable.favorite;
+                                    }
+
+                                    favoriteUI.setImageResource(icon);
+
+                                    if (!mm.isWatched()) {
+
+                                        icon = R.drawable.bookmark_border;
+                                    }
+                                    else {
+
+                                        icon = R.drawable.bookmark;
+                                    }
+                                    bookmarkedUI.setImageResource(icon);
+
+
+                                }
+
+                            }
+
+
+                        }
+                    }
+                });
+                movieDatabaseViewModel.addTvShow(m);
+
+
+                 */
             }
 
             @Override

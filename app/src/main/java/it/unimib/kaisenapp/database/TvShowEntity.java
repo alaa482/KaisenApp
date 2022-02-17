@@ -5,6 +5,8 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.util.Objects;
+
 import it.unimib.kaisenapp.utils.Constants;
 
 @Entity(tableName = Constants.TV_SHOW_TABLE_NAME)
@@ -81,5 +83,30 @@ public class TvShowEntity {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TvShowEntity that = (TvShowEntity) o;
+        return id == that.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "TvShowEntity{" +
+                "id=" + id +
+                ", poster_path='" + poster_path + '\'' +
+                ", category='" + category + '\'' +
+                ", watched=" + watched +
+                ", saved=" + saved +
+                ", favorite=" + favorite +
+                '}';
     }
 }

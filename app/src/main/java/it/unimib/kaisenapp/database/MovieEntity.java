@@ -4,6 +4,8 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.util.Objects;
+
 import it.unimib.kaisenapp.utils.Constants;
 
 @Entity(tableName = Constants.MOVIE_TABLE_NAME)
@@ -34,6 +36,30 @@ public class MovieEntity {
     }
 
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MovieEntity that = (MovieEntity) o;
+        return movie_id == that.movie_id;
+    }
+
+    @Override
+    public String toString() {
+        return "MovieEntity{" +
+                "movie_id=" + movie_id +
+                ", poster_path='" + poster_path + '\'' +
+                ", category='" + category + '\'' +
+                ", watched=" + watched +
+                ", saved=" + saved +
+                ", favorite=" + favorite +
+                '}';
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(movie_id);
+    }
 
     public int getMovie_id() {
         return movie_id;
