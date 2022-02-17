@@ -49,6 +49,57 @@ public class ProfileFragment extends Fragment {
 
 
     private Button btnLogout;
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        final TextView txtFullName = (TextView) this.getView().findViewById(R.id.txtFullNameActivity);
+        final TextView txtMail = (TextView) this.getView().findViewById(R.id.txtMailActivity);
+        final ImageView imageProfile = (ImageView) this.getView().findViewById(R.id.imageProfile);
+        final TextView txtNumSf = (TextView) this.getView().findViewById(R.id.textView4);
+        final TextView txtOre = (TextView) this.getView().findViewById(R.id.textView6);
+
+        reference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User userProfile = snapshot.getValue(User.class);
+                if(userProfile != null){
+
+                    String fullName = userProfile.fullName;
+                    String email = userProfile.mail;
+                    int numSf =  userProfile.numSf;
+                    int ore = userProfile.ore;
+                    String iid = userProfile.imId;
+                    Log.v("msg", userProfile.imId+"in profilo");
+
+
+                    //greetingTextView.setText("Welcome, " + fullName + "!");
+                    txtFullName.setText(fullName);
+                    txtMail.setText(email);
+                    String app = String.valueOf(numSf);
+                    txtNumSf.setText(app);
+                    app = String.valueOf(ore);
+                    txtOre.setText(app);
+
+                    //String iid = "pp1";
+                    int path = getResources().getIdentifier("it.unimib.kaisenapp:drawable/" + iid, null, null);
+                    Log.d("msg", String.valueOf(path));
+                    imageProfile.setImageResource(path);
+
+
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+                Toast.makeText(getContext(), "Something wrong happened!", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -114,46 +165,7 @@ public class ProfileFragment extends Fragment {
         }
 
 
-        reference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                User userProfile = snapshot.getValue(User.class);
 
-                if(userProfile != null){
-
-                    String fullName = userProfile.fullName;
-                    String email = userProfile.mail;
-                    int numSf =  userProfile.numSf;
-                    int ore = userProfile.ore;
-                    String iid = userProfile.imId;
-                    Log.v("msg", userProfile.imId+"in profilo");
-
-
-                    //greetingTextView.setText("Welcome, " + fullName + "!");
-                    txtFullName.setText(fullName);
-                    txtMail.setText(email);
-                    String app = String.valueOf(numSf);
-                    txtNumSf.setText(app);
-                    app = String.valueOf(ore);
-                    txtOre.setText(app);
-
-                    //String iid = "pp1";
-                    int path = getResources().getIdentifier("it.unimib.kaisenapp:drawable/" + iid, null, null);
-                    Log.d("msg", String.valueOf(path));
-                    imageProfile.setImageResource(path);
-
-
-                }
-
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-                Toast.makeText(getContext(), "Something wrong happened!", Toast.LENGTH_LONG).show();
-            }
-        });
         return view;
     }
 
