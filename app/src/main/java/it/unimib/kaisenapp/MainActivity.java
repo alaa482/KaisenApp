@@ -309,9 +309,11 @@ public class MainActivity extends AppCompatActivity {
                         selectedFragment=new SearchFragment();
                         break;
                     case R.id.mylist:
+
                         selectedFragment=new MyMoviesFragment();
                         break;
                     case R.id.account:
+
                         selectedFragment = new ProfileFragment();
                         break;
                     default:
