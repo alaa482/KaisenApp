@@ -64,7 +64,7 @@
                             android:clickable="true"
 
                             android:src="@drawable/pp1"
-                            tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
+                            />
             </androidx.cardview.widget.CardView>
 
         </androidx.cardview.widget.CardView>
@@ -92,7 +92,7 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:id="@+id/pp2"
-
+                    android:clickable="true"
                     android:src="@drawable/pp2" />
             </androidx.cardview.widget.CardView>
 
@@ -116,7 +116,7 @@
                             android:layout_width="100dp"
                             android:layout_height="100dp"
                             android:id="@+id/pp3"
-
+                            android:clickable="true"
                             android:src="@drawable/pp3" />
                     </androidx.cardview.widget.CardView>
 
@@ -146,7 +146,7 @@
                             android:layout_width="100dp"
                             android:layout_height="100dp"
                             android:id="@+id/pp4"
-
+                            android:clickable="true"
                             android:src="@drawable/pp4" />
                     </androidx.cardview.widget.CardView>
 
@@ -170,7 +170,7 @@
                             android:layout_width="100dp"
                             android:layout_height="100dp"
                             android:id="@+id/pp5"
-
+                            android:clickable="true"
                             android:src="@drawable/pp5" />
                     </androidx.cardview.widget.CardView>
 
@@ -194,7 +194,7 @@
                             android:layout_width="100dp"
                             android:layout_height="100dp"
                             android:id="@+id/pp6"
-
+                            android:clickable="true"
                             android:src="@drawable/pp6" />
                     </androidx.cardview.widget.CardView>
 

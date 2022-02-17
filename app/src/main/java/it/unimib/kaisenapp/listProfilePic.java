@@ -39,13 +39,19 @@ public class listProfilePic extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(listProfilePic.this, ProfileActivity.class));
+                Intent intent = new Intent(listProfilePic.this,MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); finish();
             }
         });
         user = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference reference = FirebaseDatabase.getInstance("https://progettok-362fa-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Users");
         String userID = user.getUid();
-
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
 
 
 
@@ -67,24 +73,25 @@ public class listProfilePic extends AppCompatActivity {
     View.OnClickListener mCorkyListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+            Log.v("msg",String.valueOf(view.getId()));
             String id = String.valueOf(view.getId());
             String app = id.substring(id.length() - 2, id.length());
-            if (app.equals("08")) {
+            if (app.equals("18")) {
                 FirebaseDatabase.getInstance("https://progettok-362fa-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("imId").setValue("pp1");
                 startActivity(new Intent(listProfilePic.this, ProfileActivity.class));
-            } else if (app.equals("09")) {
+            } else if (app.equals("19")) {
                 FirebaseDatabase.getInstance("https://progettok-362fa-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("imId").setValue("pp2");
                 startActivity(new Intent(listProfilePic.this, ProfileActivity.class));
-            } else if (app.equals("10")) {
+            } else if (app.equals("20")) {
                 FirebaseDatabase.getInstance("https://progettok-362fa-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("imId").setValue("pp3");
                 startActivity(new Intent(listProfilePic.this, ProfileActivity.class));
-            } else if (app.equals("11")) {
+            } else if (app.equals("21")) {
                 FirebaseDatabase.getInstance("https://progettok-362fa-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("imId").setValue("pp4");
                 startActivity(new Intent(listProfilePic.this, ProfileActivity.class));
-            } else if (app.equals("12")) {
+            } else if (app.equals("22")) {
                 FirebaseDatabase.getInstance("https://progettok-362fa-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("imId").setValue("pp5");
                 startActivity(new Intent(listProfilePic.this, ProfileActivity.class));
-            } else if (app.equals("13")) {
+            } else if (app.equals("23")) {
                 FirebaseDatabase.getInstance("https://progettok-362fa-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("imId").setValue("pp6");
                 startActivity(new Intent(listProfilePic.this, ProfileActivity.class));
             }
