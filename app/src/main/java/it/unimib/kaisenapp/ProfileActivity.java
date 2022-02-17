@@ -3,12 +3,14 @@ package it.unimib.kaisenapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -24,6 +26,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -33,10 +37,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import it.unimib.kaisenapp.fragment.HomeFragment;
+import it.unimib.kaisenapp.fragment.MyMoviesFragment;
+import it.unimib.kaisenapp.fragment.ProfileFragment;
+import it.unimib.kaisenapp.fragment.SearchFragment;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    private ImageButton backButton;
+    //private ImageButton backButton;
     private ImageButton modifyImage;
     private ImageView profileImage;
     private FirebaseUser user;
@@ -44,6 +51,7 @@ public class ProfileActivity extends AppCompatActivity {
     private DatabaseReference slot;
     private String userID;  //id di firebase legato all'utente
     private GoogleSignInClient mGoogleSignInClient;
+    private BottomNavigationView bottomNavigationView;
 
 
     private Button btnLogout;
@@ -68,23 +76,32 @@ public class ProfileActivity extends AppCompatActivity {
 
 
         });
-        backButton = (ImageButton) findViewById(R.id.back_button);
+
+
+
+
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+        /*backButton = (ImageButton) findViewById(R.id.back_button);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+                //startActivity(new Intent(ProfileActivity.this, MainActivity.class));
             }
 
 
 
 
-        });
+        });*/
         modifyImage = (ImageButton) findViewById(R.id.modifyImage);
         modifyImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(ProfileActivity.this, listProfilePic.class));
-                finish();
             }
 
 
@@ -159,6 +176,9 @@ public class ProfileActivity extends AppCompatActivity {
 
 
     }
+
+
+
     private void createRequest() {
         // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
