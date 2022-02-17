@@ -65,11 +65,11 @@ public class SeasonsReciclerAdapter extends RecyclerView.Adapter<SeasonsRecicler
 
         @Override
         public void onClick(View view) {
-            onClickListener.onClick(seasons.get(getAdapterPosition()).getId(),null);
+            onClickListener.onClick(seasons.get(getAdapterPosition()).getId(),seasons.get(getAdapterPosition()).getSeason_number());
         }
     }
     public interface OnClickListener{
-        void onClick(int id,String s);
+        void onClick(int id,int s);
     }
 
 

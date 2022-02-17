@@ -276,8 +276,13 @@ public class SeriesSpec extends AppCompatActivity implements SimilarReciclerAdap
 
 
     @Override
-    public void onClick(int id, String s) {
+    public void onClick(int id, int s) {
+        Log.v("test","asdrubale");
         // intent all'unica pagina che quel terrone non ha ancora finito
+        Intent intent = new Intent(SeriesSpec.this, Episodes.class);
+        intent.putExtra("id", id);
+        intent.putExtra("number", s);
+        startActivity(intent);
 
     }
 }
