@@ -32,6 +32,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import it.unimib.kaisenapp.fragment.HomeFragment;
+
 public class ProfileActivity extends AppCompatActivity {
 
     private ImageButton backButton;
@@ -70,7 +72,7 @@ public class ProfileActivity extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ProfileActivity.this, RegisterUser.class));
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
             }
 
 
@@ -82,6 +84,7 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(ProfileActivity.this, listProfilePic.class));
+                finish();
             }
 
 

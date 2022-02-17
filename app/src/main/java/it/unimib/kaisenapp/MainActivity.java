@@ -298,7 +298,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 //Toast.makeText(MainActivity.this, item.getTitle(), Toast.LENGTH_SHORT).show();
-
                 Fragment selectedFragment =null;
 
                     switch(item.getItemId()){
@@ -313,7 +312,6 @@ public class MainActivity extends AppCompatActivity {
                         selectedFragment=new MyMoviesFragment();
                         break;
                     case R.id.account:
-                        //startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
                         selectedFragment = new ProfileFragment();
                         break;
                     default:
