@@ -27,8 +27,11 @@ public class SearchedMovies extends AppCompatActivity implements CategoryItemRec
         super.onCreate(savedInstanceState);
         setContentView(R.layout.searched_movies);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-        List<SearchMultiModel> movies= (List<SearchMultiModel>) getIntent().getSerializableExtra("searchedMovies");
+        List<SearchMultiModel> movies= (List<SearchMultiModel>) getIntent().getSerializableExtra("list");
         Log.v("Tag", movies+"");
+
+
+
         recyclerView = findViewById(R.id.searched_movie_recycleview);
         categoryItemRecyclerAdapter = new CategoryItemRecyclerAdapter(this,  new ArrayList<>(), this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);

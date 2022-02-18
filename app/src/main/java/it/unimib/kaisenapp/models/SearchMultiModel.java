@@ -3,7 +3,9 @@ package it.unimib.kaisenapp.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class SearchMultiModel implements Parcelable {
+import java.io.Serializable;
+
+public class SearchMultiModel implements Parcelable, Serializable {
 
     private int id;
     private String title;
