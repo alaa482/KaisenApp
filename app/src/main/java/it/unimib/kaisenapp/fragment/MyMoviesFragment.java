@@ -45,7 +45,7 @@ public class MyMoviesFragment extends Fragment implements CategoryItemRecyclerAd
 
 
 
-    private MovieListViewModel movieListViewModel;
+
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

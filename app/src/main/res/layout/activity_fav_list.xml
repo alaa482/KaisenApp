@@ -34,7 +34,8 @@
         android:layout_marginTop="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:paddingBottom="60dp"/>
 
     <FrameLayout
         android:id="@+id/fragment_container"
@@ -58,7 +59,8 @@
         app:itemIconSize="30dp"
         app:itemRippleColor="@android:color/transparent"
         app:labelVisibilityMode="unlabeled"
-        app:menu="@menu/menu_items" />
+        app:menu="@menu/menu_items"
+       />
 
 
 </RelativeLayout>

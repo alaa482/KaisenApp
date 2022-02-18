@@ -1,5 +1,6 @@
 package it.unimib.kaisenapp.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,8 @@ import it.unimib.kaisenapp.R;
 import it.unimib.kaisenapp.adapter.CategoryItemRecyclerAdapter;
 import it.unimib.kaisenapp.adapter.MainRecyclerAdapter;
 ;
+import it.unimib.kaisenapp.ui.FilmSpec;
+import it.unimib.kaisenapp.ui.SeriesSpec;
 import it.unimib.kaisenapp.utils.DataWrapper;
 
 public class HomeFragment extends Fragment  implements CategoryItemRecyclerAdapter.OnClickListener{
@@ -42,6 +45,15 @@ public class HomeFragment extends Fragment  implements CategoryItemRecyclerAdapt
 
     @Override
     public void onClick(int id, String type) {
-        Toast.makeText(getActivity(), "ID: "+id, Toast.LENGTH_SHORT).show();
+        if (type.equals("movie")) {
+            Intent intent = new Intent(getContext(), FilmSpec.class);
+            intent.putExtra("id", id);
+            startActivity(intent);
+
+        } else if (type.equals("tv_serie")) {
+            Intent intent = new Intent(getContext(), SeriesSpec.class);
+            intent.putExtra("id", id);
+            startActivity(intent);
+        }
     }
 }
