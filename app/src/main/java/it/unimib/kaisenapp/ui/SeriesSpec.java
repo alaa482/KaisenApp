@@ -296,7 +296,7 @@ public class SeriesSpec extends AppCompatActivity implements SimilarReciclerAdap
 
 
 
-                Log.v("test",movieDatabaseViewModel.getAllTvShows().toString());
+                Log.v("test",movieDatabaseViewModel.getAllMovies().toString());
                 /*movieDatabaseViewModel.getAllTvShows().observe(SeriesSpec.this, new Observer<List<TvShowEntity>>() {
                     @Override
                     public void onChanged(List<TvShowEntity> movieEntityList) {

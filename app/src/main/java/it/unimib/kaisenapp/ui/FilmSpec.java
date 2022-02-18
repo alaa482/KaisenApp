@@ -151,10 +151,10 @@ public class FilmSpec extends AppCompatActivity implements SimilarReciclerAdapte
                                                           if (mm.equals(m)) {
                                                               if (favorite) {
 
-                                                                  mm.setFavorite(!favorite);
-                                                                  m.setFavorite(!favorite);
+                                                                  mm.setSaved(!favorite);
+                                                                  m.setSaved(!favorite);
                                                                   movieDatabaseViewModel.updateMovie(mm);
-                                                                  Log.v("test", String.valueOf(mm.isFavorite()));
+                                                                  Log.v("test", String.valueOf(mm.isSaved()));
 
                                                                   icon = R.drawable.not_favorite;
                                                                   favorite=!favorite;
@@ -162,10 +162,10 @@ public class FilmSpec extends AppCompatActivity implements SimilarReciclerAdapte
 
                                                               }
                                                               else {
-                                                                  mm.setFavorite(!favorite);
-                                                                  m.setFavorite(!favorite);
+                                                                  mm.setSaved(!favorite);
+                                                                  m.setSaved(!favorite);
                                                                   movieDatabaseViewModel.updateMovie(mm);
-                                                                  Log.v("test", String.valueOf(mm.isFavorite()));
+                                                                  Log.v("test", String.valueOf(mm.isSaved()));
                                                                   icon = R.drawable.favorite;
                                                                   favorite=!favorite;
                                                               }
@@ -190,20 +190,20 @@ public class FilmSpec extends AppCompatActivity implements SimilarReciclerAdapte
                                                       if (mm.equals(m)) {
                                                           if (star) {
 
-                                                              mm.setSaved(!star);
-                                                              m.setSaved(!star);
+                                                              mm.setFavorite(!star);
+                                                              m.setFavorite(!star);
                                                               movieDatabaseViewModel.updateMovie(mm);
-                                                              Log.v("test", String.valueOf(mm.isSaved()));
+                                                              Log.v("test", String.valueOf(mm.isFavorite()));
 
                                                               icon = R.drawable.not_star;
                                                               star = !star;
 
 
                                                           } else {
-                                                              mm.setSaved(!star);
-                                                              m.setSaved(!star);
+                                                              mm.setFavorite(!star);
+                                                              m.setFavorite(!star);
                                                               movieDatabaseViewModel.updateMovie(mm);
-                                                              Log.v("test", String.valueOf(mm.isSaved()));
+                                                              Log.v("test", String.valueOf(mm.isFavorite()));
                                                               icon = R.drawable.star;
                                                               star = !star;
                                                           }
@@ -291,10 +291,10 @@ public class FilmSpec extends AppCompatActivity implements SimilarReciclerAdapte
 
                                 if(mm.equals(m)){
                                     Log.v("test",mm.toString()+" mm");
-                                    favorite = mm.isFavorite();
+                                    favorite = mm.isSaved();
                                     bookmarked = mm.isWatched();
-                                    star = mm.isSaved();
-                                    if (!mm.isSaved()) {
+                                    star = mm.isFavorite();
+                                    if (!mm.isFavorite()) {
 
                                         icon = R.drawable.not_star;
                                     }
@@ -304,7 +304,7 @@ public class FilmSpec extends AppCompatActivity implements SimilarReciclerAdapte
                                     }
                                     starUI.setImageResource(icon);
 
-                                    if (!mm.isFavorite()) {
+                                    if (!mm.isSaved()) {
 
                                         icon = R.drawable.not_favorite;
                                     }
