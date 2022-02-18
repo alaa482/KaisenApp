@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel;
 
 import java.util.List;
 
+import it.unimib.kaisenapp.models.SearchMultiModel;
 import it.unimib.kaisenapp.models.TvSerieModel;
 import it.unimib.kaisenapp.models.TvShowModel;
 import it.unimib.kaisenapp.utils.TypeOfRequest;
@@ -23,29 +24,30 @@ public class MovieListViewModel extends ViewModel {
     public LiveData<List<MovieModel>> getMovies(){
         return movieRepository.getMovies();
     }
-
     public LiveData<List<TvShowModel>> getTvShows(){
         return movieRepository.getTvShows();
     }
-
     public LiveData<List<TvSerieModel>> getEpisode(){
         return movieRepository.getEpisode();
     }
+    public LiveData<List<SearchMultiModel>> getSearchedMulti(){
+        return movieRepository.getSearchedMulti();
+    }
+
 
     public void getMovies(TypeOfRequest typeOfRequest, int page) {
         movieRepository.getMovies(typeOfRequest, page);
     }
-
     public void getMovies(TypeOfRequest typeOfRequest, int id, int page) {
         movieRepository.getMovies(typeOfRequest, id, page);
     }
-
     public void getTvShows(TypeOfRequest typeOfRequest, int page) {
         movieRepository.getTvShows(typeOfRequest, page);
     }
-
     public void getEpisode(int tv_id, int season_number, int episode_number) {
         movieRepository.getEpisode(tv_id, season_number, episode_number);
     }
-
+    public void search(String query, int page) {
+        movieRepository.search(query, page);
+    }
 }

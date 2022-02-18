@@ -3,6 +3,7 @@ package it.unimib.kaisenapp.request;
 import it.unimib.kaisenapp.models.MovieModel;
 import it.unimib.kaisenapp.response.EpisodeResponse;
 import it.unimib.kaisenapp.response.MovieSearchResponse;
+import it.unimib.kaisenapp.response.SearchMultiResponse;
 import it.unimib.kaisenapp.response.TvShowSearchResponse;
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -99,6 +100,16 @@ public interface MovieApi {
             @Query("api_key") String key,
             @Query("language") String language
     );
+
+    @GET("search/multi")
+    Call<SearchMultiResponse> search(
+            @Query("api_key") String key,
+            @Query("language") String language,
+            @Query("query") String query,
+            @Query("page") int page,
+            @Query("region") String region
+    );
+
 
 
 

@@ -1,32 +1,40 @@
 package it.unimib.kaisenapp.utils;
 
-import android.util.Log;
+import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
 import it.unimib.kaisenapp.models.AllCategory;
 import it.unimib.kaisenapp.models.CategoryItem;
 
-public class DataWrapper {
+public final class DataWrapper {
     private static List<AllCategory> list;
 
-    public DataWrapper(List<AllCategory> list) {
-        this.list = list;
-    }
-    public DataWrapper(){
+    private DataWrapper(){
         list=new ArrayList<>();
     }
 
     public static List<AllCategory> getList() {
         return list;
     }
+
     public static void setList(List<AllCategory>list){
-        DataWrapper.list.addAll(list);
+        DataWrapper.list=list;
     }
-    public static void addCategoryItemList(String title, List<CategoryItem> list){
-        if(list==null)
-            list=new ArrayList<>();
-        DataWrapper.list.add(new AllCategory(title, list));
+
+    public static void addCategoryItemList(String title,List<CategoryItem> list){
+        if(DataWrapper.list!=null && list!=null){
+            for(AllCategory category: DataWrapper.list)
+                if(category.getCategoryTitle().equalsIgnoreCase(title))
+                    DataWrapper.list.get(DataWrapper.list.indexOf(new AllCategory(title, null))).setCategoryItemList(list);
+        }
+
+    }
+    public static void addTitle(String title){
+        DataWrapper.list.add(new AllCategory(title, new ArrayList<>()));
+    }
+    public static void clear(){
+        list.clear();
     }
 
 

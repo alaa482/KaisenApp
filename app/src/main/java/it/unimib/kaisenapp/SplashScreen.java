@@ -1,46 +1,30 @@
 package it.unimib.kaisenapp;
 
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Parcelable;
-import android.util.Log;
 import android.view.WindowManager;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-
-import it.unimib.kaisenapp.adapter.MainRecyclerAdapter;
-import it.unimib.kaisenapp.fragment.HomeFragment;
-import it.unimib.kaisenapp.models.AllCategory;
 import it.unimib.kaisenapp.models.CategoryItem;
-import it.unimib.kaisenapp.models.MovieModel;
 import it.unimib.kaisenapp.models.TvShowModel;
 import it.unimib.kaisenapp.utils.Constants;
-import it.unimib.kaisenapp.utils.Credentials;
 import it.unimib.kaisenapp.utils.DataWrapper;
 import it.unimib.kaisenapp.utils.TypeOfRequest;
 import it.unimib.kaisenapp.viewmodels.MovieListViewModel;
 
 public class SplashScreen extends AppCompatActivity {
 
-
     private MovieListViewModel movieListViewModel;
-    private DataWrapper dataWrapper;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,12 +32,16 @@ public class SplashScreen extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         movieListViewModel= new ViewModelProvider(this).get(MovieListViewModel.class);
-        dataWrapper=new DataWrapper();
+        DataWrapper.setList(new ArrayList<>());
+        addMoviesType();
         ObserverAnyChange();
         if(isConnected())
             getAllMoviesToSetupHome();
-        else
+        else{
+            DataWrapper.clear();
             Toast.makeText(this, Constants.CONNECTION,Toast.LENGTH_LONG).show();
+        }
+
 
         Handler handler=new Handler();
         handler.postDelayed(() -> {
@@ -64,6 +52,17 @@ public class SplashScreen extends AppCompatActivity {
 
 
 
+    }
+
+    private void addMoviesType() {
+        DataWrapper.addTitle(Constants.MOST_POPULAR_MOVIES);
+        DataWrapper.addTitle(Constants.UPCOMING_MOVIES);
+        DataWrapper.addTitle(Constants.NOW_PLAYING_MOVIES);
+        DataWrapper.addTitle(Constants.TOP_RATED_MOVIES);
+        DataWrapper.addTitle(Constants.MOST_POPULAR_TV_SHOWS);
+        DataWrapper.addTitle(Constants.TOP_RATED_TV_SHOWS);
+        DataWrapper.addTitle(Constants.ON_THE_AIR_TV_SHOWS);
+        DataWrapper.addTitle(Constants.ON_THE_AIR_TODAY_TV_SHOWS);
     }
     private void getAllMoviesToSetupHome() {
         AppExecutor.getInstance().networkIO().schedule(() -> getMovies(TypeOfRequest.MOST_POPULAR_MOVIES, Constants.PAGE), 0,  TimeUnit.MILLISECONDS);
@@ -91,13 +90,13 @@ public class SplashScreen extends AppCompatActivity {
 
                 if(movieModels.size()>0){
                     if (movieModels.get(0).getCategory().equals(TypeOfRequest.MOST_POPULAR_MOVIES.toString()))
-                        dataWrapper.addCategoryItemList(Constants.MOST_POPULAR_MOVIES,list);
+                        DataWrapper.addCategoryItemList(Constants.MOST_POPULAR_MOVIES,list);
                     if (movieModels.get(0).getCategory().equals(TypeOfRequest.UPCOMING_MOVIES.toString()))
-                        dataWrapper.addCategoryItemList(Constants.UPCOMING_MOVIES,list);
+                        DataWrapper.addCategoryItemList(Constants.UPCOMING_MOVIES,list);
                     if (movieModels.get(0).getCategory().equals(TypeOfRequest.TOP_RATED_MOVIES.toString()))
-                        dataWrapper.addCategoryItemList(Constants.TOP_RATED_MOVIES,list);
+                        DataWrapper.addCategoryItemList(Constants.TOP_RATED_MOVIES,list);
                     if (movieModels.get(0).getCategory().equals(TypeOfRequest.NOW_PLAYING_MOVIES.toString()))
-                        dataWrapper.addCategoryItemList(Constants.NOW_PLAYING_MOVIES,list);
+                        DataWrapper.addCategoryItemList(Constants.NOW_PLAYING_MOVIES,list);
 
                 }
             }
@@ -111,13 +110,13 @@ public class SplashScreen extends AppCompatActivity {
 
                 if(tvShowModels.size()>0){
                     if (tvShowModels.get(0).getCategory().equals(TypeOfRequest.MOST_POPULAR_TV_SHOWS.toString()))
-                        dataWrapper.addCategoryItemList(Constants.MOST_POPULAR_TV_SHOWS,list);
+                        DataWrapper.addCategoryItemList(Constants.MOST_POPULAR_TV_SHOWS,list);
                     if (tvShowModels.get(0).getCategory().equals(TypeOfRequest.TOP_RATED_TV_SHOWS.toString()))
-                        dataWrapper.addCategoryItemList(Constants.TOP_RATED_TV_SHOWS,list);
+                        DataWrapper.addCategoryItemList(Constants.TOP_RATED_TV_SHOWS,list);
                     if (tvShowModels.get(0).getCategory().equals(TypeOfRequest.ON_THE_AIR_TV_SHOWS.toString()))
-                        dataWrapper.addCategoryItemList(Constants.ON_THE_AIR_TV_SHOWS,list);
+                        DataWrapper.addCategoryItemList(Constants.ON_THE_AIR_TV_SHOWS,list);
                     if (tvShowModels.get(0).getCategory().equals(TypeOfRequest.ON_THE_AIR_TODAY_TV_SHOWS.toString()))
-                        dataWrapper.addCategoryItemList(Constants.ON_THE_AIR_TODAY_TV_SHOWS,list);
+                        DataWrapper.addCategoryItemList(Constants.ON_THE_AIR_TODAY_TV_SHOWS,list);
 
                 }
             }
