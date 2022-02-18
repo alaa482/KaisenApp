@@ -24,7 +24,6 @@ import java.util.List;
 import it.unimib.kaisenapp.R;
 import it.unimib.kaisenapp.adapter.SeasonsReciclerAdapter;
 import it.unimib.kaisenapp.adapter.SimilarReciclerAdapter;
-import it.unimib.kaisenapp.database.MovieEntity;
 import it.unimib.kaisenapp.database.TvShowEntity;
 import it.unimib.kaisenapp.models.GenresModel;
 import it.unimib.kaisenapp.models.MovieModel;
@@ -121,7 +120,7 @@ public class SeriesSpec extends AppCompatActivity implements SimilarReciclerAdap
                                     movieDatabaseViewModel.updateSerie(mm);
                                     Log.v("test", String.valueOf(mm.isWatched()));
 
-                                    icon = R.drawable.bookmark_border;
+                                    icon = R.drawable.watched_border;
                                     bookmarked=!bookmarked;
 
 
@@ -131,7 +130,7 @@ public class SeriesSpec extends AppCompatActivity implements SimilarReciclerAdap
                                     m.setWatched(!bookmarked);
                                     movieDatabaseViewModel.updateSerie(mm);
                                     Log.v("test", String.valueOf(mm.isWatched()));
-                                    icon = R.drawable.bookmark;
+                                    icon = R.drawable.watched;
                                     bookmarked=!bookmarked;
                                 }
                                 bookmarkedUI.setImageResource(icon);
@@ -162,7 +161,7 @@ public class SeriesSpec extends AppCompatActivity implements SimilarReciclerAdap
                                     movieDatabaseViewModel.updateSerie(mm);
                                     Log.v("test", String.valueOf(mm.isFavorite()));
 
-                                    icon = R.drawable.not_favorite;
+                                    icon = R.drawable.saved_border;
                                     favorite=!favorite;
 
 
@@ -172,7 +171,7 @@ public class SeriesSpec extends AppCompatActivity implements SimilarReciclerAdap
                                     m.setFavorite(!favorite);
                                     movieDatabaseViewModel.updateSerie(mm);
                                     Log.v("test", String.valueOf(mm.isFavorite()));
-                                    icon = R.drawable.favorite;
+                                    icon = R.drawable.saved;
                                     favorite=!favorite;
                                 }
                                 favoriteUI.setImageResource(icon);
@@ -201,7 +200,7 @@ public class SeriesSpec extends AppCompatActivity implements SimilarReciclerAdap
                                     movieDatabaseViewModel.updateSerie(mm);
                                     Log.v("test", String.valueOf(mm.isSaved()));
 
-                                    icon = R.drawable.not_star;
+                                    icon = R.drawable.favourite_border;
                                     star = !star;
 
 
@@ -210,7 +209,7 @@ public class SeriesSpec extends AppCompatActivity implements SimilarReciclerAdap
                                     m.setSaved(!star);
                                     movieDatabaseViewModel.updateSerie(mm);
                                     Log.v("test", String.valueOf(mm.isSaved()));
-                                    icon = R.drawable.star;
+                                    icon = R.drawable.favourite;
                                     star = !star;
                                 }
                                 starUI.setImageResource(icon);
@@ -314,32 +313,32 @@ public class SeriesSpec extends AppCompatActivity implements SimilarReciclerAdap
                                     star = mm.isSaved();
                                     if (!mm.isSaved()) {
 
-                                        icon = R.drawable.not_star;
+                                        icon = R.drawable.favourite_border;
                                     }
                                     else {
 
-                                        icon = R.drawable.star;
+                                        icon = R.drawable.favourite;
                                     }
                                     starUI.setImageResource(icon);
 
                                     if (!mm.isFavorite()) {
 
-                                        icon = R.drawable.not_favorite;
+                                        icon = R.drawable.saved_border;
                                     }
                                     else {
 
-                                        icon = R.drawable.favorite;
+                                        icon = R.drawable.saved;
                                     }
 
                                     favoriteUI.setImageResource(icon);
 
                                     if (!mm.isWatched()) {
 
-                                        icon = R.drawable.bookmark_border;
+                                        icon = R.drawable.watched_border;
                                     }
                                     else {
 
-                                        icon = R.drawable.bookmark;
+                                        icon = R.drawable.watched;
                                     }
                                     bookmarkedUI.setImageResource(icon);
 

@@ -153,8 +153,8 @@
                             android:layout_height="48dp"
                             android:layout_weight="1"
                             android:background="@color/fui_transparent"
-                            app:srcCompat="@drawable/bookmark_border"
-                            tools:srcCompat="@drawable/bookmark_border" />
+                            app:srcCompat="@drawable/watched_border"
+                            tools:srcCompat="@drawable/watched_border" />
 
                         <ImageButton
                             android:id="@+id/favorite"
@@ -162,7 +162,7 @@
                             android:layout_height="48dp"
                             android:layout_weight="1"
                             android:background="@color/fui_transparent"
-                            app:srcCompat="@drawable/not_favorite" />
+                            app:srcCompat="@drawable/saved_border" />
 
                         <ImageButton
                             android:id="@+id/star"
@@ -170,7 +170,7 @@
                             android:layout_height="48dp"
                             android:layout_weight="1"
                             android:background="@color/fui_transparent"
-                            app:srcCompat="@drawable/not_star" />
+                            app:srcCompat="@drawable/favourite_border" />
                     </LinearLayout>
 
                     <RatingBar

@@ -24,15 +24,12 @@ import it.unimib.kaisenapp.R;
 import it.unimib.kaisenapp.adapter.SimilarReciclerAdapter;
 import it.unimib.kaisenapp.database.MovieEntity;
 import it.unimib.kaisenapp.models.GenresModel;
-import it.unimib.kaisenapp.models.MovieModel;
-import it.unimib.kaisenapp.models.ProductionCompaniesModel;
 import it.unimib.kaisenapp.request.MovieApi;
 import it.unimib.kaisenapp.request.Service;
 import it.unimib.kaisenapp.response.MovieDetailsResponse;
 import it.unimib.kaisenapp.response.SimilarResponse;
 import it.unimib.kaisenapp.utils.Credentials;
 import it.unimib.kaisenapp.viewmodels.MovieDatabaseViewModel;
-import it.unimib.kaisenapp.viewmodels.MovieListViewModel;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -115,7 +112,7 @@ public class FilmSpec extends AppCompatActivity implements SimilarReciclerAdapte
                                     movieDatabaseViewModel.updateMovie(mm);
                                     Log.v("test", String.valueOf(mm.isWatched()));
 
-                                    icon = R.drawable.bookmark_border;
+                                    icon = R.drawable.watched_border;
                                     bookmarked=!bookmarked;
 
 
@@ -125,7 +122,7 @@ public class FilmSpec extends AppCompatActivity implements SimilarReciclerAdapte
                                     m.setWatched(!bookmarked);
                                     movieDatabaseViewModel.updateMovie(mm);
                                     Log.v("test", String.valueOf(mm.isWatched()));
-                                    icon = R.drawable.bookmark;
+                                    icon = R.drawable.watched;
                                     bookmarked=!bookmarked;
                                 }
                                 bookmarkedUI.setImageResource(icon);
@@ -156,7 +153,7 @@ public class FilmSpec extends AppCompatActivity implements SimilarReciclerAdapte
                                                                   movieDatabaseViewModel.updateMovie(mm);
                                                                   Log.v("test", String.valueOf(mm.isSaved()));
 
-                                                                  icon = R.drawable.not_favorite;
+                                                                  icon = R.drawable.saved_border;
                                                                   favorite=!favorite;
 
 
@@ -166,7 +163,7 @@ public class FilmSpec extends AppCompatActivity implements SimilarReciclerAdapte
                                                                   m.setSaved(!favorite);
                                                                   movieDatabaseViewModel.updateMovie(mm);
                                                                   Log.v("test", String.valueOf(mm.isSaved()));
-                                                                  icon = R.drawable.favorite;
+                                                                  icon = R.drawable.saved;
                                                                   favorite=!favorite;
                                                               }
                                                               favoriteUI.setImageResource(icon);
@@ -195,7 +192,7 @@ public class FilmSpec extends AppCompatActivity implements SimilarReciclerAdapte
                                                               movieDatabaseViewModel.updateMovie(mm);
                                                               Log.v("test", String.valueOf(mm.isFavorite()));
 
-                                                              icon = R.drawable.not_star;
+                                                              icon = R.drawable.favourite_border;
                                                               star = !star;
 
 
@@ -204,7 +201,7 @@ public class FilmSpec extends AppCompatActivity implements SimilarReciclerAdapte
                                                               m.setFavorite(!star);
                                                               movieDatabaseViewModel.updateMovie(mm);
                                                               Log.v("test", String.valueOf(mm.isFavorite()));
-                                                              icon = R.drawable.star;
+                                                              icon = R.drawable.favourite;
                                                               star = !star;
                                                           }
                                                           starUI.setImageResource(icon);
@@ -296,32 +293,32 @@ public class FilmSpec extends AppCompatActivity implements SimilarReciclerAdapte
                                     star = mm.isFavorite();
                                     if (!mm.isFavorite()) {
 
-                                        icon = R.drawable.not_star;
+                                        icon = R.drawable.favourite_border;
                                     }
                                     else {
 
-                                        icon = R.drawable.star;
+                                        icon = R.drawable.favourite;
                                     }
                                     starUI.setImageResource(icon);
 
                                     if (!mm.isSaved()) {
 
-                                        icon = R.drawable.not_favorite;
+                                        icon = R.drawable.saved_border;
                                     }
                                     else {
 
-                                        icon = R.drawable.favorite;
+                                        icon = R.drawable.saved;
                                     }
 
                                     favoriteUI.setImageResource(icon);
 
                                     if (!mm.isWatched()) {
 
-                                        icon = R.drawable.bookmark_border;
+                                        icon = R.drawable.watched_border;
                                     }
                                     else {
 
-                                        icon = R.drawable.bookmark;
+                                        icon = R.drawable.watched;
                                     }
                                     bookmarkedUI.setImageResource(icon);
 
