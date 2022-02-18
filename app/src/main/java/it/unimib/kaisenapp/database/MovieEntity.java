@@ -94,7 +94,7 @@ public class MovieEntity {
     }
     public String getFavorite() {
        if(favorite)
-           return "true";
+           return "FAVORITES";
        else
            return "false";
     }

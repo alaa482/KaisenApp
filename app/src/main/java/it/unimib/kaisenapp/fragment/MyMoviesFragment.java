@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,6 +29,7 @@ import it.unimib.kaisenapp.database.MovieEntity;
 
 import it.unimib.kaisenapp.models.AllCategory;
 import it.unimib.kaisenapp.models.CategoryItem;
+import it.unimib.kaisenapp.ui.FilmSpec;
 import it.unimib.kaisenapp.utils.Constants;
 import it.unimib.kaisenapp.utils.TypeOfRequest;
 import it.unimib.kaisenapp.viewmodels.MovieDatabaseViewModel;
@@ -49,6 +51,7 @@ public class MyMoviesFragment extends Fragment implements CategoryItemRecyclerAd
     private BottomNavigationView bottomNavigationView;
     private MovieDatabaseViewModel movieDatabaseViewModel;
     RecyclerView recyclerView;
+    List<MovieEntity> movieEntitiesApp;
 
 
 
@@ -62,6 +65,7 @@ public class MyMoviesFragment extends Fragment implements CategoryItemRecyclerAd
         categoryItemList=new ArrayList<>();
         allCategoryList=new ArrayList<>();
         moviesType=new ArrayList<>();
+        movieEntitiesApp = new ArrayList<>();
         movieDatabaseViewModel= new ViewModelProvider(this).get(MovieDatabaseViewModel.class);
         //movieDatabaseViewModel.deleteAllMovies();
         addMoviesType(moviesType);
@@ -71,15 +75,14 @@ public class MyMoviesFragment extends Fragment implements CategoryItemRecyclerAd
            // moviesType.add("");
         }
 
-        for(int i = 0; i< Constants.NUMBERS_OF_MOVIES_IN_A_RECYCLEVIEW; i++)
-            categoryItemList.get(i).add(new CategoryItem(i,"",""));
+
 
 
 
         for(int i=0; i< moviesType.size(); i++)
             allCategoryList.add(new AllCategory(moviesType.get(i), categoryItemList.get(i)));
 
-        getMoviesFromDatabase();
+
         adapter2=new MainRecyclerAdapter(getContext(), allCategoryList, MyMoviesFragment.this);
         adapter2.addAllCategory(allCategoryList);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -94,47 +97,37 @@ public class MyMoviesFragment extends Fragment implements CategoryItemRecyclerAd
     }
 
     private void getMoviesFromDatabase() {
-        /*List<CategoryItem> list=new ArrayList<>();
-        for(int i =0;i<Constants.NUMBERS_OF_MOVIES_IN_A_RECYCLEVIEW;i++){
-            list.add(new CategoryItem(i,"",""));
-        }
-        if(allCategoryList!=null) {
-            allCategoryList.get(allCategoryList.indexOf(new AllCategory(Constants.FAVORITES, null))).getCategoryItemList().addAll(list);
-            allCategoryList.get(allCategoryList.indexOf(new AllCategory(Constants.WATCHED, null))).getCategoryItemList().addAll(list);
-            allCategoryList.get(allCategoryList.indexOf(new AllCategory(Constants.PLAN_TO_WATCH, null))).getCategoryItemList().addAll(list);
-        }
-
-        mainRecyclerAdapter = new MainRecyclerAdapter2(getContext(), allCategoryList);
-        recyclerView.setAdapter(mainRecyclerAdapter);*/
-
-
-        //MovieEntity m=new MovieEntity(movieModel.getId(), movieModel.getPoster_path(), movieModel.getCategory(),false,false,false);
-
-        listMovie = new ArrayList<MovieEntity>();
-
-
           movieDatabaseViewModel.getAllMovies().observe(getViewLifecycleOwner(), new Observer<List<MovieEntity>>() {
             @Override
             public void onChanged(List<MovieEntity> movieEntities) {
-                List<CategoryItem> list=new ArrayList<>();
-                Log.v("msgg",movieEntities.get(0).toString());
-                    for (int i = 0; i < movieEntities.size(); i++) {
-                        list.add(new CategoryItem(movieEntities.get(i).getMovie_id(),movieEntities.get(i).getPoster_path(), "Movie"));
+
+                if (movieEntities != null) {
+                    CategoryItem c;
+                    for (MovieEntity mm : movieEntities) {
+
+                            if (mm.isFavorite()) {
+
+                                c = new CategoryItem(mm.getMovie_id(), mm.getPoster_path(), "Movie");
+                                allCategoryList.get(allCategoryList.indexOf(new AllCategory(Constants.FAVORITES, null))).getCategoryItemList().add(c);
+                            }
+                            if (mm.isWatched()) {
+
+                                c = new CategoryItem(mm.getMovie_id(), mm.getPoster_path(), "Movie");
+                                allCategoryList.get(allCategoryList.indexOf(new AllCategory(Constants.WATCHED, null))).getCategoryItemList().add(c);
+
+
+                            }
+                            if (mm.isSaved()) {
+
+                                c = new CategoryItem(mm.getMovie_id(), mm.getPoster_path(), "Movie");
+                                allCategoryList.get(allCategoryList.indexOf(new AllCategory(Constants.PLAN_TO_WATCH, null))).getCategoryItemList().add(c);
+                            }
+                        }
+                        mainRecyclerAdapter = new MainRecyclerAdapter(getContext(), allCategoryList, MyMoviesFragment.this);
+                        recyclerView.setAdapter(mainRecyclerAdapter);
+                        movieEntitiesApp = movieEntities;
                     }
 
-                if(movieEntities.size()>0) {
-                    //lastRequestF = TypeOfRequest.valueOf(movieEntities.get(0).getFavorite());
-                    lastRequestW = TypeOfRequest.valueOf(movieEntities.get(0).getWatched());
-                    //lastRequestS = TypeOfRequest.valueOf(movieEntities.get(0).getSaved());
-                }
-                    if(movieEntities!=null) {
-
-                            if(lastRequestW==TypeOfRequest.WATCHED)
-                            allCategoryList.get(allCategoryList.indexOf(new AllCategory(Constants.WATCHED, null))).getCategoryItemList().addAll(list);
-
-                }
-                mainRecyclerAdapter = new MainRecyclerAdapter(getContext(), allCategoryList,MyMoviesFragment.this);
-                recyclerView.setAdapter(mainRecyclerAdapter);
             }
         });
 
@@ -145,8 +138,12 @@ public class MyMoviesFragment extends Fragment implements CategoryItemRecyclerAd
                 }
 
 
+    @Override
+    public void onResume() {
+        super.onResume();
 
-
+        getMoviesFromDatabase();
+    }
 
     private void addMoviesType(List<String> moviesType) {
         moviesType.add(Constants.FAVORITES);
@@ -158,5 +155,11 @@ public class MyMoviesFragment extends Fragment implements CategoryItemRecyclerAd
     @Override
     public void onClick(int position, String type) {
 
+        if(type.equals("Movie")){
+            Intent intent = new Intent(getContext(), FilmSpec.class);
+            intent.putExtra("id", position);
+            startActivity(intent);
+
+        }
     }
 }
