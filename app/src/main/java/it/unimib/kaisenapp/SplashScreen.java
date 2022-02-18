@@ -56,7 +56,7 @@ public class SplashScreen extends AppCompatActivity {
             Intent intent=new Intent(SplashScreen.this, LoginUser.class);
             startActivity(intent);
             finish();
-        }, 2000);
+        }, 3000);
 
 
 
@@ -75,19 +75,19 @@ public class SplashScreen extends AppCompatActivity {
     private void getAllMoviesToSetupHome() {
         AppExecutor.getInstance().networkIO().schedule(() -> getMovies(TypeOfRequest.MOST_POPULAR_MOVIES, Constants.PAGE), 0,  TimeUnit.MILLISECONDS);
 
-        AppExecutor.getInstance().networkIO().schedule(() -> getMovies(TypeOfRequest.TOP_RATED_MOVIES,Constants.PAGE), 200,  TimeUnit.MILLISECONDS);
+        AppExecutor.getInstance().networkIO().schedule(() -> getMovies(TypeOfRequest.TOP_RATED_MOVIES,Constants.PAGE), 300,  TimeUnit.MILLISECONDS);
 
-        AppExecutor.getInstance().networkIO().schedule(() -> getMovies(TypeOfRequest.NOW_PLAYING_MOVIES, Constants.PAGE), 400,  TimeUnit.MILLISECONDS);
+        AppExecutor.getInstance().networkIO().schedule(() -> getMovies(TypeOfRequest.NOW_PLAYING_MOVIES, Constants.PAGE), 600,  TimeUnit.MILLISECONDS);
 
-        AppExecutor.getInstance().networkIO().schedule(() -> getMovies(TypeOfRequest.UPCOMING_MOVIES, Constants.PAGE), 600, TimeUnit.MILLISECONDS);
+        AppExecutor.getInstance().networkIO().schedule(() -> getMovies(TypeOfRequest.UPCOMING_MOVIES, Constants.PAGE), 900, TimeUnit.MILLISECONDS);
 
-        AppExecutor.getInstance().networkIO().schedule(() -> getTvShows(TypeOfRequest.MOST_POPULAR_TV_SHOWS,Constants.PAGE), 800, TimeUnit.MILLISECONDS);
+        AppExecutor.getInstance().networkIO().schedule(() -> getTvShows(TypeOfRequest.MOST_POPULAR_TV_SHOWS,Constants.PAGE), 1100, TimeUnit.MILLISECONDS);
 
-        AppExecutor.getInstance().networkIO().schedule(() -> getTvShows(TypeOfRequest.TOP_RATED_TV_SHOWS,Constants.PAGE), 1000, TimeUnit.MILLISECONDS);
+        AppExecutor.getInstance().networkIO().schedule(() -> getTvShows(TypeOfRequest.TOP_RATED_TV_SHOWS,Constants.PAGE), 1400, TimeUnit.MILLISECONDS);
 
-        AppExecutor.getInstance().networkIO().schedule(() -> getTvShows(TypeOfRequest.ON_THE_AIR_TV_SHOWS,Constants.PAGE), 1200, TimeUnit.MILLISECONDS);
+        AppExecutor.getInstance().networkIO().schedule(() -> getTvShows(TypeOfRequest.ON_THE_AIR_TV_SHOWS,Constants.PAGE), 1700, TimeUnit.MILLISECONDS);
 
-        AppExecutor.getInstance().networkIO().schedule(() -> getTvShows(TypeOfRequest.ON_THE_AIR_TODAY_TV_SHOWS,Constants.PAGE), 1400, TimeUnit.MILLISECONDS);
+        AppExecutor.getInstance().networkIO().schedule(() -> getTvShows(TypeOfRequest.ON_THE_AIR_TODAY_TV_SHOWS,Constants.PAGE), 2000, TimeUnit.MILLISECONDS);
     }
     private void ObserverAnyChange(){
         movieListViewModel.getMovies().observe(this, movieModels -> {

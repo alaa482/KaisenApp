@@ -2,6 +2,7 @@ package it.unimib.kaisenapp.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,8 +30,6 @@ public class HomeFragment extends Fragment  implements CategoryItemRecyclerAdapt
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View homeView= inflater.inflate(R.layout.fragment_home, container, false);
-        for(int i=0;i<DataWrapper.getList().size();i++)
-         System.out.println(DataWrapper.getList().get(i).getCategoryTitle());
 
         mainCategoryRecycler = homeView.findViewById(R.id.searched_movie_recycleview);
         mainRecyclerAdapter = new MainRecyclerAdapter(getContext(),  DataWrapper.getList(), this);
