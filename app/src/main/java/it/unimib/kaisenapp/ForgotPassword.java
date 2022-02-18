@@ -10,17 +10,22 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
+import org.w3c.dom.Text;
+
 public class ForgotPassword extends AppCompatActivity {
 
     private EditText editTextRecoveryMail;
     private Button resetPasswordButton;
     private ProgressBar progressBar;
+
+    private TextView tornalog;
 
     FirebaseAuth auth;
 
@@ -41,10 +46,20 @@ public class ForgotPassword extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
 
+        tornalog = (TextView) findViewById((R.id.ritornaLogin));
+
         resetPasswordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 resetPassword();
+            }
+        });
+
+        tornalog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ForgotPassword.this, LoginUser.class));
+
             }
         });
     }
