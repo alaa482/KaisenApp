@@ -15,43 +15,29 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import it.unimib.kaisenapp.R;
 import it.unimib.kaisenapp.adapter.CategoryItemRecyclerAdapter;
-import it.unimib.kaisenapp.adapter.CategoryItemRecyclerAdapter2;
 import it.unimib.kaisenapp.adapter.MainRecyclerAdapter;
-import it.unimib.kaisenapp.adapter.MainRecyclerAdapter2;
 import it.unimib.kaisenapp.database.MovieEntity;
 
 import it.unimib.kaisenapp.database.TvShowEntity;
-import it.unimib.kaisenapp.listProfilePic;
 import it.unimib.kaisenapp.models.AllCategory;
 import it.unimib.kaisenapp.models.CategoryItem;
 import it.unimib.kaisenapp.ui.FilmSpec;
 import it.unimib.kaisenapp.ui.SeriesSpec;
 import it.unimib.kaisenapp.utils.Constants;
-import it.unimib.kaisenapp.utils.TypeOfRequest;
 import it.unimib.kaisenapp.viewmodels.MovieDatabaseViewModel;
 import it.unimib.kaisenapp.viewmodels.MovieListViewModel;
 
 public class MyMoviesFragment extends Fragment implements CategoryItemRecyclerAdapter.OnClickListener{
-    private RecyclerView mainCategoryRecycler;
-    //private MainRecyclerAdapter2 mainRecyclerAdapter;
     private MainRecyclerAdapter mainRecyclerAdapter;
     private List<List<CategoryItem>> categoryItemList; //contiene i film di ogni recycleview
     private List<AllCategory> allCategoryList;
     private List<String> moviesType;
-    private List<MovieEntity> listMovie;
-    private CategoryItemRecyclerAdapter2 adapter;
-    private TypeOfRequest lastRequestF;
-    private TypeOfRequest lastRequestW;
-    private TypeOfRequest lastRequestS;
     private MainRecyclerAdapter adapter2;
-    private BottomNavigationView bottomNavigationView;
     private MovieDatabaseViewModel movieDatabaseViewModel;
     RecyclerView recyclerView;
     List<MovieEntity> movieEntitiesApp;

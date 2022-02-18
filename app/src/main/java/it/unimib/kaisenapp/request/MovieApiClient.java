@@ -65,12 +65,8 @@ public class MovieApiClient{
         return mTvSerieEpisode;
     }
 
-    public LiveData<List<SearchMultiModel>> getSearchedMulti(){
-        return mSearchMulti;
-    }
-
-    public void getEpisode(int tv_id, int season_number, int episode_number) {
-        retrieveEpisodesRunnable=new RetrieveEpisodesRunnable(tv_id, season_number, episode_number);
+    public void getEpisode(int tv_id, int season_number) {
+        retrieveEpisodesRunnable=new RetrieveEpisodesRunnable(tv_id, season_number);
         final Future myHandler = AppExecutor.getInstance().networkIO().submit(retrieveEpisodesRunnable);
 
         AppExecutor.getInstance().networkIO().schedule(new Runnable() {
@@ -80,6 +76,12 @@ public class MovieApiClient{
             }
         },3000, TimeUnit.MILLISECONDS);
     }
+
+    public LiveData<List<SearchMultiModel>> getSearchedMulti(){
+        return mSearchMulti;
+    }
+
+
     public void getMovies(TypeOfRequest typeOfRequest, int page) {
         retrieveMoviesRunnable=new RetrieveMoviesRunnable(typeOfRequest, page);
         final Future myHandler = AppExecutor.getInstance().networkIO().submit(retrieveMoviesRunnable);
@@ -314,13 +316,12 @@ public class MovieApiClient{
     private class RetrieveEpisodesRunnable implements Runnable{
         private int tv_id;
         private int season_number;
-        private int episode_number;
         private boolean cancelRequest;
 
-        public RetrieveEpisodesRunnable(int tv_id, int season_number, int episode_number) {
+        public RetrieveEpisodesRunnable(int tv_id, int season_number) {
             this.tv_id = tv_id;
             this.season_number = season_number;
-            this.episode_number = episode_number;
+
             cancelRequest=false;
         }
         private void cancelRequest(){
@@ -331,7 +332,7 @@ public class MovieApiClient{
         public void run() {
 
             try {
-                Response response= getAllEpisode(tv_id,season_number, episode_number).execute();
+                Response response= getAllEpisode(tv_id,season_number).execute();
 
                 if (cancelRequest)
                     return;
@@ -349,11 +350,10 @@ public class MovieApiClient{
 
         }
 
-        private Call<EpisodeResponse> getAllEpisode(int tv_id, int season_number, int episode_number){
+        private Call<EpisodeResponse> getAllEpisode(int tv_id, int season_number){
             return Service.getMovieApi().getAllEpisode(
                     tv_id,
                     season_number,
-                    episode_number,
                     Credentials.API_KEY,
                     Credentials.LANGUAGE
             );

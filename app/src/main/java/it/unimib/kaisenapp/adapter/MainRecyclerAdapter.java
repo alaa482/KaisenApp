@@ -60,4 +60,8 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
         }
     }
 
+    public void addAllCategory(List<AllCategory> allCategoryList) {
+        this.allCategoryList=allCategoryList;
+    }
+
 }

@@ -39,6 +39,10 @@ public class MovieRepository {
     public LiveData<List<TvSerieModel>> getEpisode(){
         return movieApiClient.getEpisode();
     }
+    public void getEpisode(int tv_id, int season_number){
+        movieApiClient.getEpisode(tv_id,season_number);
+
+    }
 
     public LiveData<List<SearchMultiModel>> getSearchedMulti(){
         return movieApiClient.getSearchedMulti();
@@ -55,10 +59,7 @@ public class MovieRepository {
     public void getTvShows(TypeOfRequest typeOfRequest, int page){
         movieApiClient.getTvShows(typeOfRequest,page);
     }
-    public void getEpisode(int tv_id, int season_number, int episode_number){
-        movieApiClient.getEpisode(tv_id,season_number,episode_number);
 
-    }
     public void search(String query, int page) {
         movieApiClient.search(query, page);
     }

@@ -1,7 +1,12 @@
 package it.unimib.kaisenapp.request;
 
 import it.unimib.kaisenapp.models.MovieModel;
+import it.unimib.kaisenapp.response.EpisodeResponse;
+import it.unimib.kaisenapp.response.MovieDetailsResponse;
 import it.unimib.kaisenapp.response.MovieSearchResponse;
+import it.unimib.kaisenapp.response.SearchMultiResponse;
+import it.unimib.kaisenapp.response.SerieDetailsResponse;
+import it.unimib.kaisenapp.response.SimilarResponse;
 import it.unimib.kaisenapp.response.TvShowSearchResponse;
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -18,11 +23,6 @@ public interface MovieApi {
             @Query("page") int page
     );
 
-    @GET("movie/{movie_id}?")
-    Call<MovieModel> getMovie(
-            @Path("movie_id") int movie_id,
-            @Query("api_key") String key
-    );
 
     @GET("movie/popular")
     Call<MovieSearchResponse> getPopularMovies(
@@ -103,14 +103,6 @@ public interface MovieApi {
             @Query("api_key") String key,
             @Query("language") String language
     );
-    @GET("/tv/{tv_id}/season/{season_number}?")
-    Call<EpisodeResponse> getAllEpisode(
-            @Path("tv_id") int tv_id,
-            @Path("season_number") int season_number,
-            @Path("episode_number") int episode_number,
-            @Query("api_key") String key,
-            @Query("language") String language
-    );
 
     @GET("search/multi")
     Call<SearchMultiResponse> search(
@@ -120,11 +112,6 @@ public interface MovieApi {
             @Query("page") int page,
             @Query("region") String region
     );
-
-
-
-
-
 
 
 

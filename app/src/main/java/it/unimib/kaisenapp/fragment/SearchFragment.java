@@ -39,44 +39,10 @@ public class SearchFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view=inflater.inflate(R.layout.fragment_search, container, false);
-        movieListViewModel=new ViewModelProvider(this).get(MovieListViewModel.class);
 
-        text=view.findViewById(R.id.text);
-        button=view.findViewById(R.id.button);
-        search();
-        observer();
         return view;
     }
-    private boolean isValid(String text){
-        return text!=null && text.length()>0;
-    }
 
-    private void search(){
-        if(isValid(text.getText().toString()))
-            button.setOnClickListener(view -> {
-                Log.v("Tag", text.getText().toString());
-                movieListViewModel.search(text.getText().toString(),Constants.PAGE);
-            });
-
-
-
-    }
-
-    private void observer(){
-        movieListViewModel.getSearchedMulti().observe(SearchFragment.this, searchMultiModels -> {
-            if(searchMultiModels !=null){
-                    Log.v("Tag", searchMultiModels.toString());
-                    Intent intent=new Intent(getActivity(), SearchedMovies.class);
-
-
-                    intent.putExtra("searchedMovies", (Serializable) searchMultiModels);
-                    startActivity(intent);
-
-
-
-            }
-        });
-    }
 
 
 }
