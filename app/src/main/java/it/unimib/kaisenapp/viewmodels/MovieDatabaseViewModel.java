@@ -1,6 +1,8 @@
 package it.unimib.kaisenapp.viewmodels;
 
 import android.app.Application;
+import android.provider.ContactsContract;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
@@ -15,19 +17,25 @@ import it.unimib.kaisenapp.database.MovieEntity;
 import it.unimib.kaisenapp.database.TvShowDao;
 import it.unimib.kaisenapp.database.TvShowEntity;
 import it.unimib.kaisenapp.repository.MovieDatabaseRepository;
+import it.unimib.kaisenapp.repository.TvSerieDatabaseRepository;
 
 public class MovieDatabaseViewModel extends AndroidViewModel {
     private MovieDatabaseRepository movieDatabaseRepository;
+    private TvSerieDatabaseRepository tvShowDatabaseRepository;
 
 
     public MovieDatabaseViewModel(@NonNull Application application) {
         super(application);
+        TvShowDao tvShowDao= Database.getInstance(super.getApplication()).tvShowDao();
+        tvShowDatabaseRepository=TvSerieDatabaseRepository.getInstance(tvShowDao);
         MovieDao movieDao= Database.getInstance(super.getApplication()).movieDao();
         movieDatabaseRepository= MovieDatabaseRepository.getInstance(movieDao);
+
+
     }
 
     public LiveData<List<TvShowEntity>> getAllTvShows(){
-        return movieDatabaseRepository.getAllSeries();
+        return tvShowDatabaseRepository.getAllSeries();
     }
     public LiveData<List<MovieEntity>> getAllMovies(){
         return movieDatabaseRepository.getAllMovies();
@@ -37,7 +45,7 @@ public class MovieDatabaseViewModel extends AndroidViewModel {
         return movieDatabaseRepository.getAllMoviesByCategory(category);
     }
     public LiveData<List<TvShowEntity>> getAllTvShowsByCategory(String category){
-        return movieDatabaseRepository.getAllTvShowsByCategory(category);
+        return tvShowDatabaseRepository.getAllTvShowsByCategory(category);
     }
 
     public LiveData<List<MovieEntity>> getAllWatchedMovies(){
@@ -51,13 +59,13 @@ public class MovieDatabaseViewModel extends AndroidViewModel {
     }
 
     public LiveData<List<TvShowEntity>> getAllSavedTvShows(){
-        return movieDatabaseRepository.getAllSavedTvShows();
+        return tvShowDatabaseRepository.getAllSavedTvShows();
     }
     public LiveData<List<TvShowEntity>> getAllFavoriteTvShows(){
-        return movieDatabaseRepository.getAllFavoriteTvShows();
+        return tvShowDatabaseRepository.getAllFavoriteTvShows();
     }
     public LiveData<List<TvShowEntity>> getAllWatchedTvShows(){
-        return movieDatabaseRepository.getAllWatchedTvShows();
+        return tvShowDatabaseRepository.getAllWatchedTvShows();
     }
 
 
@@ -74,7 +82,7 @@ public class MovieDatabaseViewModel extends AndroidViewModel {
         final Future myHandler = AppExecutor.getInstance().networkIO().submit(new Runnable() {
             @Override
             public void run() {
-                movieDatabaseRepository.addTvShow(tvShowEntity);
+                tvShowDatabaseRepository.addTvShow(tvShowEntity);
             }
         });
 
@@ -91,26 +99,26 @@ public class MovieDatabaseViewModel extends AndroidViewModel {
         final Future myHandler = AppExecutor.getInstance().networkIO().submit(new Runnable() {
             @Override
             public void run() {
-                movieDatabaseRepository.updateSerie(tvShowEntity);
+                tvShowDatabaseRepository.updateSerie(tvShowEntity);
             }
         });
     }
 
     public void addAllMovies(List<MovieEntity> movieEntityList){
-        movieDatabaseRepository.addAllMovies(movieEntityList);
-        /*final Future myHandler = AppExecutor.getInstance().networkIO().submit(new Runnable() {
+
+        final Future myHandler = AppExecutor.getInstance().networkIO().submit(new Runnable() {
             @Override
             public void run() {
-
+                movieDatabaseRepository.addAllMovies(movieEntityList);
             }
-        });*/
+        });
 
     }
     public void addAllTvShows(List<TvShowEntity> tvShowsEntityList){
         final Future myHandler = AppExecutor.getInstance().networkIO().submit(new Runnable() {
             @Override
             public void run() {
-                movieDatabaseRepository.addAllTvShows(tvShowsEntityList);
+                tvShowDatabaseRepository.addAllTvShows(tvShowsEntityList);
             }
         });
 
@@ -120,7 +128,7 @@ public class MovieDatabaseViewModel extends AndroidViewModel {
         movieDatabaseRepository.deleteAllMovies();
     }
     public void deleteAllTvShows(){
-        movieDatabaseRepository.deleteAllTvShows();
+        tvShowDatabaseRepository.deleteAllTvShows();
     }
 
 }

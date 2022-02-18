@@ -292,12 +292,13 @@ public class SeriesSpec extends AppCompatActivity implements SimilarReciclerAdap
                    }
                 }
                 genresUI.setText(aus);
+
                 m = new TvShowEntity(id,imagePath,null,bookmarked,star,favorite);
 
 
 
-                Log.v("test",movieDatabaseViewModel.getAllTvShows().toString());
-                /*movieDatabaseViewModel.getAllTvShows().observe(SeriesSpec.this, new Observer<List<TvShowEntity>>() {
+
+                movieDatabaseViewModel.getAllTvShows().observe(SeriesSpec.this, new Observer<List<TvShowEntity>>() {
                     @Override
                     public void onChanged(List<TvShowEntity> movieEntityList) {
                         if(movieEntityList!=null){
@@ -351,10 +352,13 @@ public class SeriesSpec extends AppCompatActivity implements SimilarReciclerAdap
                         }
                     }
                 });
+
+
+
                 movieDatabaseViewModel.addTvShow(m);
 
 
-                 */
+
             }
 
             @Override

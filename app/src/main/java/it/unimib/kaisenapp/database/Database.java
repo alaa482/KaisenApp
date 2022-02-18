@@ -6,10 +6,11 @@ import androidx.room.RoomDatabase;
 import it.unimib.kaisenapp.utils.Constants;
 import kotlin.jvm.Volatile;
 
-@androidx.room.Database(entities = {MovieEntity.class}, version = Constants.DATABASE_VERSION, exportSchema = false)
+@androidx.room.Database(entities = {MovieEntity.class,TvShowEntity.class}, version = Constants.DATABASE_VERSION, exportSchema = false)
 public abstract class Database extends RoomDatabase {
 
     public abstract MovieDao movieDao();
+    public abstract TvShowDao tvShowDao();
 
     @Volatile
     private static volatile Database INSTANCE;
