@@ -45,7 +45,7 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
                         | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
         mAuth = FirebaseAuth.getInstance();
 
-        logIn = (TextView) findViewById(R.id.textViewLoginRegistrati);
+        logIn = (TextView) findViewById(R.id.tornaALogin);
         logIn.setOnClickListener(this);
      //   btnRegister = (TextView) findViewById(R.id.btnRegister);
       //  btnRegister.setOnClickListener(this);
@@ -75,7 +75,7 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
             case R.id.btnRegister:
                 registerUser();
                 break;
-            case R.id.textViewLoginRegistrati:
+            case R.id.tornaALogin:
                 startActivity(new Intent(this, LoginUser.class));
                 break;
         }

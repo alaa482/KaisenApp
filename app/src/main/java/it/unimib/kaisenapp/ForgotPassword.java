@@ -15,7 +15,6 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.ktx.Firebase;
 
 public class ForgotPassword extends AppCompatActivity {
 
@@ -49,6 +48,7 @@ public class ForgotPassword extends AppCompatActivity {
             }
         });
     }
+
     private void resetPassword(){
         String email =editTextRecoveryMail.getText().toString().trim();
 

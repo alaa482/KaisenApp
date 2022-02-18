@@ -30,8 +30,6 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.io.IOException;
-
 
 public class LoginUser extends AppCompatActivity implements View.OnClickListener{
 
@@ -80,7 +78,7 @@ public class LoginUser extends AppCompatActivity implements View.OnClickListener
                         | View.SYSTEM_UI_FLAG_FULLSCREEN
                         | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
 
-        register = (TextView) findViewById(R.id.textViewLoginRegistrati);
+        register = (TextView) findViewById(R.id.tornaALogin);
         register.setOnClickListener(this);
 
         singIn = (Button) findViewById(R.id.btnLogin);
@@ -200,7 +198,7 @@ public class LoginUser extends AppCompatActivity implements View.OnClickListener
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.textViewLoginRegistrati:
+            case R.id.tornaALogin:
                 startActivity(new Intent(this, RegisterUser.class));
                 break;
 

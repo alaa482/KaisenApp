@@ -96,7 +96,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textViewLoginRegistrati"
+        android:id="@+id/tornaALogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Log in"
