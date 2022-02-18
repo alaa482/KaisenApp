@@ -159,7 +159,7 @@ public class SeriesSpec extends AppCompatActivity implements SimilarReciclerAdap
                                     mm.setSaved(!favorite);
                                     m.setSaved(!favorite);
                                     movieDatabaseViewModel.updateSerie(mm);
-                                    Log.v("test", String.valueOf(mm.isFavorite()));
+                                    Log.v("test", String.valueOf(mm.isSaved()));
 
                                     icon = R.drawable.saved_border;
                                     favorite=!favorite;
@@ -170,7 +170,7 @@ public class SeriesSpec extends AppCompatActivity implements SimilarReciclerAdap
                                     mm.setSaved(!favorite);
                                     m.setSaved(!favorite);
                                     movieDatabaseViewModel.updateSerie(mm);
-                                    Log.v("test", String.valueOf(mm.isFavorite()));
+                                    Log.v("test", String.valueOf(mm.isSaved()));
                                     icon = R.drawable.saved;
                                     favorite=!favorite;
                                 }
@@ -198,7 +198,7 @@ public class SeriesSpec extends AppCompatActivity implements SimilarReciclerAdap
                                     mm.setFavorite(!star);
                                     m.setFavorite(!star);
                                     movieDatabaseViewModel.updateSerie(mm);
-                                    Log.v("test", String.valueOf(mm.isSaved()));
+                                    Log.v("test", String.valueOf(mm.isFavorite()));
 
                                     icon = R.drawable.favourite_border;
                                     star = !star;
@@ -208,7 +208,7 @@ public class SeriesSpec extends AppCompatActivity implements SimilarReciclerAdap
                                     mm.setFavorite(!star);
                                     m.setFavorite(!star);
                                     movieDatabaseViewModel.updateSerie(mm);
-                                    Log.v("test", String.valueOf(mm.isSaved()));
+                                    Log.v("test", String.valueOf(mm.isFavorite()));
                                     icon = R.drawable.favourite;
                                     star = !star;
                                 }
@@ -306,12 +306,13 @@ public class SeriesSpec extends AppCompatActivity implements SimilarReciclerAdap
 
 
 
+
                                 if(mm.equals(m)){
                                     Log.v("test",mm.toString()+" mm");
-                                    favorite = mm.isFavorite();
+                                    favorite = mm.isSaved();
                                     bookmarked = mm.isWatched();
-                                    star = mm.isSaved();
-                                    if (!mm.isSaved()) {
+                                    star = mm.isFavorite();
+                                    if (!mm.isFavorite()) {
 
                                         icon = R.drawable.favourite_border;
                                     }
@@ -321,7 +322,7 @@ public class SeriesSpec extends AppCompatActivity implements SimilarReciclerAdap
                                     }
                                     starUI.setImageResource(icon);
 
-                                    if (!mm.isFavorite()) {
+                                    if (!mm.isSaved()) {
 
                                         icon = R.drawable.saved_border;
                                     }

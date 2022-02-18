@@ -10,6 +10,8 @@
         <entry key="..\:/Users/marco/AndroidStudioProjects/KaisenApp/app/src/main/res/drawable/bookmark_border.xml" value="0.216" />
         <entry key="..\:/Users/marco/AndroidStudioProjects/KaisenApp/app/src/main/res/drawable/bottom_navigation_selector.xml" value="0.3425" />
         <entry key="..\:/Users/marco/AndroidStudioProjects/KaisenApp/app/src/main/res/drawable/favorite.xml" value="0.1" />
+        <entry key="..\:/Users/marco/AndroidStudioProjects/KaisenApp/app/src/main/res/drawable/favourite.xml" value="0.1945" />
+        <entry key="..\:/Users/marco/AndroidStudioProjects/KaisenApp/app/src/main/res/drawable/favourite_border.xml" value="0.1945" />
         <entry key="..\:/Users/marco/AndroidStudioProjects/KaisenApp/app/src/main/res/drawable/ic_account.xml" value="0.195" />
         <entry key="..\:/Users/marco/AndroidStudioProjects/KaisenApp/app/src/main/res/drawable/ic_baseline_arrow_back_ios_24.xml" value="0.195" />
         <entry key="..\:/Users/marco/AndroidStudioProjects/KaisenApp/app/src/main/res/drawable/ic_baseline_bookmark_border_24.xml" value="0.195" />
@@ -24,6 +26,7 @@
         <entry key="..\:/Users/marco/AndroidStudioProjects/KaisenApp/app/src/main/res/drawable/not_favorite.xml" value="0.216" />
         <entry key="..\:/Users/marco/AndroidStudioProjects/KaisenApp/app/src/main/res/drawable/not_favourite.xml" value="0.195" />
         <entry key="..\:/Users/marco/AndroidStudioProjects/KaisenApp/app/src/main/res/drawable/not_star.xml" value="0.195" />
+        <entry key="..\:/Users/marco/AndroidStudioProjects/KaisenApp/app/src/main/res/drawable/saved.xml" value="0.1945" />
         <entry key="..\:/Users/marco/AndroidStudioProjects/KaisenApp/app/src/main/res/drawable/saved_border.xml" value="0.2505" />
         <entry key="..\:/Users/marco/AndroidStudioProjects/KaisenApp/app/src/main/res/drawable/star.xml" value="0.195" />
         <entry key="..\:/Users/marco/AndroidStudioProjects/KaisenApp/app/src/main/res/drawable/watched_border.xml" value="0.2505" />
