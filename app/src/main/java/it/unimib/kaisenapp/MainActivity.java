@@ -319,6 +319,7 @@ public class MainActivity extends AppCompatActivity {
                     default:
                         break;
                 }
+
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         selectedFragment).commit();
                 return true;
