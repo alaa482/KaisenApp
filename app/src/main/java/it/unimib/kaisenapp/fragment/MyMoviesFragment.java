@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,26 +25,36 @@ import it.unimib.kaisenapp.adapter.CategoryItemRecyclerAdapter2;
 import it.unimib.kaisenapp.adapter.MainRecyclerAdapter;
 import it.unimib.kaisenapp.adapter.MainRecyclerAdapter2;
 import it.unimib.kaisenapp.database.MovieEntity;
+
 import it.unimib.kaisenapp.models.AllCategory;
 import it.unimib.kaisenapp.models.CategoryItem;
 import it.unimib.kaisenapp.utils.Constants;
+import it.unimib.kaisenapp.utils.TypeOfRequest;
+import it.unimib.kaisenapp.viewmodels.MovieDatabaseViewModel;
 import it.unimib.kaisenapp.viewmodels.MovieListViewModel;
 
 public class MyMoviesFragment extends Fragment implements CategoryItemRecyclerAdapter.OnClickListener{
     private RecyclerView mainCategoryRecycler;
-    private MainRecyclerAdapter2 mainRecyclerAdapter;
+    //private MainRecyclerAdapter2 mainRecyclerAdapter;
+    private MainRecyclerAdapter mainRecyclerAdapter;
     private List<List<CategoryItem>> categoryItemList; //contiene i film di ogni recycleview
     private List<AllCategory> allCategoryList;
     private List<String> moviesType;
-    private List<String> image;
+    private List<MovieEntity> listMovie;
     private CategoryItemRecyclerAdapter2 adapter;
+    private TypeOfRequest lastRequestF;
+    private TypeOfRequest lastRequestW;
+    private TypeOfRequest lastRequestS;
     private MainRecyclerAdapter adapter2;
     private BottomNavigationView bottomNavigationView;
+    private MovieDatabaseViewModel movieDatabaseViewModel;
     RecyclerView recyclerView;
 
 
 
     private MovieListViewModel movieListViewModel;
+
+
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View homeView= inflater.inflate(R.layout.activity_fav_list, container, false);
 
@@ -51,8 +62,8 @@ public class MyMoviesFragment extends Fragment implements CategoryItemRecyclerAd
         categoryItemList=new ArrayList<>();
         allCategoryList=new ArrayList<>();
         moviesType=new ArrayList<>();
-        image=new ArrayList<>();
-
+        movieDatabaseViewModel= new ViewModelProvider(this).get(MovieDatabaseViewModel.class);
+        //movieDatabaseViewModel.deleteAllMovies();
         addMoviesType(moviesType);
 
         for(int i = 0; i< Constants.NUMBERS_OF_MOVIES_IN_A_RECYCLEVIEW; i++) {
@@ -73,7 +84,9 @@ public class MyMoviesFragment extends Fragment implements CategoryItemRecyclerAd
         adapter2.addAllCategory(allCategoryList);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter2);
+
+
+
 
 
 
@@ -81,25 +94,56 @@ public class MyMoviesFragment extends Fragment implements CategoryItemRecyclerAd
     }
 
     private void getMoviesFromDatabase() {
+        /*List<CategoryItem> list=new ArrayList<>();
+        for(int i =0;i<Constants.NUMBERS_OF_MOVIES_IN_A_RECYCLEVIEW;i++){
+            list.add(new CategoryItem(i,"",""));
+        }
+        if(allCategoryList!=null) {
+            allCategoryList.get(allCategoryList.indexOf(new AllCategory(Constants.FAVORITES, null))).getCategoryItemList().addAll(list);
+            allCategoryList.get(allCategoryList.indexOf(new AllCategory(Constants.WATCHED, null))).getCategoryItemList().addAll(list);
+            allCategoryList.get(allCategoryList.indexOf(new AllCategory(Constants.PLAN_TO_WATCH, null))).getCategoryItemList().addAll(list);
+        }
+
+        mainRecyclerAdapter = new MainRecyclerAdapter2(getContext(), allCategoryList);
+        recyclerView.setAdapter(mainRecyclerAdapter);*/
 
 
+        //MovieEntity m=new MovieEntity(movieModel.getId(), movieModel.getPoster_path(), movieModel.getCategory(),false,false,false);
 
+        listMovie = new ArrayList<MovieEntity>();
+
+
+          movieDatabaseViewModel.getAllMovies().observe(getViewLifecycleOwner(), new Observer<List<MovieEntity>>() {
+            @Override
+            public void onChanged(List<MovieEntity> movieEntities) {
                 List<CategoryItem> list=new ArrayList<>();
-    for(int i = 0; i<Constants.NUMBERS_OF_MOVIES_IN_A_RECYCLEVIEW;i++){
-        list.add(new CategoryItem(i,"",""));
-    }
-
-
-                    if(allCategoryList!=null) {
-                        allCategoryList.get(allCategoryList.indexOf(new AllCategory(Constants.FAVORITES, null))).getCategoryItemList().addAll(list);
-                        allCategoryList.get(allCategoryList.indexOf(new AllCategory(Constants.WATCHED, null))).getCategoryItemList().addAll(list);
-                        allCategoryList.get(allCategoryList.indexOf(new AllCategory(Constants.PLAN_TO_WATCH, null))).getCategoryItemList().addAll(list);
+                Log.v("msgg",movieEntities.get(0).toString());
+                    for (int i = 0; i < movieEntities.size(); i++) {
+                        list.add(new CategoryItem(movieEntities.get(i).getMovie_id(),movieEntities.get(i).getPoster_path(), "Movie"));
                     }
 
-                    mainRecyclerAdapter = new MainRecyclerAdapter2(getContext(), allCategoryList);
-        recyclerView.setAdapter(mainRecyclerAdapter);
+                if(movieEntities.size()>0) {
+                    //lastRequestF = TypeOfRequest.valueOf(movieEntities.get(0).getFavorite());
+                    lastRequestW = TypeOfRequest.valueOf(movieEntities.get(0).getWatched());
+                    //lastRequestS = TypeOfRequest.valueOf(movieEntities.get(0).getSaved());
+                }
+                    if(movieEntities!=null) {
+
+                            if(lastRequestW==TypeOfRequest.WATCHED)
+                            allCategoryList.get(allCategoryList.indexOf(new AllCategory(Constants.WATCHED, null))).getCategoryItemList().addAll(list);
 
                 }
+                mainRecyclerAdapter = new MainRecyclerAdapter(getContext(), allCategoryList,MyMoviesFragment.this);
+                recyclerView.setAdapter(mainRecyclerAdapter);
+            }
+        });
+
+
+
+
+
+                }
+
 
 
 
