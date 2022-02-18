@@ -80,6 +80,24 @@ public class MovieEntity {
     public String getCategory() {
         return category;
     }
+    public String getWatched() {
+        if(watched)
+            return "WATCHED";
+        else
+            return "false";
+    }
+    public String getSaved() {
+        if(saved)
+            return "true";
+        else
+            return "false";
+    }
+    public String getFavorite() {
+       if(favorite)
+           return "FAVORITES";
+       else
+           return "false";
+    }
 
     public void setCategory(String category) {
         this.category = category;
