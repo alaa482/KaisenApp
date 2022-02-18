@@ -11,7 +11,9 @@ import java.util.List;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import it.unimib.kaisenapp.AppExecutor;
+import it.unimib.kaisenapp.models.TvSerieModel;
 import it.unimib.kaisenapp.models.TvShowModel;
+import it.unimib.kaisenapp.response.EpisodeResponse;
 import it.unimib.kaisenapp.utils.TypeOfRequest;
 import it.unimib.kaisenapp.models.MovieModel;
 import it.unimib.kaisenapp.response.MovieSearchResponse;
@@ -26,12 +28,15 @@ public class MovieApiClient{
 
     private MutableLiveData<List<MovieModel>> mMovies;
     private MutableLiveData<List<TvShowModel>> mTvShows;
+    private MutableLiveData<List<TvSerieModel>> mTvSerieEpisode;
     private static MovieApiClient instance;
     private RetrieveMoviesRunnable retrieveMoviesRunnable;     //global request
+    private RetrieveEpisodesRunnable retrieveEpisodesRunnable;
 
     private MovieApiClient(){
         mMovies=new MutableLiveData<>();
         mTvShows=new MutableLiveData<>();
+        mTvSerieEpisode=new MutableLiveData<>();
     }
 
     public static MovieApiClient getInstance(){
@@ -49,7 +54,21 @@ public class MovieApiClient{
         return mTvShows;
     }
 
+    public LiveData<List<TvSerieModel>> getEpisode(){
+        return mTvSerieEpisode;
+    }
 
+    public void getEpisode(int tv_id, int season_number) {
+        retrieveEpisodesRunnable=new RetrieveEpisodesRunnable(tv_id, season_number);
+        final Future myHandler = AppExecutor.getInstance().networkIO().submit(retrieveEpisodesRunnable);
+
+        AppExecutor.getInstance().networkIO().schedule(new Runnable() {
+            @Override
+            public void run() {
+                myHandler.cancel(true);
+            }
+        },3000, TimeUnit.MILLISECONDS);
+    }
 
     public void getMovies(TypeOfRequest typeOfRequest, int page) {
         retrieveMoviesRunnable=new RetrieveMoviesRunnable(typeOfRequest, page);
@@ -63,8 +82,8 @@ public class MovieApiClient{
         },3000, TimeUnit.MILLISECONDS);
     }
     public void getMovies(TypeOfRequest typeOfRequest, int id, int page) {
-       // if(retrieveMoviesRunnable==null)
-            retrieveMoviesRunnable=new RetrieveMoviesRunnable(typeOfRequest, id, page);
+        // if(retrieveMoviesRunnable==null)
+        retrieveMoviesRunnable=new RetrieveMoviesRunnable(typeOfRequest, id, page);
 
         final Future myHandler = AppExecutor.getInstance().networkIO().submit(retrieveMoviesRunnable);
 
@@ -147,7 +166,7 @@ public class MovieApiClient{
                             break;
 
                         case MOST_POPULAR_TV_SHOWS: response=getMostPopularTvShows(page).execute();
-                        break;
+                            break;
 
                         case TOP_RATED_TV_SHOWS: response=getTopRatedTvShows(page).execute();
                             break;
@@ -157,6 +176,8 @@ public class MovieApiClient{
 
                         case ON_THE_AIR_TODAY_TV_SHOWS: response=getOnTheAirTodayTvShows(page).execute();
                             break;
+
+
                     }
                 }
 
@@ -272,10 +293,56 @@ public class MovieApiClient{
             );
         }
 
+
+
+    }
+
+    private class RetrieveEpisodesRunnable implements Runnable{
+        private int tv_id;
+        private int season_number;
+        private boolean cancelRequest;
+
+        public RetrieveEpisodesRunnable(int tv_id, int season_number) {
+            this.tv_id = tv_id;
+            this.season_number = season_number;
+            cancelRequest=false;
+        }
+        private void cancelRequest(){
+            cancelRequest=true;
+        }
+
+        @Override
+        public void run() {
+
+            try {
+                Response response= getAllEpisode(tv_id,season_number).execute();
+
+                if (cancelRequest)
+                    return;
+
+                if(response.code() == 200) {
+
+                    List<TvSerieModel> list = new ArrayList<TvSerieModel>(((EpisodeResponse) response.body()).getTvSeries());
+                    mTvSerieEpisode.postValue(list);
+
+                }else
+                    Log.v("Tag", "Response error: " + response.errorBody().string());
+
+            } catch (IOException e) {
+                e.printStackTrace();
+
+            }
+
+        }
+
+        private Call<EpisodeResponse> getAllEpisode(int tv_id, int season_number){
+            return Service.getMovieApi().getAllEpisode(
+                    tv_id,
+                    season_number,
+                    Credentials.API_KEY,
+                    Credentials.LANGUAGE
+            );
+        }
     }
 
 }
-
-
-
-

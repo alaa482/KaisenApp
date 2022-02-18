@@ -12,6 +12,7 @@ import it.unimib.kaisenapp.AppExecutor;
 import it.unimib.kaisenapp.database.Database;
 import it.unimib.kaisenapp.database.MovieDao;
 import it.unimib.kaisenapp.database.MovieEntity;
+import it.unimib.kaisenapp.database.TvShowDao;
 import it.unimib.kaisenapp.database.TvShowEntity;
 import it.unimib.kaisenapp.repository.MovieDatabaseRepository;
 
@@ -26,7 +27,7 @@ public class MovieDatabaseViewModel extends AndroidViewModel {
     }
 
     public LiveData<List<TvShowEntity>> getAllTvShows(){
-        return movieDatabaseRepository.getAllTvShows();
+        return movieDatabaseRepository.getAllSeries();
     }
     public LiveData<List<MovieEntity>> getAllMovies(){
         return movieDatabaseRepository.getAllMovies();
@@ -78,6 +79,23 @@ public class MovieDatabaseViewModel extends AndroidViewModel {
         });
 
     }
+    public void updateMovie(MovieEntity movieEntity){
+        final Future myHandler = AppExecutor.getInstance().networkIO().submit(new Runnable() {
+            @Override
+            public void run() {
+                movieDatabaseRepository.updateMovie(movieEntity);
+            }
+        });
+    }
+    public void updateSerie(TvShowEntity tvShowEntity){
+        final Future myHandler = AppExecutor.getInstance().networkIO().submit(new Runnable() {
+            @Override
+            public void run() {
+                movieDatabaseRepository.updateSerie(tvShowEntity);
+            }
+        });
+    }
+
     public void addAllMovies(List<MovieEntity> movieEntityList){
         movieDatabaseRepository.addAllMovies(movieEntityList);
         /*final Future myHandler = AppExecutor.getInstance().networkIO().submit(new Runnable() {

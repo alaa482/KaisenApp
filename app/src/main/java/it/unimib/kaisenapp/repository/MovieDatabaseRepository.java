@@ -12,6 +12,7 @@ import it.unimib.kaisenapp.database.MovieEntity;
 import it.unimib.kaisenapp.database.TvShowDao;
 import it.unimib.kaisenapp.database.TvShowEntity;
 import it.unimib.kaisenapp.models.MovieModel;
+import it.unimib.kaisenapp.models.TvSerieModel;
 import it.unimib.kaisenapp.request.MovieApiClient;
 
 public class MovieDatabaseRepository {
@@ -46,11 +47,18 @@ public class MovieDatabaseRepository {
         liveData.postValue(movieDao.getAllMovies());
         return liveData;
     }
-    public MutableLiveData<List<TvShowEntity>> getAllTvShows(){
+    public void updateMovie(MovieEntity movieEntity){
+        movieDao.updateMovies(movieEntity);
+    }
+    public void updateSerie(TvShowEntity tvShowEntity){
+        tvShowDao.updateTvSerie(tvShowEntity);
+    }
+    public MutableLiveData<List<TvShowEntity>> getAllSeries(){
         MutableLiveData<List<TvShowEntity>> liveData= new MutableLiveData<>();
         liveData.postValue(tvShowDao.getAllTvShows());
         return liveData;
     }
+
 
     public MutableLiveData<List<MovieEntity>> getAllMoviesByCategory(String category){
         MutableLiveData<List<MovieEntity>> liveData= new MutableLiveData<>();

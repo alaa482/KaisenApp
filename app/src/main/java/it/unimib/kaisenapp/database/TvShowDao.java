@@ -5,6 +5,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import java.util.List;
 
@@ -16,6 +17,9 @@ public interface TvShowDao {
 
     @Insert
     void insertAllTvShows(List<TvShowEntity> tvShowEntities);
+
+    @Update
+    void updateTvSerie(TvShowEntity tvShowEntity);
 
     @Query("SELECT * FROM tv_show")
     List<TvShowEntity> getAllTvShows();
@@ -38,4 +42,5 @@ public interface TvShowDao {
 
     @Query("DELETE FROM tv_show")
     void deleteAllTvShows();
+
 }

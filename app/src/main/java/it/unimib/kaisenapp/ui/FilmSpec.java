@@ -1,6 +1,8 @@
 package it.unimib.kaisenapp.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import it.unimib.kaisenapp.R;
 import it.unimib.kaisenapp.adapter.SimilarReciclerAdapter;
+import it.unimib.kaisenapp.database.MovieEntity;
 import it.unimib.kaisenapp.models.GenresModel;
 import it.unimib.kaisenapp.models.MovieModel;
 import it.unimib.kaisenapp.models.ProductionCompaniesModel;
@@ -28,6 +31,8 @@ import it.unimib.kaisenapp.request.Service;
 import it.unimib.kaisenapp.response.MovieDetailsResponse;
 import it.unimib.kaisenapp.response.SimilarResponse;
 import it.unimib.kaisenapp.utils.Credentials;
+import it.unimib.kaisenapp.viewmodels.MovieDatabaseViewModel;
+import it.unimib.kaisenapp.viewmodels.MovieListViewModel;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -41,13 +46,11 @@ public class FilmSpec extends AppCompatActivity implements SimilarReciclerAdapte
     private RatingBar ratingBar;
     private TextView genresUI;
     private List<GenresModel> genresList;
-    private List<ProductionCompaniesModel> productionCompaniesList;
     private String originalTitle;
     private String imagePath;
     private float avarageVote;
     private String title;
     private String plot;
-    private List<MovieModel> recommendations;
     private ImageButton bookmarkedUI ;
     private ImageButton favoriteUI;
     private ImageButton starUI;
@@ -57,6 +60,8 @@ public class FilmSpec extends AppCompatActivity implements SimilarReciclerAdapte
     private Boolean favorite=false;
     private Boolean star=false;
     private int icon;
+    private MovieDatabaseViewModel movieDatabaseViewModel;
+    private  MovieEntity m;
 
     String prefix="https://image.tmdb.org/t/p/w500/";
     MovieApi movieApi = Service.getMovieApi();
@@ -89,77 +94,139 @@ public class FilmSpec extends AppCompatActivity implements SimilarReciclerAdapte
         favoriteUI=(ImageButton)findViewById(R.id.favorite);
         starUI=(ImageButton)findViewById(R.id.star);
         durataUI=(TextView)findViewById(R.id.durata);
+        movieDatabaseViewModel= new ViewModelProvider(this).get(MovieDatabaseViewModel.class);
+
+
 
         bookmarkedUI.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
 
 
+                movieDatabaseViewModel.getAllMovies().observe(FilmSpec.this, new Observer<List<MovieEntity>>() {
+                    @Override
+                    public void onChanged(List<MovieEntity> movieEntities) {
+                        for (MovieEntity mm : movieEntities) {
+                            if (mm.equals(m)) {
+                                if (bookmarked) {
 
-                if (bookmarked) {
-                    Log.v("test","false");
-                    bookmarked = false;
-                    icon = R.drawable.bookmark_border;
-                }
-                else {
-                    Log.v("test","true");
-                    bookmarked = true;
-                    icon = R.drawable.bookmark;
-                }
-                bookmarkedUI.setImageResource(icon);
+                                    mm.setWatched(!bookmarked);
+                                    m.setWatched(!bookmarked);
+                                    movieDatabaseViewModel.updateMovie(mm);
+                                    Log.v("test", String.valueOf(mm.isWatched()));
+
+                                    icon = R.drawable.bookmark_border;
+                                    bookmarked=!bookmarked;
+
+
+                                }
+                                else {
+                                    mm.setWatched(!bookmarked);
+                                    m.setWatched(!bookmarked);
+                                    movieDatabaseViewModel.updateMovie(mm);
+                                    Log.v("test", String.valueOf(mm.isWatched()));
+                                    icon = R.drawable.bookmark;
+                                    bookmarked=!bookmarked;
+                                }
+                                bookmarkedUI.setImageResource(icon);
+                            }
+
+                        }
+                    }
+                });
+
 
             }
         });
         favoriteUI.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
+                                          @Override
+                                          public void onClick(View v) {
 
-                if (favorite) {
-                    Log.v("test","false");
-                    favorite = false;
-                    icon = R.drawable.not_favorite;
-                }
-                else {
-                    Log.v("test","true");
-                    favorite = true;
-                    icon = R.drawable.favorite;
-                }
-                favoriteUI.setImageResource(icon);
-            }
+
+                                              movieDatabaseViewModel.getAllMovies().observe(FilmSpec.this, new Observer<List<MovieEntity>>() {
+                                                  @Override
+                                                  public void onChanged(List<MovieEntity> movieEntities) {
+                                                      for (MovieEntity mm : movieEntities) {
+                                                          if (mm.equals(m)) {
+                                                              if (favorite) {
+
+                                                                  mm.setFavorite(!favorite);
+                                                                  m.setFavorite(!favorite);
+                                                                  movieDatabaseViewModel.updateMovie(mm);
+                                                                  Log.v("test", String.valueOf(mm.isFavorite()));
+
+                                                                  icon = R.drawable.not_favorite;
+                                                                  favorite=!favorite;
+
+
+                                                              }
+                                                              else {
+                                                                  mm.setFavorite(!favorite);
+                                                                  m.setFavorite(!favorite);
+                                                                  movieDatabaseViewModel.updateMovie(mm);
+                                                                  Log.v("test", String.valueOf(mm.isFavorite()));
+                                                                  icon = R.drawable.favorite;
+                                                                  favorite=!favorite;
+                                                              }
+                                                              favoriteUI.setImageResource(icon);
+                                                          }
+
+                                                      }
+                                                  }
+                                              });
+                                          }
         });
         starUI.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
+                                      @Override
+                                      public void onClick(View v) {
 
-                if (star) {
-                    Log.v("test","false");
-                    star = false;
-                    icon = R.drawable.not_star;
-                }
-                else {
-                    Log.v("test","true");
-                    star = true;
-                    icon = R.drawable.star;
-                }
-                starUI.setImageResource(icon);
-            }
-        });
+
+                                          movieDatabaseViewModel.getAllMovies().observe(FilmSpec.this, new Observer<List<MovieEntity>>() {
+                                              @Override
+                                              public void onChanged(List<MovieEntity> movieEntities) {
+                                                  for (MovieEntity mm : movieEntities) {
+                                                      if (mm.equals(m)) {
+                                                          if (star) {
+
+                                                              mm.setSaved(!star);
+                                                              m.setSaved(!star);
+                                                              movieDatabaseViewModel.updateMovie(mm);
+                                                              Log.v("test", String.valueOf(mm.isSaved()));
+
+                                                              icon = R.drawable.not_star;
+                                                              star = !star;
+
+
+                                                          } else {
+                                                              mm.setSaved(!star);
+                                                              m.setSaved(!star);
+                                                              movieDatabaseViewModel.updateMovie(mm);
+                                                              Log.v("test", String.valueOf(mm.isSaved()));
+                                                              icon = R.drawable.star;
+                                                              star = !star;
+                                                          }
+                                                          starUI.setImageResource(icon);
+                                                      }
+
+                                                  }
+                                              }
+
+                                          });
+                                      }
+                                  });
         backBTNUI.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-
-
                 finish();
-
             }
         });
         int id = getIntent().getIntExtra("id",634649);
         GetRetrofitResponse(id);
         GetRetrofitResponseRecommendations(id);
+
 
     }
 
@@ -180,7 +247,6 @@ public class FilmSpec extends AppCompatActivity implements SimilarReciclerAdapte
             public void onResponse(Call<MovieDetailsResponse> call, Response<MovieDetailsResponse> response) {
                 if (response.code() == 200) {
                     genresList = new ArrayList<>(((MovieDetailsResponse) response.body()).getGenres());
-                    productionCompaniesList= new ArrayList<>(((MovieDetailsResponse) response.body()).getProductionCompanies());
                     originalTitle= response.body().getOriginalTitle();
                     imagePath = response.body().getImage_path();
                     avarageVote = response.body().getVoteAvarege();
@@ -209,6 +275,68 @@ public class FilmSpec extends AppCompatActivity implements SimilarReciclerAdapte
                    }
                 }
                 genresUI.setText(aus);
+                m = new MovieEntity(id,imagePath,null,bookmarked,star,favorite);
+
+
+
+                Log.v("test",m.toString());
+                movieDatabaseViewModel.getAllMovies().observe(FilmSpec.this, new Observer<List<MovieEntity>>() {
+                    @Override
+                    public void onChanged(List<MovieEntity> movieEntityList) {
+                        if(movieEntityList!=null){
+
+                            for (MovieEntity mm: movieEntityList) {
+
+
+
+                                if(mm.equals(m)){
+                                    Log.v("test",mm.toString()+" mm");
+                                    favorite = mm.isFavorite();
+                                    bookmarked = mm.isWatched();
+                                    star = mm.isSaved();
+                                    if (!mm.isSaved()) {
+
+                                        icon = R.drawable.not_star;
+                                    }
+                                    else {
+
+                                        icon = R.drawable.star;
+                                    }
+                                    starUI.setImageResource(icon);
+
+                                    if (!mm.isFavorite()) {
+
+                                        icon = R.drawable.not_favorite;
+                                    }
+                                    else {
+
+                                        icon = R.drawable.favorite;
+                                    }
+
+                                    favoriteUI.setImageResource(icon);
+
+                                    if (!mm.isWatched()) {
+
+                                        icon = R.drawable.bookmark_border;
+                                    }
+                                    else {
+
+                                        icon = R.drawable.bookmark;
+                                    }
+                                    bookmarkedUI.setImageResource(icon);
+
+
+                                }
+
+                            }
+
+
+                        }
+                    }
+                });
+                movieDatabaseViewModel.addMovie(m);
+
+
 
             }
 

@@ -37,7 +37,7 @@ public class SeasonsReciclerAdapter extends RecyclerView.Adapter<SeasonsRecicler
 
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
-        String prefix="https://image.tmdb.org/t/p/w500/";
+        String prefix="https://image.tmdb.org/t/p/w500";
         Glide.with(holder.itemImage)
                 .load(prefix+seasons.get(position).getPoster_path())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -65,11 +65,11 @@ public class SeasonsReciclerAdapter extends RecyclerView.Adapter<SeasonsRecicler
 
         @Override
         public void onClick(View view) {
-            onClickListener.onClick(seasons.get(getAdapterPosition()).getId(),null);
+            onClickListener.onClick(seasons.get(getAdapterPosition()).getId(),seasons.get(getAdapterPosition()).getSeason_number());
         }
     }
     public interface OnClickListener{
-        void onClick(int id,String s);
+        void onClick(int id,int s);
     }
 
 

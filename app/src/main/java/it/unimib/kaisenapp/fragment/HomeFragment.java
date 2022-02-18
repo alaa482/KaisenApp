@@ -86,11 +86,9 @@ public class HomeFragment extends Fragment  implements CategoryItemRecyclerAdapt
         movieListViewModel= new ViewModelProvider(this).get(MovieListViewModel.class);
         movieDatabaseViewModel=new ViewModelProvider(this).get(MovieDatabaseViewModel.class);
 
-        movieDatabaseViewModel.deleteAllTvShows();
-        movieDatabaseViewModel.deleteAllMovies();
+
 
         ObserverAnyChange();
-        getMoviesFromDatabase();
         if(isConnected()){
             getAllMoviesToSetupHome();
 
@@ -138,33 +136,8 @@ public class HomeFragment extends Fragment  implements CategoryItemRecyclerAdapt
         }
         return movies;
     }
-    private void getMoviesFromDatabase(){
-        movieDatabaseViewModel.getAllMoviesByCategory(Constants.MOST_POPULAR_MOVIES).observe(getViewLifecycleOwner(), new Observer<List<MovieEntity>>() {
-            @Override
-            public void onChanged(List<MovieEntity> movieEntities) {
-                List<CategoryItem> list=new ArrayList<>();
-
-                if(movieEntities!=null && movieEntities.size()>0){
-                    for(MovieEntity m: movieEntities){
-                        Log.v("Tag", m.getCategory());
-                    }
-
-                    list=filter(movieEntities, Constants.MOST_POPULAR_MOVIES);
-                    for(CategoryItem c: list)
-                        Log.v("Tag", c.toString());
 
 
-                    if(allCategoryList!=null)
-                        allCategoryList.get(allCategoryList.indexOf(new AllCategory(Constants.MOST_POPULAR_MOVIES, null))).getCategoryItemList().addAll(list);
-
-
-                    mainRecyclerAdapter = new MainRecyclerAdapter(getContext(), allCategoryList, HomeFragment.this);
-                    mainCategoryRecycler.setAdapter(mainRecyclerAdapter);
-
-                }
-            }
-        });
-    }
 
 
 
@@ -183,7 +156,7 @@ public class HomeFragment extends Fragment  implements CategoryItemRecyclerAdapt
                         MovieEntity m=new MovieEntity(movieModel.getId(), movieModel.getPoster_path(), movieModel.getCategory(),false,false,false);
                         list.add(new CategoryItem(movieModel.getId(), movieModel.getPoster_path(),"movie"));
 
-                        movieDatabaseViewModel.addMovie(m);
+
 
                     }
 
@@ -222,7 +195,7 @@ public class HomeFragment extends Fragment  implements CategoryItemRecyclerAdapt
                     for (TvShowModel tvShowModel : tvShowModels) {
                         TvShowEntity t=new TvShowEntity(tvShowModel.getId(),tvShowModel.getPoster_path(),tvShowModel.getCategory(),false,false,false);
                         list.add(new CategoryItem(tvShowModel.getId(), tvShowModel.getPoster_path(),"tv_serie"));
-                        movieDatabaseViewModel.addTvShow(t);
+
                     }
 
 

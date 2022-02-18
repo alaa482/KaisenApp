@@ -52,6 +52,10 @@
             android:exported="false"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
+            android:name=".ui.Episodes"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity
             android:name=".SplashScreen"
             android:exported="true">
             <intent-filter>

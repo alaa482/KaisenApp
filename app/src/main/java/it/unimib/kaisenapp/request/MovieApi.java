@@ -1,6 +1,7 @@
 package it.unimib.kaisenapp.request;
 
 import it.unimib.kaisenapp.models.MovieModel;
+import it.unimib.kaisenapp.response.EpisodeResponse;
 import it.unimib.kaisenapp.response.MovieDetailsResponse;
 import it.unimib.kaisenapp.response.MovieSearchResponse;
 import it.unimib.kaisenapp.response.SerieDetailsResponse;
@@ -124,5 +125,11 @@ public interface MovieApi {
             @Query("language") String language
     );
 
-
+    @GET("tv/{tv_id}/season/{season_number}?")
+    Call<EpisodeResponse> getAllEpisode(
+            @Path("tv_id") int tv_id,
+            @Path("season_number") int season_number,
+            @Query("api_key") String key,
+            @Query("language") String language
+    );
 }

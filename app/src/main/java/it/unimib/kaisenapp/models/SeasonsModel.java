@@ -7,11 +7,13 @@ public class SeasonsModel implements Parcelable {
     private String name;
     private int id;
     private String poster_path;
+    private int season_number;
 
     protected SeasonsModel(Parcel in) {
         name = in.readString();
         id = in.readInt();
         poster_path = in.readString();
+        season_number = in.readInt();
     }
 
     public static final Creator<SeasonsModel> CREATOR = new Creator<SeasonsModel>() {
@@ -25,6 +27,10 @@ public class SeasonsModel implements Parcelable {
             return new SeasonsModel[size];
         }
     };
+
+    public int getSeason_number() {
+        return season_number;
+    }
 
     public String getName() {
         return name;
@@ -57,5 +63,6 @@ public class SeasonsModel implements Parcelable {
         dest.writeString(name);
         dest.writeInt(id);
         dest.writeString(poster_path);
+        dest.writeInt(season_number);
     }
 }
