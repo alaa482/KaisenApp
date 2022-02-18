@@ -156,8 +156,8 @@ public class SeriesSpec extends AppCompatActivity implements SimilarReciclerAdap
                             if (mm.equals(m)) {
                                 if (favorite) {
 
-                                    mm.setFavorite(!favorite);
-                                    m.setFavorite(!favorite);
+                                    mm.setSaved(!favorite);
+                                    m.setSaved(!favorite);
                                     movieDatabaseViewModel.updateSerie(mm);
                                     Log.v("test", String.valueOf(mm.isFavorite()));
 
@@ -167,8 +167,8 @@ public class SeriesSpec extends AppCompatActivity implements SimilarReciclerAdap
 
                                 }
                                 else {
-                                    mm.setFavorite(!favorite);
-                                    m.setFavorite(!favorite);
+                                    mm.setSaved(!favorite);
+                                    m.setSaved(!favorite);
                                     movieDatabaseViewModel.updateSerie(mm);
                                     Log.v("test", String.valueOf(mm.isFavorite()));
                                     icon = R.drawable.saved;
@@ -195,8 +195,8 @@ public class SeriesSpec extends AppCompatActivity implements SimilarReciclerAdap
                             if (mm.equals(m)) {
                                 if (star) {
 
-                                    mm.setSaved(!star);
-                                    m.setSaved(!star);
+                                    mm.setFavorite(!star);
+                                    m.setFavorite(!star);
                                     movieDatabaseViewModel.updateSerie(mm);
                                     Log.v("test", String.valueOf(mm.isSaved()));
 
@@ -205,8 +205,8 @@ public class SeriesSpec extends AppCompatActivity implements SimilarReciclerAdap
 
 
                                 } else {
-                                    mm.setSaved(!star);
-                                    m.setSaved(!star);
+                                    mm.setFavorite(!star);
+                                    m.setFavorite(!star);
                                     movieDatabaseViewModel.updateSerie(mm);
                                     Log.v("test", String.valueOf(mm.isSaved()));
                                     icon = R.drawable.favourite;
