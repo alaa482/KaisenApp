@@ -15,7 +15,6 @@ public abstract class Database extends RoomDatabase {
     @Volatile
     private static volatile Database INSTANCE;
 
-
     public static Database getInstance(final Context context) {
         if (INSTANCE == null) {
             synchronized (Database.class) {
@@ -31,13 +30,6 @@ public abstract class Database extends RoomDatabase {
         }
         return INSTANCE;
     }
-
-
-
-    /*private static final int NUMBER_OF_THREADS = 4;
-
-    static final ExecutorService databaseWriteExecutor =
-            Executors.newFixedThreadPool(NUMBER_OF_THREADS);*/
 }
 
 

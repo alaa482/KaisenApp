@@ -14,4 +14,6 @@ public enum TypeOfRequest {
     WATCHED,
     PLAN_TO_WATCH,
 
+    EPISODE
+
 }

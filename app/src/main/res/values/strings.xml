@@ -17,4 +17,5 @@
     <string name="originalTitle">Titolo Originale :</string>
     <string name="seasons">Stagioni</string>
     <string name="animazione">Animazione</string>
+    <string name="search_bar">  Cerca un film o una serie tv</string>
 </resources>

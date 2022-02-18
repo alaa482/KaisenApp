@@ -9,6 +9,8 @@ import androidx.room.Update;
 
 import java.util.List;
 
+import it.unimib.kaisenapp.models.TvSerieModel;
+
 @Dao
 public interface MovieDao {
 
@@ -36,12 +38,15 @@ public interface MovieDao {
     @Query("SELECT * FROM movie WHERE favorite = 1")
     List<MovieEntity> getAllFavoriteMovies();
 
-
-
     @Delete
     void deleteMovie(MovieEntity movieEntity);
 
     @Query("DELETE FROM movie")
     void deleteAllMovies();
+
+    @Update
+    void updateMovies(MovieEntity movieEntity);
+
+
 
 }

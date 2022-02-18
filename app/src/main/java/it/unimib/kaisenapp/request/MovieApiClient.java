@@ -11,9 +11,11 @@ import java.util.List;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import it.unimib.kaisenapp.AppExecutor;
+import it.unimib.kaisenapp.models.SearchMultiModel;
 import it.unimib.kaisenapp.models.TvSerieModel;
 import it.unimib.kaisenapp.models.TvShowModel;
 import it.unimib.kaisenapp.response.EpisodeResponse;
+import it.unimib.kaisenapp.response.SearchMultiResponse;
 import it.unimib.kaisenapp.utils.TypeOfRequest;
 import it.unimib.kaisenapp.models.MovieModel;
 import it.unimib.kaisenapp.response.MovieSearchResponse;
@@ -21,22 +23,27 @@ import it.unimib.kaisenapp.response.TvShowSearchResponse;
 import it.unimib.kaisenapp.utils.Credentials;
 import retrofit2.Call;
 import retrofit2.Response;
+import retrofit2.http.GET;
 
 //Classe che fa da ponte tra retrofit e livedata
 
 public class MovieApiClient{
-
-    private MutableLiveData<List<MovieModel>> mMovies;
-    private MutableLiveData<List<TvShowModel>> mTvShows;
-    private MutableLiveData<List<TvSerieModel>> mTvSerieEpisode;
     private static MovieApiClient instance;
-    private RetrieveMoviesRunnable retrieveMoviesRunnable;     //global request
+
+    private final MutableLiveData<List<MovieModel>> mMovies;
+    private final MutableLiveData<List<TvShowModel>> mTvShows;
+    private final MutableLiveData<List<TvSerieModel>> mTvSerieEpisode;
+    private final MutableLiveData<List<SearchMultiModel>> mSearchMulti;
+
+    private RetrieveMoviesRunnable retrieveMoviesRunnable;
     private RetrieveEpisodesRunnable retrieveEpisodesRunnable;
+    private RetrieveSearchMultiRunnable retrieveSearchMultiRunnable;
 
     private MovieApiClient(){
         mMovies=new MutableLiveData<>();
         mTvShows=new MutableLiveData<>();
         mTvSerieEpisode=new MutableLiveData<>();
+        mSearchMulti=new MutableLiveData<>();
     }
 
     public static MovieApiClient getInstance(){
@@ -58,8 +65,12 @@ public class MovieApiClient{
         return mTvSerieEpisode;
     }
 
-    public void getEpisode(int tv_id, int season_number) {
-        retrieveEpisodesRunnable=new RetrieveEpisodesRunnable(tv_id, season_number);
+    public LiveData<List<SearchMultiModel>> getSearchedMulti(){
+        return mSearchMulti;
+    }
+
+    public void getEpisode(int tv_id, int season_number, int episode_number) {
+        retrieveEpisodesRunnable=new RetrieveEpisodesRunnable(tv_id, season_number, episode_number);
         final Future myHandler = AppExecutor.getInstance().networkIO().submit(retrieveEpisodesRunnable);
 
         AppExecutor.getInstance().networkIO().schedule(new Runnable() {
@@ -69,7 +80,6 @@ public class MovieApiClient{
             }
         },3000, TimeUnit.MILLISECONDS);
     }
-
     public void getMovies(TypeOfRequest typeOfRequest, int page) {
         retrieveMoviesRunnable=new RetrieveMoviesRunnable(typeOfRequest, page);
         final Future myHandler = AppExecutor.getInstance().networkIO().submit(retrieveMoviesRunnable);
@@ -82,8 +92,8 @@ public class MovieApiClient{
         },3000, TimeUnit.MILLISECONDS);
     }
     public void getMovies(TypeOfRequest typeOfRequest, int id, int page) {
-        // if(retrieveMoviesRunnable==null)
-        retrieveMoviesRunnable=new RetrieveMoviesRunnable(typeOfRequest, id, page);
+       // if(retrieveMoviesRunnable==null)
+            retrieveMoviesRunnable=new RetrieveMoviesRunnable(typeOfRequest, id, page);
 
         final Future myHandler = AppExecutor.getInstance().networkIO().submit(retrieveMoviesRunnable);
 
@@ -106,6 +116,17 @@ public class MovieApiClient{
             }
         },3000, TimeUnit.MILLISECONDS);
     }
+    public void search(String query, int page){
+        retrieveSearchMultiRunnable=new RetrieveSearchMultiRunnable(query, page);
+        final Future myHandler = AppExecutor.getInstance().networkIO().submit(retrieveSearchMultiRunnable);
+
+        AppExecutor.getInstance().networkIO().schedule(new Runnable() {
+            @Override
+            public void run() {
+                myHandler.cancel(true);
+            }
+        },3000, TimeUnit.MILLISECONDS);
+    }
 
     private class RetrieveMoviesRunnable implements Runnable{
         private String query;
@@ -114,13 +135,6 @@ public class MovieApiClient{
         private boolean cancelRequest;
         private TypeOfRequest typeOfRequest;
 
-        public RetrieveMoviesRunnable(String query, int page) {
-            this.query = query;
-            this.page = page;
-            id=-1;
-            cancelRequest=false;
-            typeOfRequest=null;
-        }
         public RetrieveMoviesRunnable(TypeOfRequest typeOfRequest, int page){
             this.page = page;
             this.typeOfRequest=typeOfRequest;
@@ -166,7 +180,7 @@ public class MovieApiClient{
                             break;
 
                         case MOST_POPULAR_TV_SHOWS: response=getMostPopularTvShows(page).execute();
-                            break;
+                        break;
 
                         case TOP_RATED_TV_SHOWS: response=getTopRatedTvShows(page).execute();
                             break;
@@ -300,11 +314,13 @@ public class MovieApiClient{
     private class RetrieveEpisodesRunnable implements Runnable{
         private int tv_id;
         private int season_number;
+        private int episode_number;
         private boolean cancelRequest;
 
-        public RetrieveEpisodesRunnable(int tv_id, int season_number) {
+        public RetrieveEpisodesRunnable(int tv_id, int season_number, int episode_number) {
             this.tv_id = tv_id;
             this.season_number = season_number;
+            this.episode_number = episode_number;
             cancelRequest=false;
         }
         private void cancelRequest(){
@@ -315,16 +331,14 @@ public class MovieApiClient{
         public void run() {
 
             try {
-                Response response= getAllEpisode(tv_id,season_number).execute();
+                Response response= getAllEpisode(tv_id,season_number, episode_number).execute();
 
                 if (cancelRequest)
                     return;
 
                 if(response.code() == 200) {
-
-                    List<TvSerieModel> list = new ArrayList<TvSerieModel>(((EpisodeResponse) response.body()).getTvSeries());
+                    List<TvSerieModel> list = new ArrayList<>(((EpisodeResponse) response.body()).getTvSeries());
                     mTvSerieEpisode.postValue(list);
-
                 }else
                     Log.v("Tag", "Response error: " + response.errorBody().string());
 
@@ -335,14 +349,69 @@ public class MovieApiClient{
 
         }
 
-        private Call<EpisodeResponse> getAllEpisode(int tv_id, int season_number){
+        private Call<EpisodeResponse> getAllEpisode(int tv_id, int season_number, int episode_number){
             return Service.getMovieApi().getAllEpisode(
                     tv_id,
                     season_number,
+                    episode_number,
                     Credentials.API_KEY,
                     Credentials.LANGUAGE
             );
         }
     }
 
+    private class RetrieveSearchMultiRunnable implements Runnable{
+        private boolean cancelRequest;
+        private String query;
+        private int page;
+
+        public RetrieveSearchMultiRunnable(String query, int page) {
+            cancelRequest = false;
+            this.query = query;
+            this.page = page;
+        }
+
+        private void cancelRequest(){
+            cancelRequest=true;
+        }
+
+        @Override
+        public void run() {
+            try {
+
+                Response response=search(query,page).execute();
+
+                if(cancelRequest)
+                    return;
+
+                if(response.code() == 200){
+                    List<SearchMultiModel> searchedList = new ArrayList<>(((SearchMultiResponse) response.body()).getAll());
+                    mSearchMulti.postValue(searchedList);
+
+                }else
+                    Log.v("Tag", "Response error: " + response.errorBody().string());
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+
+        }
+
+        Call<SearchMultiResponse> search(String query, int page){
+            return Service.getMovieApi().search(
+                    Credentials.API_KEY,
+                    Credentials.LANGUAGE,
+                    query,
+                    page,
+                    Credentials.REGION
+            );
+        }
+    }
+
 }
+
+
+
+
