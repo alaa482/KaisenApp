@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Objects;
 
 //Classe delle categorie nella home
-public class AllCategory implements Parcelable, Serializable {
+public class AllCategory implements Parcelable {
 
     private String categoryTitle;
     private List<CategoryItem> categoryItemList;
@@ -65,7 +65,8 @@ public class AllCategory implements Parcelable, Serializable {
     @Override
     public String toString() {
         return "AllCategory{" +
-                "categoryItemList=" + categoryItemList +
+                "categoryTitle='" + categoryTitle + '\'' +
+                ", categoryItemList=" + categoryItemList +
                 '}';
     }
 

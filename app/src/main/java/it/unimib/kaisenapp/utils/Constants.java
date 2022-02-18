@@ -10,7 +10,6 @@ public class Constants {
     public static final String UPCOMING_MOVIES = "Film in uscita";
     public static final String TOP_RATED_MOVIES ="Film più votati";
     public static final String NOW_PLAYING_MOVIES="Film al cinema";
-    public static final String SIMILAR_TO_MOVIES ="Film simili a";
 
     public static final String MOST_POPULAR_TV_SHOWS = "Serie Tv più polari";
     public static final String TOP_RATED_TV_SHOWS = "Serie Tv più votati ";
@@ -27,4 +26,6 @@ public class Constants {
     public static final String NEWS_DATABASE_NAME = "Database";
 
     public static final String CONNECTION = "Connessione spenta";
+
+
 }

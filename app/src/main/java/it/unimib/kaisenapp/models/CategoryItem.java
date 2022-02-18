@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 import java.io.Serializable;
 
-public class CategoryItem  implements Parcelable, Serializable {
+public class CategoryItem  implements Parcelable {
     private Integer itemId;
     private String imageUrl;
     private String type;

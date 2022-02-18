@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.transition.Hold;
 
 
@@ -43,7 +45,8 @@ public class CategoryItemRecyclerAdapter extends RecyclerView.Adapter<CategoryIt
 
     @Override
     public void onBindViewHolder(@NonNull CategoryItemViewHolder holder, int position) {
-        String prefix="https://image.tmdb.org/t/p/w500/";
+        String prefix="https://image.tmdb.org/t/p/w500";
+
         Glide.with(holder.itemImage)
                 .load(prefix+categoryItemList.get(position).getImageUrl())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -52,7 +55,7 @@ public class CategoryItemRecyclerAdapter extends RecyclerView.Adapter<CategoryIt
         holder.id.setText(categoryItemList.get(position).getItemId().toString());
         holder.id.setVisibility(View.INVISIBLE);
         holder.type=categoryItemList.get(position).getType();
-        Glide.get(holder.itemImage.getContext()).clearMemory();
+
 
     }
 
@@ -84,7 +87,7 @@ public class CategoryItemRecyclerAdapter extends RecyclerView.Adapter<CategoryIt
         }
     }
     public interface OnClickListener{
-        void onClick(int position,String type);
+        void onClick(int id,String type);
     }
 
 
