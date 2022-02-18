@@ -52,13 +52,12 @@ public class SearchFragment extends Fragment {
     }
 
     private void search(){
-        if(isValid(text.getText().toString()))
+        if(isValid(text.getText().toString())) {
             button.setOnClickListener(view -> {
                 Log.v("Tag", text.getText().toString());
-                movieListViewModel.search(text.getText().toString(),Constants.PAGE);
+                movieListViewModel.search(text.getText().toString(), Constants.PAGE);
             });
-
-
+        }
 
     }
 
@@ -66,11 +65,7 @@ public class SearchFragment extends Fragment {
         movieListViewModel.getSearchedMulti().observe(SearchFragment.this, searchMultiModels -> {
             if(searchMultiModels !=null){
                     Log.v("Tag", searchMultiModels.toString());
-                    Intent intent=new Intent(getActivity(), SearchedMovies.class);
 
-
-                    intent.putExtra("searchedMovies", (Serializable) searchMultiModels);
-                    startActivity(intent);
 
 
 
