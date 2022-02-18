@@ -3,6 +3,7 @@ package it.unimib.kaisenapp.fragment;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,14 +19,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import it.unimib.kaisenapp.R;
+import it.unimib.kaisenapp.adapter.CategoryItemRecyclerAdapter;
 import it.unimib.kaisenapp.adapter.CategoryItemRecyclerAdapter2;
+import it.unimib.kaisenapp.adapter.MainRecyclerAdapter;
 import it.unimib.kaisenapp.adapter.MainRecyclerAdapter2;
+import it.unimib.kaisenapp.database.MovieEntity;
 import it.unimib.kaisenapp.models.AllCategory;
 import it.unimib.kaisenapp.models.CategoryItem;
 import it.unimib.kaisenapp.utils.Constants;
 import it.unimib.kaisenapp.viewmodels.MovieListViewModel;
 
-public class MyMoviesFragment extends Fragment{
+public class MyMoviesFragment extends Fragment implements CategoryItemRecyclerAdapter.OnClickListener{
     private RecyclerView mainCategoryRecycler;
     private MainRecyclerAdapter2 mainRecyclerAdapter;
     private List<List<CategoryItem>> categoryItemList; //contiene i film di ogni recycleview
@@ -33,7 +37,7 @@ public class MyMoviesFragment extends Fragment{
     private List<String> moviesType;
     private List<String> image;
     private CategoryItemRecyclerAdapter2 adapter;
-    private MainRecyclerAdapter2 adapter2;
+    private MainRecyclerAdapter adapter2;
     private BottomNavigationView bottomNavigationView;
     RecyclerView recyclerView;
 
@@ -50,31 +54,55 @@ public class MyMoviesFragment extends Fragment{
         image=new ArrayList<>();
 
         addMoviesType(moviesType);
-         Log.v("msg",moviesType.get(0));
-            for (int j = 0; j < Constants.NUMBERS_OF_FAV_IN_A_RECYCLEVIEW; j++)
-                image.add("");
+
+        for(int i = 0; i< Constants.NUMBERS_OF_MOVIES_IN_A_RECYCLEVIEW; i++) {
+            categoryItemList.add(new ArrayList<>());
+           // moviesType.add("");
+        }
 
         for(int i = 0; i< Constants.NUMBERS_OF_MOVIES_IN_A_RECYCLEVIEW; i++)
-            categoryItemList.add(new ArrayList<>());
-            categoryItemList.get(0).add(new CategoryItem(0,"",""));
-        mainRecyclerAdapter = new MainRecyclerAdapter2(getContext(), allCategoryList);
+            categoryItemList.get(i).add(new CategoryItem(i,"",""));
+
+
+
         for(int i=0; i< moviesType.size(); i++)
             allCategoryList.add(new AllCategory(moviesType.get(i), categoryItemList.get(i)));
 
-
-        //adapter=new CategoryItemRecyclerAdapter2(getContext(),image);
-        adapter2=new MainRecyclerAdapter2(getContext(), allCategoryList);
-        //RecyclerView.LayoutManager layout = new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false);
-        //recyclerView.setLayoutManager(layout);
+        getMoviesFromDatabase();
+        adapter2=new MainRecyclerAdapter(getContext(), allCategoryList, MyMoviesFragment.this);
         adapter2.addAllCategory(allCategoryList);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter2);
-        //recyclerView.setAdapter(adapter);
+
 
 
         return homeView;
     }
+
+    private void getMoviesFromDatabase() {
+
+
+
+                List<CategoryItem> list=new ArrayList<>();
+    for(int i = 0; i<Constants.NUMBERS_OF_MOVIES_IN_A_RECYCLEVIEW;i++){
+        list.add(new CategoryItem(i,"",""));
+    }
+
+
+                    if(allCategoryList!=null) {
+                        allCategoryList.get(allCategoryList.indexOf(new AllCategory(Constants.FAVORITES, null))).getCategoryItemList().addAll(list);
+                        allCategoryList.get(allCategoryList.indexOf(new AllCategory(Constants.WATCHED, null))).getCategoryItemList().addAll(list);
+                        allCategoryList.get(allCategoryList.indexOf(new AllCategory(Constants.PLAN_TO_WATCH, null))).getCategoryItemList().addAll(list);
+                    }
+
+                    mainRecyclerAdapter = new MainRecyclerAdapter2(getContext(), allCategoryList);
+        recyclerView.setAdapter(mainRecyclerAdapter);
+
+                }
+
+
+
 
     private void addMoviesType(List<String> moviesType) {
         moviesType.add(Constants.FAVORITES);
@@ -83,4 +111,8 @@ public class MyMoviesFragment extends Fragment{
     }
 
 
+    @Override
+    public void onClick(int position, String type) {
+
+    }
 }

@@ -40,7 +40,7 @@ public class MainRecyclerAdapter2 extends RecyclerView.Adapter<MainRecyclerAdapt
     @Override
     public void onBindViewHolder(@NonNull MainViewHolder holder, int position) {
         holder.categoryTitle.setText(allCategoryList.get(position).getCategoryTitle());
-        //setCategoryItemRecycler(holder.itemRecycler, allCategoryList.get(position).getCategoryItemList());
+        setCategoryItemRecycler(holder.itemRecycler, allCategoryList.get(position).getCategoryItemList());
     }
 
     @Override
