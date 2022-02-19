@@ -5,17 +5,19 @@ import android.os.Parcelable;
 
 import java.io.Serializable;
 
-public class SearchMultiModel implements Parcelable, Serializable {
+public class SearchMultiModel implements Parcelable {
 
     private int id;
     private String title;
     private String original_title;
+    private String original_name;
     private String poster_path;
     private String media_type;
 
-    public SearchMultiModel(int id, String title, String original_title, String poster_path, String media_type) {
+    public SearchMultiModel(int id, String title, String original_title, String original_name,String poster_path, String media_type) {
         this.id = id;
         this.title = title;
+        this.original_name=original_name;
         this.original_title = original_title;
         this.poster_path = poster_path;
         this.media_type = media_type;
@@ -65,5 +67,34 @@ public class SearchMultiModel implements Parcelable, Serializable {
                 ", poster_path='" + poster_path + '\'' +
                 ", media_type='" + media_type + '\'' +
                 '}';
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getOriginal_title() {
+        return original_title;
+    }
+
+    public String getPoster_path() {
+        return poster_path;
+    }
+
+    public String getMedia_type() {
+        return media_type;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+
+    public String getOriginal_name() {
+        return original_name;
     }
 }

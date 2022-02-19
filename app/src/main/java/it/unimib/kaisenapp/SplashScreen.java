@@ -86,7 +86,7 @@ public class SplashScreen extends AppCompatActivity {
             List<CategoryItem> list=new ArrayList<>();
             if(movieModels!=null){
                 for(int i=0; i<movieModels.size(); ++i)
-                    list.add(new CategoryItem(movieModels.get(i).getId(), movieModels.get(i).getPoster_path(),"movie"));
+                    list.add(new CategoryItem(movieModels.get(i).getId(), movieModels.get(i).getPoster_path(),"movie", ""));
 
                 if(movieModels.size()>0){
                     if (movieModels.get(0).getCategory().equals(TypeOfRequest.MOST_POPULAR_MOVIES.toString()))
@@ -106,7 +106,7 @@ public class SplashScreen extends AppCompatActivity {
             List<CategoryItem> list=new ArrayList<>();
             if(tvShowModels!=null) {
                 for (TvShowModel tvShowModel : tvShowModels)
-                    list.add(new CategoryItem(tvShowModel.getId(), tvShowModel.getPoster_path(),"tv_serie"));
+                    list.add(new CategoryItem(tvShowModel.getId(), tvShowModel.getPoster_path(),"tv_serie", ""));
 
                 if(tvShowModels.size()>0){
                     if (tvShowModels.get(0).getCategory().equals(TypeOfRequest.MOST_POPULAR_TV_SHOWS.toString()))

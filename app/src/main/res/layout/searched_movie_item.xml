@@ -1,32 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+
+<RelativeLayout android:layout_width="match_parent"
+    android:layout_height="152dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#000000"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
 
         <ImageView
-            android:id="@+id/item_image"
+            android:id="@+id/search_item"
             android:layout_width="wrap_content"
             android:layout_height="137dp"
-            android:scaleType="fitXY"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
-            android:src="@drawable/ic_launcher_background" />
-
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_launcher_background"
+            tools:ignore="ImageContrastCheck"
+            android:contentDescription="TODO" />
 
         <TextView
-            android:id="@+id/textView"
-            android:layout_width="203dp"
-            android:layout_height="wrap_content"
+            android:id="@+id/search_title"
+            android:layout_width="283dp"
+            android:layout_height="49dp"
             android:layout_centerVertical="true"
             android:layout_marginStart="10dp"
-            android:layout_toEndOf="@+id/item_image"
+            android:layout_toEndOf="@+id/search_item"
             android:text="Titolo del film"
-            android:textColor="@color/black"
-            android:textSize="24sp" />
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/search_movie_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:visibility="invisible" />
     </RelativeLayout>
 
 
@@ -35,7 +43,3 @@
 
 
 
-
-
-
-</androidx.cardview.widget.CardView>

@@ -9,11 +9,13 @@ public class CategoryItem  implements Parcelable, Serializable {
     private Integer itemId;
     private String imageUrl;
     private String type;
+    private String title;
 
-    public CategoryItem(Integer itemId, String imageUrl, String type) {
+    public CategoryItem(Integer itemId, String imageUrl, String type, String title) {
         this.itemId = itemId;
         this.imageUrl = imageUrl;
-        this.type=type;
+        this.type = type;
+        this.title = title;
     }
 
     protected CategoryItem(Parcel in) {
@@ -24,23 +26,7 @@ public class CategoryItem  implements Parcelable, Serializable {
         }
         imageUrl = in.readString();
         type = in.readString();
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        if (itemId == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeInt(itemId);
-        }
-        dest.writeString(imageUrl);
-        dest.writeString(type);
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
+        title = in.readString();
     }
 
     public static final Creator<CategoryItem> CREATOR = new Creator<CategoryItem>() {
@@ -59,7 +45,6 @@ public class CategoryItem  implements Parcelable, Serializable {
         return itemId;
     }
 
-
     public String getImageUrl() {
         return imageUrl;
     }
@@ -68,12 +53,35 @@ public class CategoryItem  implements Parcelable, Serializable {
         return type;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        if (itemId == null) {
+            parcel.writeByte((byte) 0);
+        } else {
+            parcel.writeByte((byte) 1);
+            parcel.writeInt(itemId);
+        }
+        parcel.writeString(imageUrl);
+        parcel.writeString(type);
+        parcel.writeString(title);
+    }
+
     @Override
     public String toString() {
         return "CategoryItem{" +
                 "itemId=" + itemId +
                 ", imageUrl='" + imageUrl + '\'' +
                 ", type='" + type + '\'' +
+                ", title='" + title + '\'' +
                 '}';
     }
 }

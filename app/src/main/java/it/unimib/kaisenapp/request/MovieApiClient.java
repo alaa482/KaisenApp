@@ -387,6 +387,8 @@ public class MovieApiClient{
                 if(response.code() == 200){
                     List<SearchMultiModel> searchedList = new ArrayList<>(((SearchMultiResponse) response.body()).getAll());
                     mSearchMulti.postValue(searchedList);
+                    for(SearchMultiModel s: searchedList)
+                        Log.v("Test", s.toString());
 
                 }else
                     Log.v("Tag", "Response error: " + response.errorBody().string());

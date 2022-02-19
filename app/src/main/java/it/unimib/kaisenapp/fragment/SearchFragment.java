@@ -22,6 +22,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import it.unimib.kaisenapp.R;
@@ -43,27 +44,36 @@ public class SearchFragment extends Fragment {
         text=view.findViewById(R.id.text);
         button=view.findViewById(R.id.button);
         observer();
+        search();
+        return view;
+    }
 
+    private void search(){
         button.setOnClickListener(view -> {
             Log.v("Tag", text.getText().toString());
-            movieListViewModel.search(text.getText().toString(), Constants.PAGE);
+            if(isValid(text.getText().toString()))
+                movieListViewModel.search(text.getText().toString(), Constants.PAGE);
         });
-
-
-        return view;
     }
     private boolean isValid(String text){
         return text!=null && text.length()>0;
     }
-    private void observer(){
-        movieListViewModel.getSearchedMulti().observe(getViewLifecycleOwner(), searchMultiModels -> {
-            if(searchMultiModels !=null){
 
-                Intent intent=new Intent(getActivity(), SearchedMovies.class);
-                intent.putExtra("list", (Parcelable) searchMultiModels);
-                startActivity(intent);
+    private void observer(){
+        movieListViewModel.getSearchedMulti().observe(getViewLifecycleOwner(), new Observer<List<SearchMultiModel>>() {
+            @Override
+            public void onChanged(List<SearchMultiModel> searchMultiModels) {
+                if(searchMultiModels !=null){
+                    /*for(SearchMultiModel s: searchMultiModels)
+                        Log.v("Tag", s.toString());*/
+                    Intent intent=new Intent(getActivity(), SearchedMovies.class);
+                    intent.putExtra("list", (ArrayList<SearchMultiModel>) searchMultiModels);
+                    startActivity(intent);
+                }
             }
-        });
+
+
+    });
     }
 
 

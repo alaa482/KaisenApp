@@ -50,4 +50,5 @@ public class MovieListViewModel extends ViewModel {
     public void search(String query, int page) {
         movieRepository.search(query, page);
     }
+    
 }
