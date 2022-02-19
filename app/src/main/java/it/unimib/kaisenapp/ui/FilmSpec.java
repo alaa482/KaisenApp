@@ -381,7 +381,6 @@ public class FilmSpec extends AppCompatActivity implements SimilarReciclerAdapte
         Intent intent = new Intent(FilmSpec.this,FilmSpec.class);
         intent.putExtra("id", id);
         startActivity(intent);
-        finish();
     }
 
 

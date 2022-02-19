@@ -30,7 +30,6 @@ public class HomeFragment extends Fragment  implements CategoryItemRecyclerAdapt
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View homeView= inflater.inflate(R.layout.fragment_home, container, false);
-
         mainCategoryRecycler = homeView.findViewById(R.id.searched_movie_recycleview);
         mainRecyclerAdapter = new MainRecyclerAdapter(getContext(),  DataWrapper.getList(), this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
