@@ -15,6 +15,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +41,9 @@ public class MyMoviesFragment extends Fragment implements CategoryItemRecyclerAd
     private List<AllCategory> allCategoryList;
     private List<String> moviesType;
     private MainRecyclerAdapter adapter2;
+    private int contF;
+    private int contS;
+    private int cont;
     private MovieDatabaseViewModel movieDatabaseViewModel;
     RecyclerView recyclerView;
     List<MovieEntity> movieEntitiesApp;
@@ -72,6 +78,7 @@ public class MyMoviesFragment extends Fragment implements CategoryItemRecyclerAd
             public void onChanged(List<MovieEntity> movieEntities) {
 
                 if (movieEntities != null) {
+
                     CategoryItem c;
                     for (MovieEntity mm : movieEntities) {
 
@@ -81,7 +88,7 @@ public class MyMoviesFragment extends Fragment implements CategoryItemRecyclerAd
                                 allCategoryList.get(allCategoryList.indexOf(new AllCategory(Constants.FAVORITES, null))).getCategoryItemList().add(c);
                             }
                             if (mm.isWatched()) {
-
+                                contF++;
                                 c = new CategoryItem(mm.getMovie_id(), mm.getPoster_path(), "Movie");
                                 allCategoryList.get(allCategoryList.indexOf(new AllCategory(Constants.WATCHED, null))).getCategoryItemList().add(c);
 
@@ -110,6 +117,7 @@ public class MyMoviesFragment extends Fragment implements CategoryItemRecyclerAd
             public void onChanged(List<TvShowEntity> movieEntities) {
 
                 if (movieEntities != null) {
+
                     CategoryItem c;
                     for (TvShowEntity mm : movieEntities) {
 
@@ -119,7 +127,6 @@ public class MyMoviesFragment extends Fragment implements CategoryItemRecyclerAd
                             allCategoryList.get(allCategoryList.indexOf(new AllCategory(Constants.FAVORITES, null))).getCategoryItemList().add(c);
                         }
                         if (mm.isWatched()) {
-
                             c = new CategoryItem(mm.getId(), mm.getPoster_path(), "tv_serie");
                             allCategoryList.get(allCategoryList.indexOf(new AllCategory(Constants.WATCHED, null))).getCategoryItemList().add(c);
 
@@ -144,13 +151,46 @@ public class MyMoviesFragment extends Fragment implements CategoryItemRecyclerAd
 
 
     }
+    private boolean getFavMoviesFromDatabase() {
+        movieDatabaseViewModel.getAllWatchedMovies().observe(getViewLifecycleOwner(), new Observer<List<MovieEntity>>() {
+            @Override
+            public void onChanged(List<MovieEntity> movieEntities) {
+
+                if (movieEntities != null) {
+                    contF=movieEntities.size();
+                    cont=cont+contF;
+                    FirebaseDatabase.getInstance("https://progettok-362fa-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("numSf").setValue(cont);
+                    Log.v("msggg",String.valueOf(contF));
+
+                }
+
+            }
+        });
+        return true;
+    }
+    private boolean getFavSerieFromDatabase() {
+        movieDatabaseViewModel.getAllWatchedTvShows().observe(getViewLifecycleOwner(), new Observer<List<TvShowEntity>>() {
+            @Override
+            public void onChanged(List<TvShowEntity> movieEntities) {
+
+                if (movieEntities != null) {
+                    contS=movieEntities.size();
+                    cont=cont+contS;
+                    FirebaseDatabase.getInstance("https://progettok-362fa-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("numSf").setValue(cont);
+                    Log.v("msggg",String.valueOf(contS));
+
+                }
+
+            }
+        });
+        return true;
+    }
+
 
 
     @Override
     public void onResume() {
         super.onResume();
-Log.v("msgg","dio cane resume");
-
         for(int i = 0; i< Constants.NUMBERS_OF_MOVIES_IN_A_RECYCLEVIEW; i++) {
             categoryItemList.add(new ArrayList<>());
             // moviesType.add("");
@@ -168,6 +208,15 @@ Log.v("msgg","dio cane resume");
 
         getMoviesFromDatabase();
         getSeriesFromDatabase();
+        getFavMoviesFromDatabase();
+        getFavSerieFromDatabase();
+
+
+
+
+
+
+
     }
 
     @Override
@@ -175,6 +224,9 @@ Log.v("msgg","dio cane resume");
         super.onPause();
         allCategoryList.clear();
         categoryItemList.clear();
+        contS=0;
+        contF=0;
+        cont=0;
     }
 
     private void addMoviesType(List<String> moviesType) {
