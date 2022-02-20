@@ -27,6 +27,11 @@
             android:exported="false"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
+            android:name=".Explore"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            tools:ignore="Instantiatable" />
+        <activity
             android:name=".listProfilePic"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.NoActionBar" />

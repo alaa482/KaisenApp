@@ -21,9 +21,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
+import it.unimib.kaisenapp.Explore;
 import it.unimib.kaisenapp.R;
 import it.unimib.kaisenapp.adapter.CategoryItemRecyclerAdapter;
-import it.unimib.kaisenapp.adapter.MainRecyclerAdapter;
+import it.unimib.kaisenapp.adapter.GenresItemRecyclerAdapter;
+import it.unimib.kaisenapp.adapter.GenresMainRecyclerAdapter;
 import it.unimib.kaisenapp.database.MovieEntity;
 
 import it.unimib.kaisenapp.database.TvShowEntity;
@@ -35,12 +37,12 @@ import it.unimib.kaisenapp.utils.Constants;
 import it.unimib.kaisenapp.viewmodels.MovieDatabaseViewModel;
 import it.unimib.kaisenapp.viewmodels.MovieListViewModel;
 
-public class MyMoviesFragment extends Fragment implements CategoryItemRecyclerAdapter.OnClickListener{
-    private MainRecyclerAdapter mainRecyclerAdapter;
+public class MyMoviesFragment extends Fragment implements CategoryItemRecyclerAdapter.OnClickListener, GenresMainRecyclerAdapter.OnClickListener {
+    private GenresMainRecyclerAdapter mainRecyclerAdapter;
     private List<List<CategoryItem>> categoryItemList; //contiene i film di ogni recycleview
     private List<AllCategory> allCategoryList;
     private List<String> moviesType;
-    private MainRecyclerAdapter adapter2;
+    private GenresMainRecyclerAdapter adapter2;
     private int contF;
     private int contS;
     private int cont;
@@ -141,7 +143,7 @@ public class MyMoviesFragment extends Fragment implements CategoryItemRecyclerAd
                             allCategoryList.get(allCategoryList.indexOf(new AllCategory(Constants.PLAN_TO_WATCH, null))).getCategoryItemList().add(c);
                         }
                     }
-                    mainRecyclerAdapter = new MainRecyclerAdapter(getContext(), allCategoryList, MyMoviesFragment.this);
+                    mainRecyclerAdapter = new GenresMainRecyclerAdapter(getContext(), allCategoryList, MyMoviesFragment.this,MyMoviesFragment.this);
                     recyclerView.setAdapter(mainRecyclerAdapter);
                     serieEntitiesApp = movieEntities;
                 }
@@ -212,7 +214,7 @@ public class MyMoviesFragment extends Fragment implements CategoryItemRecyclerAd
         for(int i=0; i< moviesType.size(); i++)
             allCategoryList.add(new AllCategory(moviesType.get(i), categoryItemList.get(i)));
 
-        adapter2=new MainRecyclerAdapter(getContext(), allCategoryList, MyMoviesFragment.this);
+        adapter2=new GenresMainRecyclerAdapter(getContext(), allCategoryList, MyMoviesFragment.this,MyMoviesFragment.this);
         adapter2.addAllCategory(allCategoryList);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
@@ -255,4 +257,12 @@ public class MyMoviesFragment extends Fragment implements CategoryItemRecyclerAd
             intent.putExtra("id", position);
             startActivity(intent);
     }
-}}
+}
+
+    @Override
+    public void onClick(String type) {
+        Intent intent = new Intent(getContext(), Explore.class);
+        intent.putExtra("title", type);
+        startActivity(intent);
+    }
+}
