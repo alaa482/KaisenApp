@@ -44,6 +44,9 @@ public class MyMoviesFragment extends Fragment implements CategoryItemRecyclerAd
     private int contF;
     private int contS;
     private int cont;
+    private int contOF;
+    private int contOS;
+    private double contO;
     private MovieDatabaseViewModel movieDatabaseViewModel;
     RecyclerView recyclerView;
     List<MovieEntity> movieEntitiesApp;
@@ -160,8 +163,12 @@ public class MyMoviesFragment extends Fragment implements CategoryItemRecyclerAd
                     contF=movieEntities.size();
                     cont=cont+contF;
                     FirebaseDatabase.getInstance("https://progettok-362fa-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("numSf").setValue(cont);
-                    Log.v("msggg",String.valueOf(contF));
+                    for (MovieEntity mm: movieEntities) {
+                        contOF=mm.getRuntime();
+                        contO=contO+contOF;
 
+                    }
+                    FirebaseDatabase.getInstance("https://progettok-362fa-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("ore").setValue(contO);
                 }
 
             }
@@ -216,6 +223,9 @@ public class MyMoviesFragment extends Fragment implements CategoryItemRecyclerAd
         contS=0;
         contF=0;
         cont=0;
+        contOS=0;
+        contOF=0;
+        contO=0;
     }
 
     private void addMoviesType(List<String> moviesType) {

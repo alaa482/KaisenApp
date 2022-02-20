@@ -79,6 +79,11 @@ public class MovieDatabaseRepository {
         liveData.postValue(movieDao.getAllFavoriteMovies());
         return liveData;
     }
+    public MutableLiveData<Integer> getRuntimeMovies(){
+        MutableLiveData<Integer> liveData= new MutableLiveData<>();
+        liveData.postValue(movieDao.getRuntimeMovies());
+        return liveData;
+    }
 
     public void deleteAllMovies(){
         movieDao.deleteAllMovies();

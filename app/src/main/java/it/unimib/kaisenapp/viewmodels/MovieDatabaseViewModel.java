@@ -67,6 +67,9 @@ public class MovieDatabaseViewModel extends AndroidViewModel {
     public LiveData<List<TvShowEntity>> getAllWatchedTvShows(){
         return tvShowDatabaseRepository.getAllWatchedTvShows();
     }
+    public LiveData<Integer> getRuntimeShows(){
+        return movieDatabaseRepository.getRuntimeMovies();
+    }
 
 
     public void addMovie(MovieEntity movieEntity){

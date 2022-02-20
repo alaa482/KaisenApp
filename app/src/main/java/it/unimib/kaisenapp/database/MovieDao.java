@@ -36,6 +36,9 @@ public interface MovieDao {
     @Query("SELECT * FROM movie WHERE favorite = 1")
     List<MovieEntity> getAllFavoriteMovies();
 
+    @Query("SELECT runtime FROM movie WHERE movie_id = movie_id")
+    Integer getRuntimeMovies();
+
     @Delete
     void deleteMovie(MovieEntity movieEntity);
 

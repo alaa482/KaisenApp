@@ -272,7 +272,7 @@ public class FilmSpec extends AppCompatActivity implements SimilarReciclerAdapte
                    }
                 }
                 genresUI.setText(aus);
-                m = new MovieEntity(id,imagePath,null,bookmarked,star,favorite);
+                m = new MovieEntity(id,imagePath,null,bookmarked,star,favorite,Integer.parseInt(durata));
 
 
 
@@ -283,7 +283,7 @@ public class FilmSpec extends AppCompatActivity implements SimilarReciclerAdapte
                         if(movieEntityList!=null){
 
                             for (MovieEntity mm: movieEntityList) {
-
+                                Log.v("msggg",mm.toString());
 
 
                                 if(mm.equals(m)){

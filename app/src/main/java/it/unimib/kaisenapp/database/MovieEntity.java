@@ -24,15 +24,18 @@ public class MovieEntity {
     private boolean saved;
     @ColumnInfo(name="favorite")
     private boolean favorite;
+    @ColumnInfo(name="runtime")
+    private int runtime;
 
 
-    public MovieEntity(int movie_id, String poster_path, String category, boolean watched, boolean saved, boolean favorite) {
+    public MovieEntity(int movie_id, String poster_path, String category, boolean watched, boolean saved, boolean favorite, int runtime) {
         this.movie_id = movie_id;
         this.poster_path = poster_path;
         this.category=category;
         this.saved=saved;
         this.watched=watched;
         this.favorite=favorite;
+        this.runtime=runtime;
     }
 
 
@@ -53,7 +56,16 @@ public class MovieEntity {
                 ", watched=" + watched +
                 ", saved=" + saved +
                 ", favorite=" + favorite +
+                ", runtime=" + runtime +
                 '}';
+    }
+
+    public int getRuntime() {
+        return runtime;
+    }
+
+    public void setRuntime(int runtime) {
+        this.runtime = runtime;
     }
 
     @Override
