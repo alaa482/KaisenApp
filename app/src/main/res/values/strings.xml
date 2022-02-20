@@ -17,5 +17,28 @@
     <string name="originalTitle">Titolo Originale :</string>
     <string name="seasons">Stagioni</string>
     <string name="animazione">Animazione</string>
+    <string name="upcoming">Upcoming</string>
+
+
+    <string name="animazione">ANIMAZIONE</string>
+    <string name="avventura">AVVENTURA</string>
+    <string name="azione">AZIONE</string>
+    <string name="crime">CRIME</string>
+    <string name="commedia">COMMEDIA</string>
+    <string name="documentario">DOCUMENTARIO</string>
+    <string name="dramma">DRAMMA</string>
+    <string name="famiglia">FAMIGLIA</string>
+    <string name="fantascienza">FANTASCIENZA</string>
+    <string name="musica">MUSICA</string>
+    <string name="fantasy">FANTASY</string>
+    <string name="guerra">GUERRA</string>
+    <string name="horror">HORROR</string>
+    <string name="mistero">MISTERO</string>
+    <string name="romance">ROMANCE</string>
+    <string name="storia">STORIA</string>
+    <string name="thriller">THRILLER</string>
+    <string name="western">WESTERN</string>
+
     <string name="search_bar">  Cerca un film o una serie tv</string>
+    <string name="generi">GENERI</string>
 </resources>
