@@ -202,21 +202,10 @@ public class MyMoviesFragment extends Fragment implements CategoryItemRecyclerAd
         adapter2.addAllCategory(allCategoryList);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
-
-
-
-
         getMoviesFromDatabase();
         getSeriesFromDatabase();
         getFavMoviesFromDatabase();
         getFavSerieFromDatabase();
-
-
-
-
-
-
-
     }
 
     @Override
