@@ -24,6 +24,10 @@
             android:name=".SearchedMovies"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity
+            android:name=".SearchGenre"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
 
         <activity
             android:name=".SplashScreen"

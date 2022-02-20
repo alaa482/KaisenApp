@@ -12,8 +12,8 @@
 
     <EditText
         android:id="@+id/text"
-        android:layout_width="300dp"
-        android:layout_height="46dp"
+        android:layout_width="299dp"
+        android:layout_height="38dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="68dp"
         android:background="#FFFFFF"
@@ -31,16 +31,16 @@
 
     <ImageButton
         android:id="@+id/button"
-        android:layout_width="54dp"
-        android:layout_height="48dp"
-        android:layout_marginEnd="16dp"
+        android:layout_width="50dp"
+        android:layout_height="39dp"
+        android:layout_marginEnd="24dp"
         android:background="#00615555"
         android:clickable="true"
         android:minHeight="48dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.099"
+        app:layout_constraintVertical_bias="0.098"
         app:srcCompat="@drawable/ic_search"
         tools:ignore="SpeakableTextPresentCheck" />
 
