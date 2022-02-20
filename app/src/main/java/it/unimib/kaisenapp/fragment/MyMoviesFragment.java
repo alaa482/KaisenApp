@@ -87,19 +87,19 @@ public class MyMoviesFragment extends Fragment implements CategoryItemRecyclerAd
 
                             if (mm.isFavorite()) {
 
-                                c = new CategoryItem(mm.getMovie_id(), mm.getPoster_path(), "Movie");
+                                c = new CategoryItem(mm.getMovie_id(), mm.getPoster_path(), "Movie","");
                                 allCategoryList.get(allCategoryList.indexOf(new AllCategory(Constants.FAVORITES, null))).getCategoryItemList().add(c);
                             }
                             if (mm.isWatched()) {
                                 contF++;
-                                c = new CategoryItem(mm.getMovie_id(), mm.getPoster_path(), "Movie");
+                                c = new CategoryItem(mm.getMovie_id(), mm.getPoster_path(), "Movie","");
                                 allCategoryList.get(allCategoryList.indexOf(new AllCategory(Constants.WATCHED, null))).getCategoryItemList().add(c);
 
 
                             }
                             if (mm.isSaved()) {
 
-                                c = new CategoryItem(mm.getMovie_id(), mm.getPoster_path(), "Movie");
+                                c = new CategoryItem(mm.getMovie_id(), mm.getPoster_path(), "Movie","");
                                 allCategoryList.get(allCategoryList.indexOf(new AllCategory(Constants.PLAN_TO_WATCH, null))).getCategoryItemList().add(c);
                             }
                         }
@@ -126,18 +126,18 @@ public class MyMoviesFragment extends Fragment implements CategoryItemRecyclerAd
 
                         if (mm.isFavorite()) {
 
-                            c = new CategoryItem(mm.getId(), mm.getPoster_path(), "tv_serie");
+                            c = new CategoryItem(mm.getId(), mm.getPoster_path(), "tv_serie","");
                             allCategoryList.get(allCategoryList.indexOf(new AllCategory(Constants.FAVORITES, null))).getCategoryItemList().add(c);
                         }
                         if (mm.isWatched()) {
-                            c = new CategoryItem(mm.getId(), mm.getPoster_path(), "tv_serie");
+                            c = new CategoryItem(mm.getId(), mm.getPoster_path(), "tv_serie","");
                             allCategoryList.get(allCategoryList.indexOf(new AllCategory(Constants.WATCHED, null))).getCategoryItemList().add(c);
 
 
                         }
                         if (mm.isSaved()) {
 
-                            c = new CategoryItem(mm.getId(), mm.getPoster_path(), "tv_serie");
+                            c = new CategoryItem(mm.getId(), mm.getPoster_path(), "tv_serie","");
                             allCategoryList.get(allCategoryList.indexOf(new AllCategory(Constants.PLAN_TO_WATCH, null))).getCategoryItemList().add(c);
                         }
                     }

@@ -45,26 +45,29 @@ public class SearchFragment extends Fragment {
         genres=new ArrayList<>();
         setId();
         observer();
-        search();
+
         searchByGenre();
         return view;
     }
 
     private void search(){
         button.setOnClickListener(view -> {
-            if(isValid(text.getText().toString()))
+            if(isValid(text.getText().toString())) {
+                Log.v("msggg","ciao");
                 movieListViewModel.search(text.getText().toString(), Constants.PAGE);
+            }
 
         });
     }
     private boolean isValid(String text){
+
         return text!=null && text.length()>0;
     }
 
     private void observer(){
         movieListViewModel.getSearchedMulti().observe(getViewLifecycleOwner(), searchMultiModels -> {
             Log.v("Tag", "Testo "+text.getText().toString()+"-");
-            if(searchMultiModels !=null){
+            if(searchMultiModels !=null&&text.getText().length()>0){
                 Intent intent=new Intent(getActivity(), SearchedMovies.class);
                 intent.putExtra("list", (ArrayList<SearchMultiModel>) searchMultiModels);
                 startActivity(intent);
@@ -74,9 +77,20 @@ public class SearchFragment extends Fragment {
     }
 
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        search();
+        Log.v("msggg","onresume");
+    }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        text.setText("");
 
-
+        Log.v("msggg","onpause");
+    }
 
     private void setId(){
         genres.add(view.findViewById(R.id.animazione));

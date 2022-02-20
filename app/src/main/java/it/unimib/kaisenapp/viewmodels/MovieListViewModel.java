@@ -45,7 +45,9 @@ public class MovieListViewModel extends ViewModel {
     public void getMovies(TypeOfRequest typeOfRequest, int id, int page) {
         movieRepository.getMovies(typeOfRequest, id, page);
     }
-
+    public void search(String query, int page) {
+        movieRepository.search(query, page);
+    }
     public void getTvShows(TypeOfRequest typeOfRequest, int page) {
         movieRepository.getTvShows(typeOfRequest, page);
     }

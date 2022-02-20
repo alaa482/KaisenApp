@@ -1,7 +1,10 @@
 package it.unimib.kaisenapp;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageButton;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,13 +13,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 import it.unimib.kaisenapp.adapter.SearchedMovieRecycleAdapter;
+import it.unimib.kaisenapp.fragment.ProfileFragment;
+import it.unimib.kaisenapp.fragment.SearchFragment;
 import it.unimib.kaisenapp.models.CategoryItem;
 import it.unimib.kaisenapp.models.SearchMultiModel;
+import it.unimib.kaisenapp.ui.FilmSpec;
+import it.unimib.kaisenapp.ui.SeriesSpec;
 
 public class SearchedMovies extends AppCompatActivity implements SearchedMovieRecycleAdapter.OnClickListener {
     private RecyclerView recyclerView;
     private SearchedMovieRecycleAdapter searchedMovieRecycleAdapter;
     private List<CategoryItem> categoryItemList;
+    private ImageButton backButton;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,11 +42,25 @@ public class SearchedMovies extends AppCompatActivity implements SearchedMovieRe
             }
         }
 
+
         recyclerView = findViewById(R.id.recycle);
         searchedMovieRecycleAdapter = new SearchedMovieRecycleAdapter(this,  categoryItemList, this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         recyclerView.setAdapter(searchedMovieRecycleAdapter);
-
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+        backButton = (ImageButton) findViewById(R.id.imageButton);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SearchedMovies.this, SearchFragment.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); finish();
+            }
+        });
     }
 
     @Override
@@ -49,11 +71,15 @@ public class SearchedMovies extends AppCompatActivity implements SearchedMovieRe
 
     @Override
     public void onClick(int id, String type) {
-        Toast.makeText(this, "ID: "+id+" "+type, Toast.LENGTH_SHORT).show();
-        if(type.equalsIgnoreCase("movie")){
+        if(type.equals("movie")){
+            Intent intent = new Intent(this, FilmSpec.class);
+            intent.putExtra("id", id);
+            startActivity(intent);
 
-        }else{
-
+        }else  if(type.equals("tv")){
+            Intent intent = new Intent(this, SeriesSpec.class);
+            intent.putExtra("id", id);
+            startActivity(intent);
         }
 
     }
