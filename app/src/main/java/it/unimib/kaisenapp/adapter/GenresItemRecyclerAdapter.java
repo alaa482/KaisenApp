@@ -31,7 +31,7 @@ public class GenresItemRecyclerAdapter  extends RecyclerView.Adapter<GenresItemR
     @NonNull
     @Override
     public CategoryItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new GenresItemRecyclerAdapter.CategoryItemViewHolder(LayoutInflater.from(context).inflate(R.layout.category_row_items, parent, false), onClickListener);
+        return new GenresItemRecyclerAdapter.CategoryItemViewHolder(LayoutInflater.from(context).inflate(R.layout.genres_row_items, parent, false), onClickListener);
     }
 
     @Override
