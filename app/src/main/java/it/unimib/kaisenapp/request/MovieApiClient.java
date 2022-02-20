@@ -38,6 +38,8 @@ public class MovieApiClient{
     private RetrieveMoviesRunnable retrieveMoviesRunnable;
     private RetrieveEpisodesRunnable retrieveEpisodesRunnable;
     private RetrieveSearchMultiRunnable retrieveSearchMultiRunnable;
+    private RetrieveMoviesGenreRunnable retrieveMoviesGenreRunnable;
+    private RetrieveTvSerieGenreRunnable retrieveTvSerieGenreRunnable;
 
     private MovieApiClient(){
         mMovies=new MutableLiveData<>();
@@ -80,7 +82,6 @@ public class MovieApiClient{
     public LiveData<List<SearchMultiModel>> getSearchedMulti(){
         return mSearchMulti;
     }
-
 
     public void getMovies(TypeOfRequest typeOfRequest, int page) {
         retrieveMoviesRunnable=new RetrieveMoviesRunnable(typeOfRequest, page);
@@ -130,8 +131,31 @@ public class MovieApiClient{
         },3000, TimeUnit.MILLISECONDS);
     }
 
+    public void getMoviesByGenre(String genre){
+        retrieveMoviesGenreRunnable=new RetrieveMoviesGenreRunnable(genre);
+        final Future myHandler = AppExecutor.getInstance().networkIO().submit(retrieveMoviesGenreRunnable);
+
+        AppExecutor.getInstance().networkIO().schedule(new Runnable() {
+            @Override
+            public void run() {
+                myHandler.cancel(true);
+            }
+        },3000, TimeUnit.MILLISECONDS);
+
+    }
+    public void getTvSeriesByGenre(String genre){
+        retrieveTvSerieGenreRunnable=new RetrieveTvSerieGenreRunnable(genre);
+        final Future myHandler = AppExecutor.getInstance().networkIO().submit(retrieveTvSerieGenreRunnable);
+
+        AppExecutor.getInstance().networkIO().schedule(new Runnable() {
+            @Override
+            public void run() {
+                myHandler.cancel(true);
+            }
+        },3000, TimeUnit.MILLISECONDS);
+    }
+
     private class RetrieveMoviesRunnable implements Runnable{
-        private String query;
         private int id;
         private int page;
         private boolean cancelRequest;
@@ -408,6 +432,85 @@ public class MovieApiClient{
                     query,
                     page,
                     Credentials.REGION
+            );
+        }
+    }
+
+    private class RetrieveMoviesGenreRunnable implements Runnable{
+        private String genre;
+        private boolean cancelRequest;
+
+        public RetrieveMoviesGenreRunnable(String genre) {
+            this.genre = genre;
+            cancelRequest=false;
+        }
+        private void cancelRequest(){
+            cancelRequest=true;
+        }
+
+
+        @Override
+        public void run() {
+            try {
+                Response response=getMoviesByGenre(genre).execute();
+
+                if(cancelRequest)
+                    return;
+
+                if(response.code() == 200){
+                    List<MovieModel> list = new ArrayList<>(((MovieSearchResponse) response.body()).getMovies());
+                    mMovies.postValue(list);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        Call<MovieModel> getMoviesByGenre(String genre){
+            return Service.getMovieApi().getMoviesByGenre(
+                    Credentials.API_KEY,
+                    Credentials.LANGUAGE,
+                    genre
+            );
+        }
+    }
+    private class RetrieveTvSerieGenreRunnable implements Runnable{
+        private String genre;
+        private boolean cancelRequest;
+
+        public RetrieveTvSerieGenreRunnable(String genre) {
+            this.genre = genre;
+            cancelRequest=false;
+        }
+        private void cancelRequest(){
+            cancelRequest=true;
+        }
+
+
+        @Override
+        public void run() {
+
+            try {
+                Response response=getTvSeriesByGenre(genre).execute();
+                if(cancelRequest)
+                    return;
+
+                if(response.code() == 200){
+                    List<TvShowModel> l = new ArrayList<>(((TvShowSearchResponse)response.body()).getTvShows());
+                    mTvShows.postValue(l);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+        }
+        Call<TvSerieModel> getTvSeriesByGenre(String genre){
+            return Service.getMovieApi().getTvSeriesByGenre(
+                    Credentials.API_KEY,
+                    Credentials.LANGUAGE,
+                    genre
             );
         }
     }

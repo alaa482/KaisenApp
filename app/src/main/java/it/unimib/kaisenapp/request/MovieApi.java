@@ -1,6 +1,7 @@
 package it.unimib.kaisenapp.request;
 
 import it.unimib.kaisenapp.models.MovieModel;
+import it.unimib.kaisenapp.models.TvSerieModel;
 import it.unimib.kaisenapp.response.EpisodeResponse;
 import it.unimib.kaisenapp.response.MovieDetailsResponse;
 import it.unimib.kaisenapp.response.MovieSearchResponse;
@@ -137,4 +138,20 @@ public interface MovieApi {
             @Query("api_key") String key,
             @Query("language") String language
     );
+
+    @GET("discover/movie")
+    Call<MovieModel> getMoviesByGenre(
+            @Query("api_key") String key,
+            @Query("language") String language,
+            @Query("with_genres") String genres
+    );
+
+    @GET("discover/tv")
+    Call<TvSerieModel> getTvSeriesByGenre(
+            @Query("api_key") String key,
+            @Query("language") String language,
+            @Query("with_genres") String genres
+    );
+
+
 }

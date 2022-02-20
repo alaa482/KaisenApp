@@ -20,20 +20,21 @@ public class MovieListViewModel extends ViewModel {
     public MovieListViewModel() {
         movieRepository=MovieRepository.getInstance();
     }
-
     public LiveData<List<MovieModel>> getMovies(){
         return movieRepository.getMovies();
     }
-
     public LiveData<List<TvShowModel>> getTvShows(){
         return movieRepository.getTvShows();
     }
-
     public LiveData<List<SearchMultiModel>> getSearchedMulti(){
         return movieRepository.getSearchedMulti();
     }
-
-
+    public LiveData<List<MovieModel>> getMoviesByGenre(){
+        return movieRepository.getMoviesByGenre();
+    }
+    public LiveData<List<TvShowModel>> getTvSeriesByGenre(){
+        return movieRepository.getTvSeriesByGenre();
+    }
     public LiveData<List<TvSerieModel>> getEpisode(){
         return movieRepository.getEpisode();
     }
@@ -41,19 +42,20 @@ public class MovieListViewModel extends ViewModel {
     public void getMovies(TypeOfRequest typeOfRequest, int page) {
         movieRepository.getMovies(typeOfRequest, page);
     }
-
-    public void getMovies(TypeOfRequest typeOfRequest, int id, int page) {
-        movieRepository.getMovies(typeOfRequest, id, page);
-    }
     public void search(String query, int page) {
         movieRepository.search(query, page);
     }
     public void getTvShows(TypeOfRequest typeOfRequest, int page) {
         movieRepository.getTvShows(typeOfRequest, page);
     }
-
     public void getEpisode(int tv_id, int season_number) {
         movieRepository.getEpisode(tv_id, season_number);
+    }
+    public void getMoviesByGenre(String genre){
+        movieRepository.getMoviesByGenre(genre);
+    }
+    public void getTvSeriesByGenre(String genre){
+        movieRepository.getTvSeriesByGenre(genre);
     }
     
 }
