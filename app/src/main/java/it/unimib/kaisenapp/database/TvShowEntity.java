@@ -25,17 +25,37 @@ public class TvShowEntity {
     private boolean saved;
     @ColumnInfo(name="favorite")
     private boolean favorite;
+    @ColumnInfo(name="runtime")
+    private int runtime;
+    @ColumnInfo(name="numEpisode")
+    private int numEpisode;
 
-    public TvShowEntity(int id, String poster_path, String category, boolean watched, boolean saved, boolean favorite) {
+    public TvShowEntity(int id, String poster_path, String category, boolean watched, boolean saved, boolean favorite, int runtime, int numEpisode) {
         this.id = id;
         this.poster_path = poster_path;
         this.category=category;
         this.saved=saved;
         this.watched=watched;
         this.favorite=favorite;
+        this.runtime=runtime;
+        this.numEpisode=numEpisode;
     }
 
+    public int getNumEpisode() {
+        return numEpisode;
+    }
 
+    public void setNumEpisode(int numEpisode) {
+        this.numEpisode = numEpisode;
+    }
+
+    public int getRuntime() {
+        return runtime;
+    }
+
+    public void setRuntime(int runtime) {
+        this.runtime = runtime;
+    }
 
     public int getId() {
         return id;
@@ -107,6 +127,8 @@ public class TvShowEntity {
                 ", watched=" + watched +
                 ", saved=" + saved +
                 ", favorite=" + favorite +
+                ", runtime=" + runtime +
+                ", numEpisode=" +numEpisode +
                 '}';
     }
 }

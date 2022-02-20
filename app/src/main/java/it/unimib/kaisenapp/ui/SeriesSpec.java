@@ -59,6 +59,7 @@ public class SeriesSpec extends AppCompatActivity implements SimilarReciclerAdap
     private ImageButton starUI;
     private TextView durataUI;
     private String durata;
+    private int numEpisode;
     private Boolean bookmarked=false;
     private Boolean favorite=false;
     private Boolean star=false;
@@ -265,6 +266,7 @@ public class SeriesSpec extends AppCompatActivity implements SimilarReciclerAdap
                     title = response.body().getName();
                     plot = response.body().getPlot();
                     durata=String.valueOf(response.body().getEpisode_run_time().get(0));
+                    numEpisode=response.body().getnumber_of_episodes();
                     seasonsReciclerAdapter=new SeasonsReciclerAdapter(SeriesSpec.this,response.body().getSeasons(), SeriesSpec.this);
                     RecyclerView.LayoutManager layout = new LinearLayoutManager(SeriesSpec.this, RecyclerView.HORIZONTAL, false);
                     recyclerViewSeasons.setLayoutManager(layout);
@@ -292,7 +294,7 @@ public class SeriesSpec extends AppCompatActivity implements SimilarReciclerAdap
                 }
                 genresUI.setText(aus);
 
-                m = new TvShowEntity(id,imagePath,null,bookmarked,star,favorite);
+                m = new TvShowEntity(id,imagePath,null,bookmarked,star,favorite,Integer.parseInt(durata),numEpisode);
 
 
 
@@ -303,7 +305,7 @@ public class SeriesSpec extends AppCompatActivity implements SimilarReciclerAdap
                         if(movieEntityList!=null){
 
                             for (TvShowEntity mm: movieEntityList) {
-
+                                Log.v("msggg",mm.toString());
 
 
 

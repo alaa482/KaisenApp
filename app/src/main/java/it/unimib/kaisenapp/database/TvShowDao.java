@@ -36,6 +36,12 @@ public interface TvShowDao {
     @Query("SELECT * FROM tv_show WHERE favorite = 1")
     List<TvShowEntity> getAllFavoriteTvShows();
 
+    @Query("SELECT runtime FROM tv_show WHERE id = id")
+    int getRuntimeTvShows();
+
+    @Query("SELECT numEpisode FROM tv_show WHERE id = id")
+    int getnumEpisodeTvShows();
+
 
     @Delete
     void deleteTvShow(TvShowEntity tvShowEntity);

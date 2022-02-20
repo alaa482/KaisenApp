@@ -83,6 +83,16 @@ public class TvSerieDatabaseRepository {
         liveData.postValue(tvShowDao.getAllWatchedTvShows());
         return liveData;
     }
+    public MutableLiveData<Integer> getRuntimeTvShows(){
+        MutableLiveData<Integer> liveData= new MutableLiveData<>();
+        liveData.postValue(tvShowDao.getRuntimeTvShows());
+        return liveData;
+    }
+    public MutableLiveData<Integer> getNumEpisodeTvShows(){
+        MutableLiveData<Integer> liveData= new MutableLiveData<>();
+        liveData.postValue(tvShowDao.getnumEpisodeTvShows());
+        return liveData;
+    }
 
 
     public void deleteAllTvShows(){

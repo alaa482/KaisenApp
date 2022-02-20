@@ -283,7 +283,7 @@ public class FilmSpec extends AppCompatActivity implements SimilarReciclerAdapte
                         if(movieEntityList!=null){
 
                             for (MovieEntity mm: movieEntityList) {
-                                Log.v("msggg",mm.toString());
+
 
 
                                 if(mm.equals(m)){

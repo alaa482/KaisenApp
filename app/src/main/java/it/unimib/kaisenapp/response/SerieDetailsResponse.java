@@ -40,6 +40,10 @@ public class SerieDetailsResponse {
     @Expose
     private List<Integer> episode_run_time;
 
+    @SerializedName("number_of_episodes")
+    @Expose
+    private int number_of_episodes;
+
     @SerializedName("seasons")
     @Expose
     private List<SeasonsModel> seasons;
@@ -74,6 +78,9 @@ public class SerieDetailsResponse {
 
     public List<Integer> getEpisode_run_time() {
         return episode_run_time;
+    }
+    public int getnumber_of_episodes() {
+        return number_of_episodes;
     }
 
     @Override

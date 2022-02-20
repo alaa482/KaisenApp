@@ -93,7 +93,14 @@ public class HomeFragment extends Fragment  implements CategoryItemRecyclerAdapt
                     cont=cont+contS;
                     FirebaseDatabase.getInstance("https://progettok-362fa-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("numSf").setValue(cont);
                     Log.v("msggg",String.valueOf(contS));
+                    for (TvShowEntity mm: movieEntities) {
+                        contOS=mm.getRuntime();
+                        contOS=contOS*mm.getNumEpisode();
+                        contO=contO+contOS;
 
+
+                    }
+                    FirebaseDatabase.getInstance("https://progettok-362fa-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("ore").setValue(contO);
                 }
 
             }
