@@ -1,16 +1,12 @@
 package it.unimib.kaisenapp.adapter;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.util.List;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,9 +20,9 @@ import it.unimib.kaisenapp.models.CategoryItem;
 
 public class CategoryItemRecyclerAdapter extends RecyclerView.Adapter<CategoryItemRecyclerAdapter.CategoryItemViewHolder> {
 
-    private Context context;
-    private List<CategoryItem> categoryItemList;
-    private OnClickListener onClickListener;
+    private final Context context;
+    private final List<CategoryItem> categoryItemList;
+    private final OnClickListener onClickListener;
     public CategoryItemRecyclerAdapter(Context context, List<CategoryItem> categoryItemList, OnClickListener onClickListener) {
         this.context = context;
         this.categoryItemList = categoryItemList;
@@ -41,13 +37,16 @@ public class CategoryItemRecyclerAdapter extends RecyclerView.Adapter<CategoryIt
 
     @Override
     public void onBindViewHolder(@NonNull CategoryItemViewHolder holder, int position) {
-        String prefix="https://image.tmdb.org/t/p/w500/";
+        String prefix="https://image.tmdb.org/t/p/w500";
         Glide.with(holder.itemImage)
                 .load(prefix+categoryItemList.get(position).getImageUrl())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.itemImage);
-        //Glide.get(holder.itemImage.getContext()).clearMemory();
-        //Log.d("Body", prefix+categoryItemList.get(position).getImageUrl());
+
+        holder.id.setText(categoryItemList.get(position).getItemId().toString());
+        holder.id.setVisibility(View.INVISIBLE);
+        holder.type=categoryItemList.get(position).getType();
+        Glide.get(holder.itemImage.getContext()).clearMemory();
 
     }
 
@@ -59,27 +58,28 @@ public class CategoryItemRecyclerAdapter extends RecyclerView.Adapter<CategoryIt
     }
 
     public static final class CategoryItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-
+        TextView id;
         ImageView itemImage;
         OnClickListener onClickListener;
+        String type;
+
         public CategoryItemViewHolder(@NonNull View itemView, OnClickListener onClickListener) {
             super(itemView);
-            itemImage = itemView.findViewById(R.id.item_image);
+            type="";
+            itemImage = itemView.findViewById(R.id.item_image1);
+            id=itemView.findViewById(R.id.movie_id);
             this.onClickListener=onClickListener;
             itemView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
-            onClickListener.onClick(getAdapterPosition());
+            onClickListener.onClick(Integer.parseInt(id.getText().toString()), type);
         }
     }
     public interface OnClickListener{
-        void onClick(int position);
+        void onClick(int id,String type);
     }
 
 
-    public void setCategoryItemList(List<CategoryItem> categoryItemList) {
-        this.categoryItemList = categoryItemList;
-    }
 }

@@ -13,6 +13,31 @@
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="cerca">Cerca un film o una serie</string>
     <string name="title">Titolo</string>
-    <string name="genres">Generi</string>
-    <string name="originalTitle">Titolo Originale</string>
+    <string name="genres">Generi :</string>
+    <string name="originalTitle">Titolo Originale :</string>
+    <string name="seasons">Stagioni</string>
+
+
+
+    <string name="animazione">ANIMAZIONE</string>
+    <string name="avventura" translatable="false">AVVENTURA</string>
+    <string name="azione" translatable="false">AZIONE</string>
+    <string name="crime" translatable="false">CRIME</string>
+    <string name="commedia" translatable="false">COMMEDIA</string>
+    <string name="documentario" translatable="false">DOCUMENTARIO</string>
+    <string name="dramma" translatable="false">DRAMMA</string>
+    <string name="famiglia" translatable="false">FAMIGLIA</string>
+    <string name="fantascienza" translatable="false">FANTASCIENZA</string>
+    <string name="musica" translatable="false">MUSICA</string>
+    <string name="fantasy" translatable="false">FANTASY</string>
+    <string name="guerra" translatable="false">GUERRA</string>
+    <string name="horror" translatable="false">HORROR</string>
+    <string name="mistero" translatable="false">MISTERO</string>
+    <string name="romance" translatable="false">ROMANCE</string>
+    <string name="storia" translatable="false">STORIA</string>
+    <string name="thriller" translatable="false">THRILLER</string>
+    <string name="western" translatable="false">WESTERN</string>
+
+    <string name="search_bar" translatable="false">  Cerca un film o una serie tv</string>
+    <string name="generi" translatable="false">GENERI</string>
 </resources>

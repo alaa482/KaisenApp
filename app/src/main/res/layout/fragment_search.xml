@@ -1,7 +1,260 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.constraintlayout.widget.ConstraintLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black">
+    android:background="@color/black"
+    android:textAlignment="textStart">
 
-</RelativeLayout>
+    <EditText
+        android:id="@+id/text"
+        android:layout_width="299dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="68dp"
+        android:background="#FFFFFF"
+
+        android:backgroundTint="#FFFFFF"
+        android:ems="10"
+        android:hint="@string/search_bar"
+        android:inputType="textPersonName"
+        android:textColor="#000000"
+        android:textColorHighlight="#FFFFFF"
+        android:textColorHint="#000000"
+        app:layout_constraintEnd_toStartOf="@+id/button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/button"
+        android:layout_width="50dp"
+        android:layout_height="39dp"
+        android:layout_marginEnd="24dp"
+        android:background="#00615555"
+        android:clickable="true"
+        android:minHeight="48dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.098"
+        app:srcCompat="@drawable/ic_search"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <LinearLayout
+        android:layout_width="409dp"
+        android:layout_height="544dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="1dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TableLayout
+            android:layout_width="407dp"
+            android:layout_height="wrap_content">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="37dp"
+                android:textAlignment="center">
+
+                <TextView
+                    android:id="@+id/animazione"
+                    android:layout_width="110dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/animazione"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/avventura"
+                    android:layout_width="118dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/avventura"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/azione"
+                    android:layout_width="87dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/azione"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/crime"
+                    android:layout_width="62dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/crime"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/white" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="395dp"
+                android:layout_height="match_parent"
+                android:textAlignment="center">
+
+                <TextView
+                    android:id="@+id/commedia"
+                    android:layout_width="110dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/commedia"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/documentario"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/documentario"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/dramma"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/dramma"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/famiglia"
+                    android:layout_width="98dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/famiglia"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/white" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textAlignment="center">
+
+                <TextView
+                    android:id="@+id/fantascienza"
+                    android:layout_width="110dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/fantascienza"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/musica"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/musica"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/fantasy"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/fantasy"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/guerra"
+                    android:layout_width="98dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/guerra"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/white" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/horror"
+                    android:layout_width="110dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/horror"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/mistero"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/mistero"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/romance"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/romance"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/storia"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/storia"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/white" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textAlignment="center">
+
+                <TextView
+                    android:id="@+id/thriller"
+                    android:layout_width="110dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/thriller"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/western"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/western"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/white" />
+
+
+            </TableRow>
+
+
+        </TableLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="91dp"
+        android:layout_height="29dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/generi"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+

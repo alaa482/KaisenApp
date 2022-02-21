@@ -38,6 +38,10 @@ public class MovieDetailsResponse {
     @Expose()
     private String Plot;
 
+    @SerializedName("runtime")
+    @Expose
+    private int runtime;
+
     public List<GenresModel> getGenres() {
         return genres;
     }
@@ -64,6 +68,10 @@ public class MovieDetailsResponse {
 
     public String getPlot() {
         return Plot;
+    }
+
+    public int getRuntime() {
+        return runtime;
     }
 
     @Override

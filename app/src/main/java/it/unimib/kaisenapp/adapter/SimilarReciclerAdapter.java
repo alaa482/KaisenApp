@@ -36,7 +36,7 @@ public class SimilarReciclerAdapter extends RecyclerView.Adapter<SimilarRecicler
 
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
-        String prefix="https://image.tmdb.org/t/p/w500/";
+        String prefix="https://image.tmdb.org/t/p/w500";
         Glide.with(holder.itemImage)
                 .load(prefix+recommendations.get(position).getPoster_path())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -57,14 +57,14 @@ public class SimilarReciclerAdapter extends RecyclerView.Adapter<SimilarRecicler
         OnClickListener onClickListener;
         public ItemViewHolder(@NonNull View itemView, OnClickListener onClickListener) {
             super(itemView);
-            itemImage = itemView.findViewById(R.id.item_image);
+            itemImage = itemView.findViewById(R.id.item_image1);
             this.onClickListener=onClickListener;
             itemView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
-            onClickListener.onClick(recommendations.get(getAdapterPosition()).getMovie_id());
+            onClickListener.onClick(recommendations.get(getAdapterPosition()).getId());
         }
     }
     public interface OnClickListener{

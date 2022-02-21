@@ -25,8 +25,11 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
     private FirebaseAuth mAuth;
     private TextView logIn;
     private TextView btnRegister;
-    private EditText editTextFullName, editTextAge, editTextMail, editTextPassword;
+    private EditText editTextFullName, editTextMail, editTextPassword;
     private ProgressBar progressBar;
+
+
+
 
 
 
@@ -34,10 +37,15 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_user);
-
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
         mAuth = FirebaseAuth.getInstance();
 
-        logIn = (TextView) findViewById(R.id.textViewLoginRegistrati);
+        logIn = (TextView) findViewById(R.id.tornaALogin);
         logIn.setOnClickListener(this);
      //   btnRegister = (TextView) findViewById(R.id.btnRegister);
       //  btnRegister.setOnClickListener(this);
@@ -46,7 +54,6 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
         btnRegister.setOnClickListener(this);
 
         editTextFullName = (EditText) findViewById(R.id.editTextFullName);
-        editTextAge = (EditText) findViewById(R.id.editTextAge);
         editTextMail = (EditText) findViewById(R.id.editTextMail);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
 
@@ -54,6 +61,12 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
 
 
 
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
     }
 
     @Override
@@ -62,7 +75,7 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
             case R.id.btnRegister:
                 registerUser();
                 break;
-            case R.id.textViewLoginRegistrati:
+            case R.id.tornaALogin:
                 startActivity(new Intent(this, LoginUser.class));
                 break;
         }
@@ -72,74 +85,76 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
         String mail = editTextMail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
         String fullName = editTextFullName.getText().toString().trim();
-        String age = editTextAge.getText().toString().trim();
 
         if(fullName.isEmpty()){
-            editTextPassword.setError("Full name is required");
+            editTextPassword.setError("Username richiesto");
             editTextFullName.requestFocus();
             return;
         }
 
         if(mail.isEmpty()){
-            editTextMail.setError("Email is required");
+            editTextMail.setError("Email richiesta");
             editTextMail.requestFocus();
             return;
         }
 
         if(!Patterns.EMAIL_ADDRESS.matcher(mail).matches()){
-            editTextMail.setError("Please provide valid email");
+            editTextMail.setError("Inserisci un email valida");
             editTextMail.requestFocus();
             return;
         }
 
         if(password.isEmpty()){
-            editTextPassword.setError("Password is required");
+            editTextPassword.setError("Password richiesta");
             editTextPassword.requestFocus();
             return;
         }
 
         if(password.length() < 6){
-            editTextPassword.setError("Min password length should be 6 characters");
+            editTextPassword.setError("Password richiesta minimo 6 caratteri");
             editTextPassword.requestFocus();
             return;
         }
 
-        progressBar.setVisibility(View.VISIBLE);
+        //progressBar.setVisibility(View.VISIBLE);
         mAuth.createUserWithEmailAndPassword(mail, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
 
-                if(task.isSuccessful()){
-                    User user = new User(fullName, age, mail);
 
-                    FirebaseDatabase.getInstance("https://progettok-362fa-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        int numSf = 0;
+                        int ore = 0;
+                        String imId = "pp0";
+                        User user = new User(fullName, mail, numSf, ore, imId);
 
-                            if(task.isSuccessful()){
+                        FirebaseDatabase.getInstance("https://progettok-362fa-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
 
-                                FirebaseUser userF = FirebaseAuth.getInstance().getCurrentUser();
-                                userF.sendEmailVerification();
+                                if (task.isSuccessful()) {
+                                    FirebaseUser userF = FirebaseAuth.getInstance().getCurrentUser();
 
-                                Toast.makeText(RegisterUser.this, "User has been registered successfully!", Toast.LENGTH_LONG).show();
-                                progressBar.setVisibility(View.GONE);
+                                    userF.sendEmailVerification();
 
-                                startActivity(new Intent(RegisterUser.this, LoginUser.class));
+                                    Toast.makeText(RegisterUser.this, "Utente registrato con successo!", Toast.LENGTH_LONG).show();
+                                    progressBar.setVisibility(View.GONE);
+                                    FirebaseAuth.getInstance().signOut();
+                                    startActivity(new Intent(RegisterUser.this, LoginUser.class));
+
+                                } else {
+                                    Toast.makeText(RegisterUser.this, "Registrazione fallita, riprova!", Toast.LENGTH_LONG).show();
+                                    progressBar.setVisibility(View.GONE);
+                                }
+
                             }
-                            else
-                            {
-                                Toast.makeText(RegisterUser.this, "Failed to register! Try Again!", Toast.LENGTH_LONG).show();
-                                progressBar.setVisibility(View.GONE);
-                            }
+                        });
+                    } else {
+                        Toast.makeText(RegisterUser.this, "Utente già registrato!", Toast.LENGTH_LONG).show();
+                        progressBar.setVisibility(View.GONE);
+                    }
+                }
 
-                        }
-                    });
-                }
-                else{
-                    Toast.makeText(RegisterUser.this, "Failed to register! Try Again!", Toast.LENGTH_LONG).show();
-                    progressBar.setVisibility(View.GONE);
-                }
-            }
         });
 
 

@@ -8,7 +8,6 @@ import java.util.List;
 
 import it.unimib.kaisenapp.models.MovieModel;
 
-//Classe per la richiesta di una lista di film
 public class MovieSearchResponse {
 
     @SerializedName("total_results") //tag json

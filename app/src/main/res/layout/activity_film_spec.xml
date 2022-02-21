@@ -5,7 +5,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     tools:context=".ui.FilmSpec"
-    android:background="@drawable/background"
+    android:background="@color/black"
     >
 
     <LinearLayout
@@ -45,7 +45,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="wrap_content"
             android:layout_marginVertical="15dp"
             android:orientation="vertical">
 
@@ -53,16 +53,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <TextView
                     android:id="@+id/film_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="@string/title"
                     android:textAlignment="center"
                     android:textColor="@color/white"
                     android:textFontWeight="800"
-                    android:textSize="25dp"
-                    android:text="@string/title"
-                    />
+                    android:textSize="25dp" />
 
             </LinearLayout>
 
@@ -85,59 +85,93 @@
                         android:id="@+id/poster"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        tools:srcCompat="@drawable/background" />
+                        tools:srcCompat="@color/fui_transparent" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="4"
 
                     android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="15dp"
+                            android:text="Durata :"
+                            android:textColor="@color/white"
+                            android:textSize="17sp" />
+
+                        <TextView
+                            android:id="@+id/durata"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="15dp"
+                            android:text="133 min"
+                            android:textColor="@color/white"
+                            android:textSize="15sp" />
+                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/GenresTitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="15dp"
                         android:text="@string/genres"
-                        android:textColor="@color/white"
-                        android:textSize="17sp" />
-
-                    <TextView
-                        android:id="@+id/Genres"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="test,testdadsadasdasasdadasasdadad,test,test,test,testtes,testestsetestegsggesgdgesdgesdgesdgesdgesdgesdgetest,test"
-                        android:textColor="@color/white"
-                        android:textSize="15dp"
-                        android:paddingHorizontal="30dp"
-                        android:paddingVertical="10dp"
-                        android:ellipsize="end"
-                        android:maxLines="3"
-
-                        />
-
-                    <TextView
-                        android:id="@+id/OriginalTitleT"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/originalTitle"
                         android:textColor="@color/white"
                         android:textSize="17sp"
                         android:paddingLeft="15dp"/>
 
                     <TextView
-                        android:id="@+id/OriginalTitle"
+                        android:id="@+id/Genres"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="test"
-                        android:textColor="@color/white"
-                        android:textSize="12sp"
                         android:paddingHorizontal="30dp"
                         android:paddingVertical="10dp"
-                        android:ellipsize="end"
-                        android:maxLines="1"/>
+                        android:text="test,testdadsadasdasasdadasasdadad,test,test,test,testtes,testestsetestegsggesgdgesdgesdgesdgesdgesdgesdgetest,test"
+                        android:textColor="@color/white"
+                        android:textSize="15sp"
+
+                        />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        >
+
+                        <ImageButton
+                            android:id="@+id/bookmarked"
+                            android:layout_width="wrap_content"
+                            android:layout_height="48dp"
+                            android:layout_weight="1"
+                            android:background="@color/fui_transparent"
+                            app:srcCompat="@drawable/watched_border"
+                            tools:srcCompat="@drawable/watched_border" />
+
+                        <ImageButton
+                            android:id="@+id/favorite"
+                            android:layout_width="wrap_content"
+                            android:layout_height="48dp"
+                            android:layout_weight="1"
+                            android:background="@color/fui_transparent"
+                            app:srcCompat="@drawable/saved_border" />
+
+                        <ImageButton
+                            android:id="@+id/star"
+                            android:layout_width="wrap_content"
+                            android:layout_height="48dp"
+                            android:layout_weight="1"
+                            android:background="@color/fui_transparent"
+                            app:srcCompat="@drawable/favourite_border" />
+                    </LinearLayout>
 
                     <RatingBar
                         android:id="@+id/ratingBar"
@@ -146,23 +180,50 @@
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="20dp"
                         android:layout_marginVertical="7dp"
-                        android:backgroundTint="#ff0000"
+                        android:backgroundTint="#fd1212"
                         android:clickable="false"
                         android:numStars="5"
-                        android:progressBackgroundTint="#ff0000"
-                        android:progressTint="#ff0000"
+                        android:progressBackgroundTint="#fd1212"
+                        android:progressTint="#fd1212"
                         android:rating="2.45"
                         android:secondaryProgressTint="@color/fui_transparent"
                         android:stepSize="0.01"
                         app:layout_constraintEnd_toEndOf="parent" />
+
                 </LinearLayout>
             </LinearLayout>
+
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/OriginalTitleT"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="15dp"
+                    android:text="@string/originalTitle"
+                    android:textColor="@color/white"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:id="@+id/OriginalTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="15dp"
+                    android:paddingVertical="10dp"
+                    android:text="test"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+            </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
@@ -191,7 +252,7 @@
             android:orientation="vertical">
 
             <TextView
-
+                android:id="@+id/layoutSimilar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/recommendation"

@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -26,6 +27,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.FirebaseDatabase;
 
 
 public class LoginUser extends AppCompatActivity implements View.OnClickListener{
@@ -33,40 +36,49 @@ public class LoginUser extends AppCompatActivity implements View.OnClickListener
     private TextView register, forgotPassword;
     private EditText editTextLoginEmail, editTestLoginPassword;
     private Button singIn;
-
     private FirebaseAuth mAuth;
     private ProgressBar progressBarLogin;
     private GoogleSignInClient mGoogleSignInClient;
     private final static int RC_SIGN_IN = 123;
     private Button verify;
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        FirebaseUser user = mAuth.getCurrentUser();
-        if(user != null){
-            Intent intent = new Intent(getApplicationContext(),ProfileActivity.class);
-            startActivity(intent);
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         super.onCreate(savedInstanceState);
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
         setContentView(R.layout.activity_login_user);
 
+
+
         createRequest();
-        findViewById(R.id.sign_in_button).setOnClickListener(new View.OnClickListener() {
+
+        findViewById(R.id.bottone).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 signIn();
             }
-        });
-        
 
-        register = (TextView) findViewById(R.id.textViewLoginRegistrati);
+        });
+
+
+
+
+
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+
+        register = (TextView) findViewById(R.id.tornaALogin);
         register.setOnClickListener(this);
 
         singIn = (Button) findViewById(R.id.btnLogin);
@@ -82,6 +94,11 @@ public class LoginUser extends AppCompatActivity implements View.OnClickListener
         forgotPassword = (TextView) findViewById(R.id.textViewLoginPassDimenticata);
         forgotPassword.setOnClickListener(this);
 
+        FirebaseUser user = mAuth.getCurrentUser();
+        if(user != null){
+            Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+            startActivity(intent);
+        }
 
     }
 
@@ -120,6 +137,9 @@ public class LoginUser extends AppCompatActivity implements View.OnClickListener
         }
     }
 
+
+
+
     private void firebaseAuthWithGoogle(String idToken) {
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
         mAuth.signInWithCredential(credential)
@@ -130,12 +150,44 @@ public class LoginUser extends AppCompatActivity implements View.OnClickListener
                             // Sign in success, update UI with the signed-in user's information
                             //Toast.makeText(LoginUser.this, "Something get wrong!", Toast.LENGTH_LONG).show();
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Intent intent = new Intent(getApplicationContext(),ProfileActivity.class);
-                            startActivity(intent);
+                            int numSf = 0;
+                            int ore = 0;
+
+                            FirebaseDatabase.getInstance("https://progettok-362fa-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("mail").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                    String email;
+                                    String idU = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                                    if (!task.isSuccessful()) {
+                                        Log.e("firebase", "Error getting data", task.getException());
+                                    }
+                                    else {
+                                        Log.v("firebasem", String.valueOf(task.getResult().getValue()));
+                                        if(String.valueOf(task.getResult().getValue()).equals("null")){
+                                            FirebaseDatabase.getInstance("https://progettok-362fa-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Users").child(idU).child("mail").setValue(user.getEmail());
+                                            FirebaseDatabase.getInstance("https://progettok-362fa-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("fullName").setValue(user.getDisplayName());
+                                            FirebaseDatabase.getInstance("https://progettok-362fa-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("imId").setValue("pp0");
+                                            FirebaseDatabase.getInstance("https://progettok-362fa-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("numSf").setValue(numSf);
+                                            FirebaseDatabase.getInstance("https://progettok-362fa-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("ore").setValue(ore);
+                                            Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                                            startActivity(intent);
+                                        }else{
+                                           Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                                            startActivity(intent);
+                                        }
+
+                                    }
+                                }
+                            });
+
+
+
+
+
 
                         } else {
                             // If sign in fails, display a message to the user.
-                            Toast.makeText(LoginUser.this, "Something get wrong!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(LoginUser.this, "Qualcosa è andato storto!", Toast.LENGTH_LONG).show();
 
                         }
                     }
@@ -146,7 +198,7 @@ public class LoginUser extends AppCompatActivity implements View.OnClickListener
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.textViewLoginRegistrati:
+            case R.id.tornaALogin:
                 startActivity(new Intent(this, RegisterUser.class));
                 break;
 
@@ -168,31 +220,31 @@ public class LoginUser extends AppCompatActivity implements View.OnClickListener
 
         if(mail.isEmpty()){
 
-            editTextLoginEmail.setError("Email is required");
+            editTextLoginEmail.setError("Email richiesta");
             editTextLoginEmail.requestFocus();
             return;
         }
 
         if(!Patterns.EMAIL_ADDRESS.matcher(mail).matches()){
-            editTextLoginEmail.setError("Please enter a valid mail");
+            editTextLoginEmail.setError("Inserisci un email valida");
             editTextLoginEmail.requestFocus();
             return;
         }
 
         if(password.isEmpty()){
 
-            editTestLoginPassword.setError("Password is required");
+            editTestLoginPassword.setError("Password richiesta");
             editTestLoginPassword.requestFocus();
             return;
         }
 
         if(password.length() < 6){
-            editTestLoginPassword.setError("Min pass length is 6 characters");
+            editTestLoginPassword.setError("Password richiesta minimo 6 caratteri");
             editTestLoginPassword.requestFocus();
             return;
         }
 
-        progressBarLogin.setVisibility(View.VISIBLE);
+        //progressBarLogin.setVisibility(View.VISIBLE);
 
         mAuth.signInWithEmailAndPassword(mail,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
@@ -204,19 +256,20 @@ public class LoginUser extends AppCompatActivity implements View.OnClickListener
 
                     if(user.isEmailVerified()){
                         //redirect to user profile
-                        startActivity(new Intent(LoginUser.this, ProfileActivity.class));
+                        startActivity(new Intent(LoginUser.this, MainActivity.class));
                     }
                     else
                     {
                         user.sendEmailVerification();
-                        Toast.makeText(LoginUser.this, "Check your email to verify your account!", Toast.LENGTH_LONG).show();
+                        FirebaseAuth.getInstance().signOut();
+                        Toast.makeText(LoginUser.this, "Veirifica il tuo account!", Toast.LENGTH_LONG).show();
                     }
 
 
                 }
                 else
                 {
-                   Toast.makeText(LoginUser.this, "Failed to login! Please check your credentials", Toast.LENGTH_LONG).show();
+                   Toast.makeText(LoginUser.this, "Log in fallito, controlla le credenziali!", Toast.LENGTH_LONG).show();
                 }
             }
         });

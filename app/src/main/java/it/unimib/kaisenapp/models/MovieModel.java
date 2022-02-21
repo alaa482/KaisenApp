@@ -2,9 +2,7 @@ package it.unimib.kaisenapp.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-/*la classe implementa parcelable cosi posso
-    spedire gli oggetti tra i diversi intent
- */
+
 public class MovieModel implements Parcelable {
     //Model class per i film
     private String title;
@@ -13,15 +11,22 @@ public class MovieModel implements Parcelable {
     private int id;
     private float vote_average;
     private String overview;
+    private String category;
+    private int runtime;
+    private String name;
 
-    public MovieModel(String title, String poster_path, String release_date, int movie_id, float vote_average, String overview) {
+    public MovieModel(String title, String poster_path, String release_date, int id, float vote_average, String overview,int runtime,String name ,String category) {
         this.title = title;
         this.poster_path = poster_path;
         this.release_date = release_date;
-        this.id = movie_id;
+        this.id = id;
         this.vote_average = vote_average;
         this.overview = overview;
+        this.runtime=runtime;
+        this.name=name;
+        this.category=category;
     }
+
 
     protected MovieModel(Parcel in) {
         title = in.readString();
@@ -30,6 +35,8 @@ public class MovieModel implements Parcelable {
         id = in.readInt();
         vote_average = in.readFloat();
         overview = in.readString();
+        runtime = in.readInt();
+        name= in.readString();
     }
 
     public static final Creator<MovieModel> CREATOR = new Creator<MovieModel>() {
@@ -56,7 +63,7 @@ public class MovieModel implements Parcelable {
         return release_date;
     }
 
-    public int getMovie_id() {
+    public int getId() {
         return id;
     }
 
@@ -68,6 +75,20 @@ public class MovieModel implements Parcelable {
         return overview;
     }
 
+    public int getRuntime() {
+        return runtime;
+    }
+
+    public String getName() {
+        return name;
+    }
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
 
     @Override
     public int describeContents() {
@@ -82,6 +103,8 @@ public class MovieModel implements Parcelable {
         parcel.writeInt(id);
         parcel.writeFloat(vote_average);
         parcel.writeString(overview);
+        parcel.writeInt(runtime);
+        parcel.writeString(name);
     }
 
     @Override

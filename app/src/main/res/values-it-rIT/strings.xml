@@ -6,6 +6,8 @@
     <string name="cerca" translatable="false">Cerca un film o una serie</string>
     <string name="search_movies">Cerca</string>
     <string name="title">Titolo</string>
-    <string name="genres">Generi</string>
-    <string name="originalTitle">Titolo Originale</string>
+    <string name="genres">Generi :</string>
+    <string name="originalTitle">Titolo Originale :</string>
+    <string name="seasons">Stagioni</string>
+    <string name="animazione">Animazione</string>
 </resources>
