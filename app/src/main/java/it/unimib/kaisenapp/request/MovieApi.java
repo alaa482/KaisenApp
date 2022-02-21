@@ -2,6 +2,7 @@ package it.unimib.kaisenapp.request;
 
 import it.unimib.kaisenapp.models.MovieModel;
 import it.unimib.kaisenapp.models.TvSerieModel;
+import it.unimib.kaisenapp.models.TvShowModel;
 import it.unimib.kaisenapp.response.EpisodeResponse;
 import it.unimib.kaisenapp.response.MovieDetailsResponse;
 import it.unimib.kaisenapp.response.MovieSearchResponse;

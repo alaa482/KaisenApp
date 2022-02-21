@@ -142,8 +142,13 @@ public class MovieApiClient{
         },3000, TimeUnit.MILLISECONDS);
     }
 
+<<<<<<< Updated upstream
     public void getMoviesByGenre(int genre, int page){
         retrieveMoviesGenreRunnable=new RetrieveMoviesGenreRunnable(genre,page);
+=======
+    public void getMoviesByGenre(int genre,int page){
+        retrieveMoviesGenreRunnable=new RetrieveMoviesGenreRunnable(genre, page);
+>>>>>>> Stashed changes
         final Future myHandler = AppExecutor.getInstance().networkIO().submit(retrieveMoviesGenreRunnable);
 
         AppExecutor.getInstance().networkIO().schedule(new Runnable() {
@@ -155,7 +160,11 @@ public class MovieApiClient{
 
     }
     public void getTvSeriesByGenre(int genre,int page){
+<<<<<<< Updated upstream
         retrieveTvSerieGenreRunnable=new RetrieveTvSerieGenreRunnable(genre,page);
+=======
+        retrieveTvSerieGenreRunnable=new RetrieveTvSerieGenreRunnable(genre, page);
+>>>>>>> Stashed changes
         final Future myHandler = AppExecutor.getInstance().networkIO().submit(retrieveTvSerieGenreRunnable);
 
         AppExecutor.getInstance().networkIO().schedule(new Runnable() {
@@ -449,10 +458,16 @@ public class MovieApiClient{
 
     private class RetrieveMoviesGenreRunnable implements Runnable{
         private int genre;
+        private int page;
         private boolean cancelRequest;
         private int page;
 
+<<<<<<< Updated upstream
         public RetrieveMoviesGenreRunnable(int genre,int page) {
+=======
+        public RetrieveMoviesGenreRunnable(int genre, int page) {
+            this.page=page;
+>>>>>>> Stashed changes
             this.genre = genre;
             cancelRequest=false;
             this.page = page;
@@ -472,7 +487,13 @@ public class MovieApiClient{
 
                 if(response.code() == 200){
                     List<MovieModel> list = new ArrayList<>(((MovieSearchResponse) response.body()).getMovies());
+<<<<<<< Updated upstream
                     mGenresMovie.postValue(list);
+=======
+
+                    Log.v("Test", list.size()+" fooo");
+                    mMovies.postValue(list);
+>>>>>>> Stashed changes
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -480,7 +501,11 @@ public class MovieApiClient{
 
         }
 
+<<<<<<< Updated upstream
         Call<MovieSearchResponse> getMoviesByGenre(int genre,int page){
+=======
+        Call<MovieModel> getMoviesByGenre(int genre, int page){
+>>>>>>> Stashed changes
             return Service.getMovieApi().getMoviesByGenre(
                     Credentials.API_KEY,
                     Credentials.LANGUAGE,
@@ -491,11 +516,13 @@ public class MovieApiClient{
     }
     private class RetrieveTvSerieGenreRunnable implements Runnable{
         private int genre;
+        private int page;
         private boolean cancelRequest;
         private int page;
 
         public RetrieveTvSerieGenreRunnable(int genre,int page) {
             this.genre = genre;
+            this.page=page;
             cancelRequest=false;
             this.page = page;
         }
@@ -508,15 +535,22 @@ public class MovieApiClient{
         public void run() {
 
             try {
+<<<<<<< Updated upstream
                 Response response=getTvSeriesByGenre(genre,page).execute();
+=======
+                Response response=getTvSeriesByGenre(genre, page).execute();
+>>>>>>> Stashed changes
                 if(cancelRequest)
                     return;
-Log.v("msggggg",response.code()+"");
-Log.v("msggggg",response.body().toString());
+
                 if(response.code() == 200){
                     List<TvShowModel> l = new ArrayList<>(((TvShowSearchResponse)response.body()).getTvShows());
+<<<<<<< Updated upstream
                     Log.v("msggggg",l.toString());
                     mGenresTv.postValue(l);
+=======
+                    mTvShows.postValue(l);
+>>>>>>> Stashed changes
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -524,7 +558,11 @@ Log.v("msggggg",response.body().toString());
 
 
         }
+<<<<<<< Updated upstream
         Call<TvShowSearchResponse> getTvSeriesByGenre(int genre,int page){
+=======
+        Call<TvShowSearchResponse> getTvSeriesByGenre(int genre, int page){
+>>>>>>> Stashed changes
             return Service.getMovieApi().getTvSeriesByGenre(
                     Credentials.API_KEY,
                     Credentials.LANGUAGE,

@@ -75,17 +75,29 @@ public class SearchGenre extends AppCompatActivity implements GenresItemRecycler
         setContentView(R.layout.activity_search_genre);
         recyclerView= findViewById(R.id.recycle1);
 
+
         allCategoryList = new ArrayList<>();
         movies = new ArrayList<>();
 
 
         movieListViewModel = new ViewModelProvider(this).get(MovieListViewModel.class);
+<<<<<<< Updated upstream
         genre = getIntent().getStringExtra("genre");
 
 
+=======
+        String genre = getIntent().getStringExtra("genre");
+        observer();
+
+        Log.v("msggggg",genres.get(genre.toLowerCase()).toString());
+
+        movieListViewModel.getMoviesByGenre(genres.get(genre.toLowerCase()), Constants.PAGE);
+        movieListViewModel.getTvSeriesByGenre(genres.get(genre.toLowerCase()), Constants.PAGE);
+>>>>>>> Stashed changes
 
         textView = (TextView) findViewById(R.id.textView);
         textView.setText(genre);
+
         backButton = (ImageButton) findViewById(R.id.imageButton);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override

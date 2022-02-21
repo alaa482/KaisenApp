@@ -61,10 +61,19 @@ public class MovieRepository {
     public void search(String query, int page) {
         movieApiClient.search(query, page);
     }
+<<<<<<< Updated upstream
     public void getMoviesByGenre(int genre, int page){
         movieApiClient.getMoviesByGenre(genre,page);
     }
     public void getTvSeriesByGenre(int genre, int page){
         movieApiClient.getTvSeriesByGenre(genre,page);
+=======
+
+    public void getMoviesByGenre(int genre, int page){
+        movieApiClient.getMoviesByGenre(genre, page);
+    }
+    public void getTvSeriesByGenre(int genre, int page){
+        movieApiClient.getTvSeriesByGenre(genre, page);
+>>>>>>> Stashed changes
     }
 }
