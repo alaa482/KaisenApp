@@ -265,7 +265,8 @@ public class SeriesSpec extends AppCompatActivity implements SimilarReciclerAdap
                     avarageVote = response.body().getVoteAvarege();
                     title = response.body().getName();
                     plot = response.body().getPlot();
-                    durata=String.valueOf(response.body().getEpisode_run_time().get(0));
+                    if(response.body().getEpisode_run_time()!= null && response.body().getEpisode_run_time().size()>0)
+                        durata=String.valueOf(response.body().getEpisode_run_time().get(0));
                     numEpisode=response.body().getnumber_of_episodes();
                     seasonsReciclerAdapter=new SeasonsReciclerAdapter(SeriesSpec.this,response.body().getSeasons(), SeriesSpec.this);
                     RecyclerView.LayoutManager layout = new LinearLayoutManager(SeriesSpec.this, RecyclerView.HORIZONTAL, false);

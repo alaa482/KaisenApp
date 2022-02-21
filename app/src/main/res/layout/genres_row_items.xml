@@ -5,22 +5,22 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginStart="16dp"
-    android:background="#0F171E">
+    android:background="@color/black">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="123dp"
-        android:layout_height="166dp"
+        android:layout_width="118dp"
+        android:layout_height="172dp"
+
         app:cardCornerRadius="5dp"
         app:cardElevation="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/item_image"
-            android:layout_width="123dp"
-            android:layout_height="166dp"
+            android:id="@+id/item_image1"
+            android:layout_width="118dp"
+            android:layout_height="172dp"
             android:scaleType="fitXY"
             app:srcCompat="@drawable/ic_launcher_background" />
 

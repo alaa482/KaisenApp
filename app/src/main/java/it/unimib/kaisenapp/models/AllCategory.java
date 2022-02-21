@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,8 +14,12 @@ public class AllCategory implements Parcelable {
     private String categoryTitle;
     private List<CategoryItem> categoryItemList;
     public AllCategory(String categoryTitle, List<CategoryItem> categoryItemList) {
-        this.categoryItemList=categoryItemList;
-        this.categoryTitle = categoryTitle;
+       this.categoryTitle=categoryTitle;
+        this.categoryItemList=new ArrayList<>();
+        if(categoryItemList!=null)
+            for (CategoryItem categoryItem : categoryItemList){
+            this.categoryItemList.add(new CategoryItem(categoryItem));
+        }
     }
 
     protected AllCategory(Parcel in) {

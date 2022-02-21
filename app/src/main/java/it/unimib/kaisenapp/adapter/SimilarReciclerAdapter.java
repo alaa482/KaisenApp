@@ -57,7 +57,7 @@ public class SimilarReciclerAdapter extends RecyclerView.Adapter<SimilarRecicler
         OnClickListener onClickListener;
         public ItemViewHolder(@NonNull View itemView, OnClickListener onClickListener) {
             super(itemView);
-            itemImage = itemView.findViewById(R.id.item_image);
+            itemImage = itemView.findViewById(R.id.item_image1);
             this.onClickListener=onClickListener;
             itemView.setOnClickListener(this);
         }

@@ -21,8 +21,8 @@ import it.unimib.kaisenapp.models.CategoryItem;
 public class GenresItemRecyclerAdapter  extends RecyclerView.Adapter<GenresItemRecyclerAdapter.CategoryItemViewHolder> {
     private final Context context;
     private final List<CategoryItem> categoryItemList;
-    private final CategoryItemRecyclerAdapter.OnClickListener onClickListener;
-    public GenresItemRecyclerAdapter(Context context, List<CategoryItem> categoryItemList, CategoryItemRecyclerAdapter.OnClickListener onClickListener) {
+    private final GenresItemRecyclerAdapter.OnClickListener onClickListener;
+    public GenresItemRecyclerAdapter(Context context, List<CategoryItem> categoryItemList, GenresItemRecyclerAdapter.OnClickListener onClickListener) {
         this.context = context;
         this.categoryItemList = categoryItemList;
         this.onClickListener=onClickListener;
@@ -59,13 +59,13 @@ public class GenresItemRecyclerAdapter  extends RecyclerView.Adapter<GenresItemR
     public static final class CategoryItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView id;
         ImageView itemImage;
-        CategoryItemRecyclerAdapter.OnClickListener onClickListener;
+        GenresItemRecyclerAdapter.OnClickListener onClickListener;
         String type;
 
-        public CategoryItemViewHolder(@NonNull View itemView, CategoryItemRecyclerAdapter.OnClickListener onClickListener) {
+        public CategoryItemViewHolder(@NonNull View itemView, GenresItemRecyclerAdapter.OnClickListener onClickListener) {
             super(itemView);
             type="";
-            itemImage = itemView.findViewById(R.id.item_image);
+            itemImage = itemView.findViewById(R.id.item_image1);
             id=itemView.findViewById(R.id.movie_id);
             this.onClickListener=onClickListener;
             itemView.setOnClickListener(this);

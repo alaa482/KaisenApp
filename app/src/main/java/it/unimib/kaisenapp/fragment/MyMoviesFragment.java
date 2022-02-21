@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,7 @@ import it.unimib.kaisenapp.R;
 import it.unimib.kaisenapp.adapter.CategoryItemRecyclerAdapter;
 import it.unimib.kaisenapp.adapter.GenresItemRecyclerAdapter;
 import it.unimib.kaisenapp.adapter.GenresMainRecyclerAdapter;
+import it.unimib.kaisenapp.adapter.MainRecyclerAdapter;
 import it.unimib.kaisenapp.database.MovieEntity;
 
 import it.unimib.kaisenapp.database.TvShowEntity;
@@ -37,12 +39,12 @@ import it.unimib.kaisenapp.utils.Constants;
 import it.unimib.kaisenapp.viewmodels.MovieDatabaseViewModel;
 import it.unimib.kaisenapp.viewmodels.MovieListViewModel;
 
-public class MyMoviesFragment extends Fragment implements CategoryItemRecyclerAdapter.OnClickListener, GenresMainRecyclerAdapter.OnClickListener {
-    private GenresMainRecyclerAdapter mainRecyclerAdapter;
+public class MyMoviesFragment extends Fragment implements CategoryItemRecyclerAdapter.OnClickListener, MainRecyclerAdapter.OnClickListener {
+    private MainRecyclerAdapter mainRecyclerAdapter;
     private List<List<CategoryItem>> categoryItemList; //contiene i film di ogni recycleview
-    private List<AllCategory> allCategoryList;
+    private ArrayList<AllCategory> allCategoryList;
     private List<String> moviesType;
-    private GenresMainRecyclerAdapter adapter2;
+    private MainRecyclerAdapter adapter2;
     private int contF;
     private int contS;
     private int cont;
@@ -90,19 +92,19 @@ public class MyMoviesFragment extends Fragment implements CategoryItemRecyclerAd
                             if (mm.isFavorite()) {
 
                                 c = new CategoryItem(mm.getMovie_id(), mm.getPoster_path(), "Movie","");
-                                allCategoryList.get(allCategoryList.indexOf(new AllCategory(Constants.FAVORITES, null))).getCategoryItemList().add(c);
+                                allCategoryList.get(allCategoryList.indexOf(new AllCategory(Constants.FAVORITES, new ArrayList<>()))).getCategoryItemList().add(c);
                             }
                             if (mm.isWatched()) {
                                 contF++;
                                 c = new CategoryItem(mm.getMovie_id(), mm.getPoster_path(), "Movie","");
-                                allCategoryList.get(allCategoryList.indexOf(new AllCategory(Constants.WATCHED, null))).getCategoryItemList().add(c);
+                                allCategoryList.get(allCategoryList.indexOf(new AllCategory(Constants.WATCHED, new ArrayList<>()))).getCategoryItemList().add(c);
 
 
                             }
                             if (mm.isSaved()) {
 
                                 c = new CategoryItem(mm.getMovie_id(), mm.getPoster_path(), "Movie","");
-                                allCategoryList.get(allCategoryList.indexOf(new AllCategory(Constants.PLAN_TO_WATCH, null))).getCategoryItemList().add(c);
+                                allCategoryList.get(allCategoryList.indexOf(new AllCategory(Constants.PLAN_TO_WATCH, new ArrayList<>()))).getCategoryItemList().add(c);
                             }
                         }
 
@@ -143,7 +145,7 @@ public class MyMoviesFragment extends Fragment implements CategoryItemRecyclerAd
                             allCategoryList.get(allCategoryList.indexOf(new AllCategory(Constants.PLAN_TO_WATCH, null))).getCategoryItemList().add(c);
                         }
                     }
-                    mainRecyclerAdapter = new GenresMainRecyclerAdapter(getContext(), allCategoryList, MyMoviesFragment.this,MyMoviesFragment.this);
+                    mainRecyclerAdapter = new MainRecyclerAdapter(getContext(), allCategoryList, MyMoviesFragment.this,MyMoviesFragment.this);
                     recyclerView.setAdapter(mainRecyclerAdapter);
                     serieEntitiesApp = movieEntities;
                 }
@@ -214,7 +216,7 @@ public class MyMoviesFragment extends Fragment implements CategoryItemRecyclerAd
         for(int i=0; i< moviesType.size(); i++)
             allCategoryList.add(new AllCategory(moviesType.get(i), categoryItemList.get(i)));
 
-        adapter2=new GenresMainRecyclerAdapter(getContext(), allCategoryList, MyMoviesFragment.this,MyMoviesFragment.this);
+        adapter2=new MainRecyclerAdapter(getContext(), allCategoryList, MyMoviesFragment.this,MyMoviesFragment.this);
         adapter2.addAllCategory(allCategoryList);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
@@ -263,6 +265,7 @@ public class MyMoviesFragment extends Fragment implements CategoryItemRecyclerAd
     public void onClick(String type) {
         Intent intent = new Intent(getContext(), Explore.class);
         intent.putExtra("title", type);
+        intent.putExtra("num",(ArrayList<CategoryItem>) allCategoryList.get(allCategoryList.indexOf(new AllCategory(type,new ArrayList<>()))).getCategoryItemList());
         startActivity(intent);
     }
 }

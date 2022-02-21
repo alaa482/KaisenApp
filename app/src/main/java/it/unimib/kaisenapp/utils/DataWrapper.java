@@ -26,7 +26,7 @@ public final class DataWrapper {
         if(DataWrapper.list!=null && list!=null){
             for(AllCategory category: DataWrapper.list)
                 if(category.getCategoryTitle().equalsIgnoreCase(title))
-                    DataWrapper.list.get(DataWrapper.list.indexOf(new AllCategory(title, null))).setCategoryItemList(list);
+                    DataWrapper.list.get(DataWrapper.list.indexOf(new AllCategory(title, new ArrayList<>()))).setCategoryItemList(list);
         }
 
     }

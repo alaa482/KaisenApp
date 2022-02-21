@@ -34,7 +34,7 @@ import it.unimib.kaisenapp.utils.Constants;
 import it.unimib.kaisenapp.utils.DataWrapper;
 import it.unimib.kaisenapp.viewmodels.MovieDatabaseViewModel;
 
-public class HomeFragment extends Fragment  implements CategoryItemRecyclerAdapter.OnClickListener{
+public class HomeFragment extends Fragment  implements CategoryItemRecyclerAdapter.OnClickListener,MainRecyclerAdapter.OnClickListener{
     //RecycleView - Adapter
     private RecyclerView mainCategoryRecycler;
     private MainRecyclerAdapter mainRecyclerAdapter;
@@ -52,7 +52,7 @@ public class HomeFragment extends Fragment  implements CategoryItemRecyclerAdapt
         View homeView= inflater.inflate(R.layout.fragment_home, container, false);
         mainCategoryRecycler = homeView.findViewById(R.id.searched_movie_recycleview);
         movieDatabaseViewModel= new ViewModelProvider(this).get(MovieDatabaseViewModel.class);
-        mainRecyclerAdapter = new MainRecyclerAdapter(getContext(),  DataWrapper.getList(), this);
+        mainRecyclerAdapter = new MainRecyclerAdapter(getContext(),  DataWrapper.getList(), this,this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         mainCategoryRecycler.setAdapter(mainRecyclerAdapter);
         mainCategoryRecycler.setLayoutManager(layoutManager);
@@ -113,7 +113,7 @@ public class HomeFragment extends Fragment  implements CategoryItemRecyclerAdapt
 
 
 
-        mainRecyclerAdapter = new MainRecyclerAdapter(getContext(),  DataWrapper.getList(), this);
+        mainRecyclerAdapter = new MainRecyclerAdapter(getContext(),  DataWrapper.getList(), this,this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         mainCategoryRecycler.setAdapter(mainRecyclerAdapter);
         mainCategoryRecycler.setLayoutManager(layoutManager);
@@ -146,5 +146,10 @@ public class HomeFragment extends Fragment  implements CategoryItemRecyclerAdapt
             intent.putExtra("id", id);
             startActivity(intent);
         }
+    }
+
+    @Override
+    public void onClick(String type) {
+
     }
 }

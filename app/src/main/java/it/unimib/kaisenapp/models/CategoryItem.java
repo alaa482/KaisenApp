@@ -40,6 +40,11 @@ public class CategoryItem  implements Parcelable, Serializable {
             return new CategoryItem[size];
         }
     };
+    public CategoryItem(CategoryItem categoryItem){
+        this.itemId = categoryItem.itemId;
+        this.imageUrl = categoryItem.getImageUrl();
+        this.title = categoryItem.title;
+    }
 
     public Integer getItemId() {
         return itemId;

@@ -1,7 +1,6 @@
 package it.unimib.kaisenapp.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,10 +17,10 @@ import it.unimib.kaisenapp.models.CategoryItem;
 public class GenresMainRecyclerAdapter extends RecyclerView.Adapter<GenresMainRecyclerAdapter.MainViewHolder>  {
     private Context context;
     private List<AllCategory> allCategoryList;
-    private CategoryItemRecyclerAdapter.OnClickListener onClickListener;
+    private GenresItemRecyclerAdapter.OnClickListener onClickListener;
     private OnClickListener titleListener;
 
-    public GenresMainRecyclerAdapter(Context context, List<AllCategory> allCategoryList, CategoryItemRecyclerAdapter.OnClickListener onClickListener,OnClickListener titleListener) {
+    public GenresMainRecyclerAdapter(Context context, List<AllCategory> allCategoryList, GenresItemRecyclerAdapter.OnClickListener onClickListener,OnClickListener titleListener) {
         this.context=context;
         this.allCategoryList = allCategoryList;
         this.onClickListener=onClickListener;
@@ -61,8 +60,8 @@ public class GenresMainRecyclerAdapter extends RecyclerView.Adapter<GenresMainRe
         OnClickListener onClickListener;
         public MainViewHolder(@NonNull View itemView,OnClickListener onClickListener) {
             super(itemView);
-            categoryTitle = itemView.findViewById(R.id.category_title);
-            itemRecycler = itemView.findViewById(R.id.item_recycler);
+            categoryTitle = itemView.findViewById(R.id.category_title1);
+            itemRecycler = itemView.findViewById(R.id.item_recycler1);
             this.onClickListener = onClickListener;
             categoryTitle.setOnClickListener(this);
         }

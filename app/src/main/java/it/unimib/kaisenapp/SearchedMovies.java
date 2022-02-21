@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageButton;
-import android.widget.Toast;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 import it.unimib.kaisenapp.adapter.SearchedMovieRecycleAdapter;
-import it.unimib.kaisenapp.fragment.ProfileFragment;
 import it.unimib.kaisenapp.fragment.SearchFragment;
 import it.unimib.kaisenapp.models.CategoryItem;
 import it.unimib.kaisenapp.models.SearchMultiModel;
@@ -43,7 +42,7 @@ public class SearchedMovies extends AppCompatActivity implements SearchedMovieRe
         }
 
 
-        recyclerView = findViewById(R.id.recycle);
+        recyclerView = findViewById(R.id.recycle1);
         searchedMovieRecycleAdapter = new SearchedMovieRecycleAdapter(this,  categoryItemList, this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         recyclerView.setAdapter(searchedMovieRecycleAdapter);

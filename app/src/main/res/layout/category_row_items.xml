@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/item_image"
+            android:id="@+id/item_image1"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:scaleType="fitXY"

@@ -1,58 +1,115 @@
 package it.unimib.kaisenapp;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import it.unimib.kaisenapp.adapter.CategoryItemRecyclerAdapter;
 import it.unimib.kaisenapp.adapter.GenresItemRecyclerAdapter;
 import it.unimib.kaisenapp.adapter.GenresMainRecyclerAdapter;
-import it.unimib.kaisenapp.database.MovieEntity;
-import it.unimib.kaisenapp.database.TvShowEntity;
-import it.unimib.kaisenapp.fragment.MyMoviesFragment;
 import it.unimib.kaisenapp.models.AllCategory;
 import it.unimib.kaisenapp.models.CategoryItem;
-import it.unimib.kaisenapp.utils.Constants;
 import it.unimib.kaisenapp.viewmodels.MovieDatabaseViewModel;
 
-public class Explore extends AppCompatActivity {
+public class Explore extends AppCompatActivity implements GenresItemRecyclerAdapter.OnClickListener, GenresMainRecyclerAdapter.OnClickListener {
     private GenresMainRecyclerAdapter mainRecyclerAdapter;
     private List<List<CategoryItem>> categoryItemList; //contiene i film di ogni recycleview
-    private List<AllCategory> allCategoryList;
+    private ArrayList<AllCategory> allCategoryList;
     private List<String> moviesType;
     private GenresMainRecyclerAdapter adapter2;
     private MovieDatabaseViewModel movieDatabaseViewModel;
     private String title;
+    private ImageButton backButton;
+    private Fragment selectedFragment;
+    private TextView textView;
+    private ImageView img;
     RecyclerView recyclerView;
-    List<MovieEntity> movieEntitiesApp;
-    List<TvShowEntity> serieEntitiesApp;
     public void onCreate( @Nullable Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_search_genre);
+        recyclerView= findViewById(R.id.recycle1);
         title=getIntent().getStringExtra("title");
-        Log.v("msggg",title);
+        allCategoryList = new ArrayList<>();
+        ArrayList<CategoryItem> movies = getIntent().getParcelableArrayListExtra("num");
+        ArrayList<CategoryItem> tmp = new ArrayList<>();
+        double size = movies.size();
+        if(movies!=null) {
+            for (int j = 0; j < Math.ceil(size / 3); j++) {
+                Log.v("msggg", Math.ceil(size / 3)+"");
+                if (movies.size() < 3) {
+                    for (int i = 0; i < movies.size(); i++) {
+                        tmp.add(movies.get(i));
 
-        /*categoryItemList=new ArrayList<>();
-        allCategoryList=new ArrayList<>();
-        moviesType=new ArrayList<>();
-        movieEntitiesApp = new ArrayList<>();
-        movieDatabaseViewModel= new ViewModelProvider(this).get(MovieDatabaseViewModel.class);*/
-        //movieDatabaseViewModel.deleteAllMovies();
+                    }
+                    allCategoryList.add(new AllCategory("", tmp));
+                    Log.v("msggg",allCategoryList.toString());
+                    movies.removeAll(tmp);
+                    tmp.clear();
+                } else {
 
+                    for (int i = 0; i < 3; i++) {
+                        tmp.add(movies.get(i));
+                        Log.v("msggg",tmp.toString());
+                    }
+                    Log.v("msggg",tmp.toString());
+
+
+
+                }
+                allCategoryList.add(new AllCategory("", tmp));
+                Log.v("msggg",allCategoryList.toString());
+                movies.removeAll(tmp);
+                tmp.clear();
+
+            }
+            /*for (int i = 0; i < 3; i++) {
+                tmp.add(movies.get(i));
+            }
+            allCategoryList.add(new AllCategory("", tmp));
+            allCategoryList.add(new AllCategory("", tmp));
+            allCategoryList.add(new AllCategory("", tmp));
+            allCategoryList.add(new AllCategory("", tmp));*/
+
+
+
+            Log.v("msggg", allCategoryList + "");
+            adapter2 = new GenresMainRecyclerAdapter(this, allCategoryList, this, this);
+            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+            recyclerView.setAdapter(adapter2);
+            recyclerView.setLayoutManager(layoutManager);
+        }
+        textView = (TextView) findViewById(R.id.textView);
+        textView.setText(title);
+        backButton = (ImageButton) findViewById(R.id.imageButton);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+    }
+
+    @Override
+    public void onClick(int position, String type) {
+
+    }
+
+    @Override
+    public void onClick(String type) {
 
     }
 

@@ -2,7 +2,6 @@ package it.unimib.kaisenapp.adapter;
 
 import java.util.List;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.google.android.material.transition.Hold;
 
 
 import it.unimib.kaisenapp.R;
@@ -68,7 +66,7 @@ public class CategoryItemRecyclerAdapter extends RecyclerView.Adapter<CategoryIt
         public CategoryItemViewHolder(@NonNull View itemView, OnClickListener onClickListener) {
             super(itemView);
             type="";
-            itemImage = itemView.findViewById(R.id.item_image);
+            itemImage = itemView.findViewById(R.id.item_image1);
             id=itemView.findViewById(R.id.movie_id);
             this.onClickListener=onClickListener;
             itemView.setOnClickListener(this);
