@@ -256,6 +256,8 @@ public class FilmSpec extends AppCompatActivity implements SimilarReciclerAdapte
                 titleUI.setText(title);
                 originalTitleUI.setText(originalTitle);
                 plotUI.setText(plot);
+                if(durata==null)
+                    durata = "0";
                 durataUI.setText(durata+" min");
 
                 Glide.with(posterUI)

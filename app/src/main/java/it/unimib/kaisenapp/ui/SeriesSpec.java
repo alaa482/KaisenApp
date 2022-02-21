@@ -101,6 +101,7 @@ public class SeriesSpec extends AppCompatActivity implements SimilarReciclerAdap
         favoriteUI=(ImageButton)findViewById(R.id.favorite);
         starUI=(ImageButton)findViewById(R.id.star);
         durataUI=(TextView)findViewById(R.id.durata);
+
         movieDatabaseViewModel= new ViewModelProvider(this).get(MovieDatabaseViewModel.class);
 
 
@@ -278,7 +279,10 @@ public class SeriesSpec extends AppCompatActivity implements SimilarReciclerAdap
                 titleUI.setText(title);
                 originalTitleUI.setText(originalTitle);
                 plotUI.setText(plot);
-                durataUI.setText(durata+" min");
+                //if(response.body().getEpisode_run_time()!= null && response.body().getEpisode_run_time().size()>0)
+                if(durata==null)
+                    durata = "0";
+                    durataUI.setText(durata+" min");
 
                 Glide.with(posterUI)
                         .load(prefix+imagePath)

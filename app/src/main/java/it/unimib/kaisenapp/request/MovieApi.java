@@ -143,14 +143,14 @@ public interface MovieApi {
     Call<MovieModel> getMoviesByGenre(
             @Query("api_key") String key,
             @Query("language") String language,
-            @Query("with_genres") String genres
+            @Query("with_genres") int genres
     );
 
     @GET("discover/tv")
     Call<TvSerieModel> getTvSeriesByGenre(
             @Query("api_key") String key,
             @Query("language") String language,
-            @Query("with_genres") String genres
+            @Query("with_genres") int genres
     );
 
 

@@ -1,9 +1,11 @@
 package it.unimib.kaisenapp;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,6 +23,8 @@ import it.unimib.kaisenapp.adapter.GenresItemRecyclerAdapter;
 import it.unimib.kaisenapp.adapter.GenresMainRecyclerAdapter;
 import it.unimib.kaisenapp.models.AllCategory;
 import it.unimib.kaisenapp.models.CategoryItem;
+import it.unimib.kaisenapp.ui.FilmSpec;
+import it.unimib.kaisenapp.ui.SeriesSpec;
 import it.unimib.kaisenapp.viewmodels.MovieDatabaseViewModel;
 
 public class Explore extends AppCompatActivity implements GenresItemRecyclerAdapter.OnClickListener, GenresMainRecyclerAdapter.OnClickListener {
@@ -38,12 +42,19 @@ public class Explore extends AppCompatActivity implements GenresItemRecyclerAdap
     RecyclerView recyclerView;
     public void onCreate( @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         setContentView(R.layout.activity_search_genre);
         recyclerView= findViewById(R.id.recycle1);
         title=getIntent().getStringExtra("title");
         allCategoryList = new ArrayList<>();
         ArrayList<CategoryItem> movies = getIntent().getParcelableArrayListExtra("num");
+        Log.v("msgggg",movies.toString());
         ArrayList<CategoryItem> tmp = new ArrayList<>();
         double size = movies.size();
         if(movies!=null) {
@@ -85,7 +96,7 @@ public class Explore extends AppCompatActivity implements GenresItemRecyclerAdap
 
 
 
-            Log.v("msggg", allCategoryList + "");
+            Log.v("msgggg", allCategoryList + "");
             adapter2 = new GenresMainRecyclerAdapter(this, allCategoryList, this, this);
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
             recyclerView.setAdapter(adapter2);
@@ -105,7 +116,17 @@ public class Explore extends AppCompatActivity implements GenresItemRecyclerAdap
 
     @Override
     public void onClick(int position, String type) {
+        Log.v("msgggg",type);
+        if(type.equals("Movie")){
+            Intent intent = new Intent(this, FilmSpec.class);
+            intent.putExtra("id", position);
+            startActivity(intent);
 
+        }else  if(type.equals("tv_serie")){
+            Intent intent = new Intent(this, SeriesSpec.class);
+            intent.putExtra("id", position);
+            startActivity(intent);
+        }
     }
 
     @Override

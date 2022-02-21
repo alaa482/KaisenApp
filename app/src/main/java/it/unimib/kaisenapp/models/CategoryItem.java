@@ -44,6 +44,7 @@ public class CategoryItem  implements Parcelable, Serializable {
         this.itemId = categoryItem.itemId;
         this.imageUrl = categoryItem.getImageUrl();
         this.title = categoryItem.title;
+        this.type = categoryItem.type;
     }
 
     public Integer getItemId() {

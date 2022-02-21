@@ -61,10 +61,10 @@ public class MovieRepository {
     public void search(String query, int page) {
         movieApiClient.search(query, page);
     }
-    public void getMoviesByGenre(String genre){
+    public void getMoviesByGenre(int genre){
         movieApiClient.getMoviesByGenre(genre);
     }
-    public void getTvSeriesByGenre(String genre){
+    public void getTvSeriesByGenre(int genre){
         movieApiClient.getTvSeriesByGenre(genre);
     }
 }
