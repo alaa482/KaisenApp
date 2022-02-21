@@ -25,7 +25,9 @@ import java.util.Map;
 
 import it.unimib.kaisenapp.adapter.GenresItemRecyclerAdapter;
 import it.unimib.kaisenapp.adapter.GenresMainRecyclerAdapter;
+import it.unimib.kaisenapp.adapter.MainRecyclerAdapter;
 import it.unimib.kaisenapp.adapter.SearchedMovieRecycleAdapter;
+import it.unimib.kaisenapp.fragment.MyMoviesFragment;
 import it.unimib.kaisenapp.fragment.SearchFragment;
 import it.unimib.kaisenapp.models.AllCategory;
 import it.unimib.kaisenapp.models.CategoryItem;
@@ -33,6 +35,7 @@ import it.unimib.kaisenapp.models.MovieModel;
 import it.unimib.kaisenapp.models.TvShowModel;
 import it.unimib.kaisenapp.ui.FilmSpec;
 import it.unimib.kaisenapp.ui.SeriesSpec;
+import it.unimib.kaisenapp.utils.Constants;
 import it.unimib.kaisenapp.viewmodels.MovieDatabaseViewModel;
 import it.unimib.kaisenapp.viewmodels.MovieListViewModel;
 
@@ -47,7 +50,9 @@ public class SearchGenre extends AppCompatActivity implements GenresItemRecycler
     private ImageButton backButton;
     private Fragment selectedFragment;
     private TextView textView;
+
     private ImageView img;
+    private String genre;
     private Map<String,Integer> genres;
     private MovieListViewModel movieListViewModel;
     RecyclerView recyclerView;
@@ -56,6 +61,7 @@ public class SearchGenre extends AppCompatActivity implements GenresItemRecycler
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         genres = new HashMap<>();
+
         fill();
         getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
@@ -72,15 +78,10 @@ public class SearchGenre extends AppCompatActivity implements GenresItemRecycler
 
 
         movieListViewModel = new ViewModelProvider(this).get(MovieListViewModel.class);
-        String genre = getIntent().getStringExtra("genre");
-        observer();
-Log.v("msggggg",genres.get(genre.toLowerCase()).toString());
-        movieListViewModel.getMoviesByGenre(genres.get(genre.toLowerCase()));
-        movieListViewModel.getTvSeriesByGenre(genres.get(genre.toLowerCase()));
+        genre = getIntent().getStringExtra("genre");
 
-        if(movies!=null) {
 
-        }
+
         textView = (TextView) findViewById(R.id.textView);
         textView.setText(genre);
         backButton = (ImageButton) findViewById(R.id.imageButton);
@@ -117,8 +118,8 @@ Log.v("msggggg",genres.get(genre.toLowerCase()).toString());
         movieListViewModel.getMoviesByGenre().observe(this, new Observer<List<MovieModel>>() {
             @Override
             public void onChanged(List<MovieModel> movieModels) {
-                ArrayList<CategoryItem> tmp = new ArrayList<>();
-
+                 ArrayList<CategoryItem> tmp = new ArrayList<>();
+                 allCategoryList.clear();
                 if(movieModels!=null){
                     Log.v("msggg",movieModels.toString());
                     for (MovieModel mm: movieModels) {
@@ -153,6 +154,7 @@ Log.v("msggggg",genres.get(genre.toLowerCase()).toString());
                         tmp.clear();
 
                     }
+                    Log.v("msgggggg",allCategoryList.toString()+"observer");
 
 
 
@@ -167,6 +169,7 @@ Log.v("msggggg",genres.get(genre.toLowerCase()).toString());
                 ArrayList<CategoryItem> tmp = new ArrayList<>();
 
                 if(movieModels!=null){
+
                     Log.v("msggg",movieModels.toString());
                     for (TvShowModel mm: movieModels) {
                         movies.add(new CategoryItem(mm.getId(),mm.getPoster_path(),"tv",""));
@@ -204,7 +207,7 @@ Log.v("msggggg",genres.get(genre.toLowerCase()).toString());
 
 
 
-                    Log.v("msggg", allCategoryList + "");
+                    Log.v("msggggggg", allCategoryList + "");
                     adapter2 = new GenresMainRecyclerAdapter(SearchGenre.this, allCategoryList, SearchGenre.this, SearchGenre.this);
                     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(SearchGenre.this);
                     recyclerView.setAdapter(adapter2);
@@ -213,6 +216,30 @@ Log.v("msggggg",genres.get(genre.toLowerCase()).toString());
             }
         });
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        observer();
+        movieListViewModel.getMoviesByGenre(genres.get(genre.toLowerCase()), Constants.PAGE);
+        movieListViewModel.getTvSeriesByGenre(genres.get(genre.toLowerCase()), Constants.PAGE);
+
+
+        textView = (TextView) findViewById(R.id.textView);
+        textView.setText(genre);
+
+
+
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        allCategoryList.clear();
+        movies.clear();
     }
 
     @Override

@@ -140,17 +140,19 @@ public interface MovieApi {
     );
 
     @GET("discover/movie")
-    Call<MovieModel> getMoviesByGenre(
+    Call<MovieSearchResponse> getMoviesByGenre(
             @Query("api_key") String key,
             @Query("language") String language,
-            @Query("with_genres") int genres
+            @Query("with_genres") int genres,
+            @Query("page") int page
     );
 
     @GET("discover/tv")
-    Call<TvSerieModel> getTvSeriesByGenre(
+    Call<TvShowSearchResponse> getTvSeriesByGenre(
             @Query("api_key") String key,
             @Query("language") String language,
-            @Query("with_genres") int genres
+            @Query("with_genres") int genres,
+            @Query("page") int page
     );
 
 

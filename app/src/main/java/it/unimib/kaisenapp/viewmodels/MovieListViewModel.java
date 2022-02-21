@@ -51,11 +51,11 @@ public class MovieListViewModel extends ViewModel {
     public void getEpisode(int tv_id, int season_number) {
         movieRepository.getEpisode(tv_id, season_number);
     }
-    public void getMoviesByGenre(int genre){
-        movieRepository.getMoviesByGenre(genre);
+    public void getMoviesByGenre(int genre, int page){
+        movieRepository.getMoviesByGenre(genre, page);
     }
-    public void getTvSeriesByGenre(int genre){
-        movieRepository.getTvSeriesByGenre(genre);
+    public void getTvSeriesByGenre(int genre, int page){
+        movieRepository.getTvSeriesByGenre(genre, page);
     }
     
 }

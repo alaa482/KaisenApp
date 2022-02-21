@@ -35,7 +35,7 @@ public class MovieApiClient{
     private final MutableLiveData<List<TvSerieModel>> mTvSerieEpisode;
     private final MutableLiveData<List<SearchMultiModel>> mSearchMulti;
     private final MutableLiveData<List<MovieModel>> mGenresMovie;
-    private final MutableLiveData<List<TvSerieModel>> mGenresTv;
+    private final MutableLiveData<List<TvShowModel>> mGenresTv;
     private RetrieveMoviesRunnable retrieveMoviesRunnable;
     private RetrieveEpisodesRunnable retrieveEpisodesRunnable;
     private RetrieveSearchMultiRunnable retrieveSearchMultiRunnable;
@@ -66,7 +66,7 @@ public class MovieApiClient{
         return mGenresMovie;
     }
 
-    public MutableLiveData<List<TvSerieModel>> getmGenresTv() {
+    public MutableLiveData<List<TvShowModel>> getmGenresTv() {
         return mGenresTv;
     }
 
@@ -142,8 +142,8 @@ public class MovieApiClient{
         },3000, TimeUnit.MILLISECONDS);
     }
 
-    public void getMoviesByGenre(int genre){
-        retrieveMoviesGenreRunnable=new RetrieveMoviesGenreRunnable(genre);
+    public void getMoviesByGenre(int genre, int page){
+        retrieveMoviesGenreRunnable=new RetrieveMoviesGenreRunnable(genre,page);
         final Future myHandler = AppExecutor.getInstance().networkIO().submit(retrieveMoviesGenreRunnable);
 
         AppExecutor.getInstance().networkIO().schedule(new Runnable() {
@@ -154,8 +154,8 @@ public class MovieApiClient{
         },3000, TimeUnit.MILLISECONDS);
 
     }
-    public void getTvSeriesByGenre(int genre){
-        retrieveTvSerieGenreRunnable=new RetrieveTvSerieGenreRunnable(genre);
+    public void getTvSeriesByGenre(int genre,int page){
+        retrieveTvSerieGenreRunnable=new RetrieveTvSerieGenreRunnable(genre,page);
         final Future myHandler = AppExecutor.getInstance().networkIO().submit(retrieveTvSerieGenreRunnable);
 
         AppExecutor.getInstance().networkIO().schedule(new Runnable() {
@@ -450,10 +450,12 @@ public class MovieApiClient{
     private class RetrieveMoviesGenreRunnable implements Runnable{
         private int genre;
         private boolean cancelRequest;
+        private int page;
 
-        public RetrieveMoviesGenreRunnable(int genre) {
+        public RetrieveMoviesGenreRunnable(int genre,int page) {
             this.genre = genre;
             cancelRequest=false;
+            this.page = page;
         }
         private void cancelRequest(){
             cancelRequest=true;
@@ -463,14 +465,14 @@ public class MovieApiClient{
         @Override
         public void run() {
             try {
-                Response response=getMoviesByGenre(genre).execute();
+                Response response=getMoviesByGenre(genre,page).execute();
 
                 if(cancelRequest)
                     return;
 
                 if(response.code() == 200){
                     List<MovieModel> list = new ArrayList<>(((MovieSearchResponse) response.body()).getMovies());
-                    mMovies.postValue(list);
+                    mGenresMovie.postValue(list);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -478,21 +480,24 @@ public class MovieApiClient{
 
         }
 
-        Call<MovieModel> getMoviesByGenre(int genre){
+        Call<MovieSearchResponse> getMoviesByGenre(int genre,int page){
             return Service.getMovieApi().getMoviesByGenre(
                     Credentials.API_KEY,
                     Credentials.LANGUAGE,
-                    genre
+                    genre,
+                    page
             );
         }
     }
     private class RetrieveTvSerieGenreRunnable implements Runnable{
         private int genre;
         private boolean cancelRequest;
+        private int page;
 
-        public RetrieveTvSerieGenreRunnable(int genre) {
+        public RetrieveTvSerieGenreRunnable(int genre,int page) {
             this.genre = genre;
             cancelRequest=false;
+            this.page = page;
         }
         private void cancelRequest(){
             cancelRequest=true;
@@ -503,13 +508,13 @@ public class MovieApiClient{
         public void run() {
 
             try {
-                Response response=getTvSeriesByGenre(genre).execute();
+                Response response=getTvSeriesByGenre(genre,page).execute();
                 if(cancelRequest)
                     return;
 Log.v("msggggg",response.code()+"");
 Log.v("msggggg",response.body().toString());
                 if(response.code() == 200){
-                    List<TvSerieModel> l = new ArrayList<>(((TvShowSearchResponse)response.body()).getTvShows());
+                    List<TvShowModel> l = new ArrayList<>(((TvShowSearchResponse)response.body()).getTvShows());
                     Log.v("msggggg",l.toString());
                     mGenresTv.postValue(l);
                 }
@@ -519,11 +524,12 @@ Log.v("msggggg",response.body().toString());
 
 
         }
-        Call<TvSerieModel> getTvSeriesByGenre(int genre){
+        Call<TvShowSearchResponse> getTvSeriesByGenre(int genre,int page){
             return Service.getMovieApi().getTvSeriesByGenre(
                     Credentials.API_KEY,
                     Credentials.LANGUAGE,
-                    genre
+                    genre,
+                    page
             );
         }
     }

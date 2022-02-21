@@ -39,10 +39,10 @@ public class MovieRepository {
         return movieApiClient.getSearchedMulti();
     }
     public LiveData<List<MovieModel>> getMoviesByGenre(){
-        return  movieApiClient.getMovies();
+        return  movieApiClient.getmGenresMovie();
     }
     public LiveData<List<TvShowModel>> getTvSeriesByGenre(){
-        return  movieApiClient.getTvShows();
+        return  movieApiClient.getmGenresTv();
     }
 
     public void getEpisode(int tv_id, int season_number){
@@ -61,10 +61,10 @@ public class MovieRepository {
     public void search(String query, int page) {
         movieApiClient.search(query, page);
     }
-    public void getMoviesByGenre(int genre){
-        movieApiClient.getMoviesByGenre(genre);
+    public void getMoviesByGenre(int genre, int page){
+        movieApiClient.getMoviesByGenre(genre,page);
     }
-    public void getTvSeriesByGenre(int genre){
-        movieApiClient.getTvSeriesByGenre(genre);
+    public void getTvSeriesByGenre(int genre, int page){
+        movieApiClient.getTvSeriesByGenre(genre,page);
     }
 }
