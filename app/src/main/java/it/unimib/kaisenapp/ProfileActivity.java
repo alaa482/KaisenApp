@@ -152,7 +152,7 @@ public class ProfileActivity extends AppCompatActivity {
                     int numSf =  userProfile.numSf;
                     int ore = userProfile.ore;
                     String iid = userProfile.imId;
-                    Log.v("msg", userProfile.imId+"in profilo");
+
 
 
                     //greetingTextView.setText("Welcome, " + fullName + "!");

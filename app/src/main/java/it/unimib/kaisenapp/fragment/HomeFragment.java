@@ -70,7 +70,7 @@ public class HomeFragment extends Fragment  implements CategoryItemRecyclerAdapt
                     contF=movieEntities.size();
                     cont=cont+contF;
                     FirebaseDatabase.getInstance("https://progettok-362fa-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("numSf").setValue(cont);
-                    Log.v("msggg",String.valueOf(contF));
+
                     for (MovieEntity mm: movieEntities) {
                         contOF=mm.getRuntime();
                         contO=contO+contOF;
@@ -92,7 +92,7 @@ public class HomeFragment extends Fragment  implements CategoryItemRecyclerAdapt
                     contS=movieEntities.size();
                     cont=cont+contS;
                     FirebaseDatabase.getInstance("https://progettok-362fa-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("numSf").setValue(cont);
-                    Log.v("msggg",String.valueOf(contS));
+
                     for (TvShowEntity mm: movieEntities) {
                         contOS=mm.getRuntime();
                         contOS=contOS*mm.getNumEpisode();

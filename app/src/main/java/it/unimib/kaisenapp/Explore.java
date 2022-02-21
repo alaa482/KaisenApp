@@ -54,28 +54,28 @@ public class Explore extends AppCompatActivity implements GenresItemRecyclerAdap
         title=getIntent().getStringExtra("title");
         allCategoryList = new ArrayList<>();
         ArrayList<CategoryItem> movies = getIntent().getParcelableArrayListExtra("num");
-        Log.v("msgggg",movies.toString());
+
         ArrayList<CategoryItem> tmp = new ArrayList<>();
         double size = movies.size();
         if(movies!=null) {
             for (int j = 0; j < Math.ceil(size / 3); j++) {
-                Log.v("msggg", Math.ceil(size / 3)+"");
+
                 if (movies.size() < 3) {
                     for (int i = 0; i < movies.size(); i++) {
                         tmp.add(movies.get(i));
 
                     }
                     allCategoryList.add(new AllCategory("", tmp));
-                    Log.v("msggg",allCategoryList.toString());
+
                     movies.removeAll(tmp);
                     tmp.clear();
                 } else {
 
                     for (int i = 0; i < 3; i++) {
                         tmp.add(movies.get(i));
-                        Log.v("msggg",tmp.toString());
+
                     }
-                    Log.v("msggg",tmp.toString());
+
 
 
 
@@ -96,7 +96,7 @@ public class Explore extends AppCompatActivity implements GenresItemRecyclerAdap
 
 
 
-            Log.v("msgggg", allCategoryList + "");
+
             adapter2 = new GenresMainRecyclerAdapter(this, allCategoryList, this, this);
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
             recyclerView.setAdapter(adapter2);

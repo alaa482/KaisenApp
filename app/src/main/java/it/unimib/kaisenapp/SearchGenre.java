@@ -124,13 +124,13 @@ public class SearchGenre extends AppCompatActivity implements GenresItemRecycler
                 ArrayList<CategoryItem> tmp = new ArrayList<>();
                 allCategoryList.clear();
                 if (movieModels != null) {
-                    Log.v("msggg", movieModels.toString());
+
                     for (MovieModel mm : movieModels) {
                         movies.add(new CategoryItem(mm.getId(), mm.getPoster_path(), "movie", ""));
                     }
                     double size = movies.size();
                     for (int j = 0; j < Math.ceil(size / 3); j++) {
-                        Log.v("msggg", Math.ceil(size / 3) + "");
+
                         if (movies.size() < 3) {
                             for (int i = 0; i < movies.size(); i++) {
                                 tmp.add(movies.get(i));
@@ -144,9 +144,9 @@ public class SearchGenre extends AppCompatActivity implements GenresItemRecycler
 
                             for (int i = 0; i < 3; i++) {
                                 tmp.add(movies.get(i));
-                                Log.v("msggg", tmp.toString());
+
                             }
-                            Log.v("msggg", tmp.toString());
+
 
 
                         }

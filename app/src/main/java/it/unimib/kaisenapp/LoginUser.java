@@ -162,7 +162,7 @@ public class LoginUser extends AppCompatActivity implements View.OnClickListener
                                         Log.e("firebase", "Error getting data", task.getException());
                                     }
                                     else {
-                                        Log.v("firebasem", String.valueOf(task.getResult().getValue()));
+
                                         if(String.valueOf(task.getResult().getValue()).equals("null")){
                                             FirebaseDatabase.getInstance("https://progettok-362fa-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Users").child(idU).child("mail").setValue(user.getEmail());
                                             FirebaseDatabase.getInstance("https://progettok-362fa-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("fullName").setValue(user.getDisplayName());

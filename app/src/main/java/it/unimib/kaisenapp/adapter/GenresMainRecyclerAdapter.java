@@ -36,8 +36,9 @@ public class GenresMainRecyclerAdapter extends RecyclerView.Adapter<GenresMainRe
 
     @Override
     public void onBindViewHolder(@NonNull MainViewHolder holder, int position) {
-        holder.categoryTitle.setText(allCategoryList.get(position).getCategoryTitle());
-        setCategoryItemRecycler(holder.itemRecycler, allCategoryList.get(position).getCategoryItemList());
+            holder.categoryTitle.setText(allCategoryList.get(position).getCategoryTitle());
+            setCategoryItemRecycler(holder.itemRecycler, allCategoryList.get(position).getCategoryItemList());
+
     }
 
     @Override
@@ -46,9 +47,10 @@ public class GenresMainRecyclerAdapter extends RecyclerView.Adapter<GenresMainRe
     }
 
     private void setCategoryItemRecycler(RecyclerView recyclerView, List<CategoryItem> categoryItemList){
-        GenresItemRecyclerAdapter itemRecyclerAdapter=new GenresItemRecyclerAdapter(context, categoryItemList, onClickListener);
-        recyclerView.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
-        recyclerView.setAdapter(itemRecyclerAdapter);
+            GenresItemRecyclerAdapter itemRecyclerAdapter = new GenresItemRecyclerAdapter(context, categoryItemList, onClickListener);
+            recyclerView.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
+            recyclerView.setAdapter(itemRecyclerAdapter);
+
     }
 
 

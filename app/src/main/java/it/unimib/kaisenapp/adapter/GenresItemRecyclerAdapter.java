@@ -41,7 +41,6 @@ public class GenresItemRecyclerAdapter  extends RecyclerView.Adapter<GenresItemR
                 .load(prefix+categoryItemList.get(position).getImageUrl())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.itemImage);
-
         holder.id.setText(categoryItemList.get(position).getItemId().toString());
         holder.id.setVisibility(View.INVISIBLE);
         holder.type=categoryItemList.get(position).getType();
