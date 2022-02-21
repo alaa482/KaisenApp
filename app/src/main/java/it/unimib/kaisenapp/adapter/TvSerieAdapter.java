@@ -19,6 +19,7 @@ import java.util.List;
 import it.unimib.kaisenapp.R;
 import it.unimib.kaisenapp.models.TvSerieModel;
 import it.unimib.kaisenapp.response.TvShowSearchResponse;
+import it.unimib.kaisenapp.utils.Constants;
 
 public class TvSerieAdapter extends RecyclerView.Adapter<TvSerieAdapter.MyViewHolder> {
 
@@ -45,7 +46,7 @@ public class TvSerieAdapter extends RecyclerView.Adapter<TvSerieAdapter.MyViewHo
         holder.episode_number.setText(String.valueOf(episodes.get(position).getEpisode_number()));
         String prefix="https://image.tmdb.org/t/p/w500";
         Glide.with(holder.image_episode)
-                .load(prefix+episodes.get(position).getStill_path())
+                .load(Constants.PREFIX+episodes.get(position).getStill_path())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.image_episode);
 

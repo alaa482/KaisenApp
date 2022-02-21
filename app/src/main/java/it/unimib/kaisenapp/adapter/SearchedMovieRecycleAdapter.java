@@ -18,6 +18,7 @@ import com.bumptech.glide.request.RequestOptions;
 import java.util.List;
 import it.unimib.kaisenapp.R;
 import it.unimib.kaisenapp.models.CategoryItem;
+import it.unimib.kaisenapp.utils.Constants;
 
 public class SearchedMovieRecycleAdapter extends RecyclerView.Adapter<SearchedMovieRecycleAdapter.SearchedMovieViewHolder> {
 
@@ -46,7 +47,7 @@ public class SearchedMovieRecycleAdapter extends RecyclerView.Adapter<SearchedMo
         String prefix="https://image.tmdb.org/t/p/w500";
 
         Glide.with(holder.itemImage)
-                .load(prefix+categoryItemList.get(position).getImageUrl())
+                .load(Constants.PREFIX+categoryItemList.get(position).getImageUrl())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .apply( new RequestOptions().transform(new CenterCrop(), new RoundedCorners(16)))
                 .into(holder.itemImage);

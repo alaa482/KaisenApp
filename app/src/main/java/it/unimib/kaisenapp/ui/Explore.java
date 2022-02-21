@@ -1,4 +1,4 @@
-package it.unimib.kaisenapp;
+package it.unimib.kaisenapp.ui;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+import it.unimib.kaisenapp.R;
 import it.unimib.kaisenapp.adapter.GenresItemRecyclerAdapter;
 import it.unimib.kaisenapp.adapter.GenresMainRecyclerAdapter;
 import it.unimib.kaisenapp.models.AllCategory;
@@ -81,7 +82,6 @@ public class Explore extends AppCompatActivity implements GenresItemRecyclerAdap
 
                 }
                 allCategoryList.add(new AllCategory("", tmp));
-                Log.v("msggg",allCategoryList.toString());
                 movies.removeAll(tmp);
                 tmp.clear();
 
@@ -116,7 +116,6 @@ public class Explore extends AppCompatActivity implements GenresItemRecyclerAdap
 
     @Override
     public void onClick(int position, String type) {
-        Log.v("msgggg",type);
         if(type.equals("Movie")){
             Intent intent = new Intent(this, FilmSpec.class);
             intent.putExtra("id", position);

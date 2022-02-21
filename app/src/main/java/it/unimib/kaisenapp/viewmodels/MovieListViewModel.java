@@ -2,9 +2,7 @@ package it.unimib.kaisenapp.viewmodels;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
-
 import java.util.List;
-
 import it.unimib.kaisenapp.models.SearchMultiModel;
 import it.unimib.kaisenapp.models.TvSerieModel;
 import it.unimib.kaisenapp.models.TvShowModel;
@@ -13,7 +11,6 @@ import it.unimib.kaisenapp.database.MovieEntity;
 import it.unimib.kaisenapp.models.MovieModel;
 import it.unimib.kaisenapp.repository.MovieRepository;
 
-//class view model
 public class MovieListViewModel extends ViewModel {
     private MovieRepository movieRepository;
 

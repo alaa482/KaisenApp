@@ -7,16 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-
-
 import it.unimib.kaisenapp.R;
 import it.unimib.kaisenapp.models.CategoryItem;
+import it.unimib.kaisenapp.utils.Constants;
 
 public class CategoryItemRecyclerAdapter extends RecyclerView.Adapter<CategoryItemRecyclerAdapter.CategoryItemViewHolder> {
 
@@ -39,7 +36,7 @@ public class CategoryItemRecyclerAdapter extends RecyclerView.Adapter<CategoryIt
     public void onBindViewHolder(@NonNull CategoryItemViewHolder holder, int position) {
         String prefix="https://image.tmdb.org/t/p/w500";
         Glide.with(holder.itemImage)
-                .load(prefix+categoryItemList.get(position).getImageUrl())
+                .load(Constants.PREFIX +categoryItemList.get(position).getImageUrl())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.itemImage);
 

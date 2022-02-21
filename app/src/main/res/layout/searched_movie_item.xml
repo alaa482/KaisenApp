@@ -20,12 +20,13 @@
 
     <TextView
         android:id="@+id/search_title"
-        android:layout_width="283dp"
-        android:layout_height="49dp"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="10dp"
+        android:layout_width="276dp"
+        android:layout_height="79dp"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="6dp"
         android:layout_toEndOf="@+id/search_item"
         android:text="Titolo del film"
+        android:textAlignment="textStart"
         android:textColor="@color/white"
         android:textSize="16sp" />
 

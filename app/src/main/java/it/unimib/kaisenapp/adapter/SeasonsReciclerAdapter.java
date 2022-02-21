@@ -16,6 +16,7 @@ import java.util.List;
 
 import it.unimib.kaisenapp.R;
 import it.unimib.kaisenapp.models.SeasonsModel;
+import it.unimib.kaisenapp.utils.Constants;
 
 public class SeasonsReciclerAdapter extends RecyclerView.Adapter<SeasonsReciclerAdapter.ItemViewHolder> {
 
@@ -38,7 +39,7 @@ public class SeasonsReciclerAdapter extends RecyclerView.Adapter<SeasonsRecicler
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
         String prefix="https://image.tmdb.org/t/p/w500";
         Glide.with(holder.itemImage)
-                .load(prefix+seasons.get(position).getPoster_path())
+                .load(Constants.PREFIX+seasons.get(position).getPoster_path())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.itemImage);
 

@@ -2,11 +2,6 @@ package it.unimib.kaisenapp.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.SpannableString;
-import android.text.style.StyleSpan;
-import android.text.style.UnderlineSpan;
-import android.text.util.Linkify;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,8 +17,8 @@ import androidx.lifecycle.ViewModelProvider;
 import java.util.ArrayList;
 
 import it.unimib.kaisenapp.R;
-import it.unimib.kaisenapp.SearchedMovies;
-import it.unimib.kaisenapp.SearchGenre;
+import it.unimib.kaisenapp.ui.SearchedMovies;
+import it.unimib.kaisenapp.ui.SearchGenre;
 import it.unimib.kaisenapp.models.SearchMultiModel;
 import it.unimib.kaisenapp.utils.Constants;
 import it.unimib.kaisenapp.viewmodels.MovieListViewModel;
@@ -53,7 +48,6 @@ public class SearchFragment extends Fragment {
     private void search(){
         button.setOnClickListener(view -> {
             if(isValid(text.getText().toString())) {
-                Log.v("msggg","ciao");
                 movieListViewModel.search(text.getText().toString(), Constants.PAGE);
             }
 
@@ -66,7 +60,7 @@ public class SearchFragment extends Fragment {
 
     private void observer(){
         movieListViewModel.getSearchedMulti().observe(getViewLifecycleOwner(), searchMultiModels -> {
-            Log.v("Tag", "Testo "+text.getText().toString()+"-");
+
             if(searchMultiModels !=null&&text.getText().length()>0){
                 Intent intent=new Intent(getActivity(), SearchedMovies.class);
                 intent.putExtra("list", (ArrayList<SearchMultiModel>) searchMultiModels);
@@ -81,7 +75,6 @@ public class SearchFragment extends Fragment {
     public void onResume() {
         super.onResume();
         search();
-        Log.v("msggg","onresume");
     }
 
     @Override
@@ -89,7 +82,7 @@ public class SearchFragment extends Fragment {
         super.onPause();
         text.setText("");
 
-        Log.v("msggg","onpause");
+
     }
 
     private void setId(){

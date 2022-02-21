@@ -1,4 +1,4 @@
-package it.unimib.kaisenapp;
+package it.unimib.kaisenapp.models;
 
 public class User {
 

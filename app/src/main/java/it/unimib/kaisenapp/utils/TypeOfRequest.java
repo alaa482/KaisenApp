@@ -10,6 +10,4 @@ public enum TypeOfRequest {
     TOP_RATED_TV_SHOWS,
     ON_THE_AIR_TV_SHOWS,
     ON_THE_AIR_TODAY_TV_SHOWS,
-
-
 }

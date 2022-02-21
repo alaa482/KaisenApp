@@ -27,7 +27,6 @@ public class MovieEntity {
     @ColumnInfo(name="runtime")
     private int runtime;
 
-
     public MovieEntity(int movie_id, String poster_path, String category, boolean watched, boolean saved, boolean favorite, int runtime) {
         this.movie_id = movie_id;
         this.poster_path = poster_path;

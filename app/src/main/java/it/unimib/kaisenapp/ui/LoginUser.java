@@ -1,4 +1,4 @@
-package it.unimib.kaisenapp;
+package it.unimib.kaisenapp.ui;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,6 +29,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.FirebaseDatabase;
+
+import it.unimib.kaisenapp.R;
 
 
 public class LoginUser extends AppCompatActivity implements View.OnClickListener{

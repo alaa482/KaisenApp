@@ -1,8 +1,7 @@
-package it.unimib.kaisenapp;
+package it.unimib.kaisenapp.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageButton;
@@ -20,23 +19,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import it.unimib.kaisenapp.utils.AppExecutor;
+import it.unimib.kaisenapp.R;
 import it.unimib.kaisenapp.adapter.GenresItemRecyclerAdapter;
 import it.unimib.kaisenapp.adapter.GenresMainRecyclerAdapter;
-import it.unimib.kaisenapp.adapter.MainRecyclerAdapter;
-import it.unimib.kaisenapp.adapter.SearchedMovieRecycleAdapter;
-import it.unimib.kaisenapp.fragment.MyMoviesFragment;
-import it.unimib.kaisenapp.fragment.ProfileFragment;
 import it.unimib.kaisenapp.fragment.SearchFragment;
 import it.unimib.kaisenapp.models.AllCategory;
 import it.unimib.kaisenapp.models.CategoryItem;
 import it.unimib.kaisenapp.models.MovieModel;
 import it.unimib.kaisenapp.models.TvShowModel;
-import it.unimib.kaisenapp.ui.FilmSpec;
-import it.unimib.kaisenapp.ui.SeriesSpec;
 import it.unimib.kaisenapp.utils.Constants;
 import it.unimib.kaisenapp.viewmodels.MovieDatabaseViewModel;
 import it.unimib.kaisenapp.viewmodels.MovieListViewModel;
@@ -137,7 +131,7 @@ public class SearchGenre extends AppCompatActivity implements GenresItemRecycler
 
                             }
                             allCategoryList.add(new AllCategory("", tmp));
-                            Log.v("msggg", allCategoryList.toString());
+
                             movies.removeAll(tmp);
                             tmp.clear();
                         } else {
@@ -151,12 +145,12 @@ public class SearchGenre extends AppCompatActivity implements GenresItemRecycler
 
                         }
                         allCategoryList.add(new AllCategory("", tmp));
-                        Log.v("msggg", allCategoryList.toString());
+
                         movies.removeAll(tmp);
                         tmp.clear();
 
                     }
-                    Log.v("msgggggggg", allCategoryList.toString());
+
 
 
                 }
@@ -171,44 +165,37 @@ public class SearchGenre extends AppCompatActivity implements GenresItemRecycler
 
                 if(movieModels!=null){
 
-                    Log.v("msggg",movieModels.toString());
+
                     for (TvShowModel mm: movieModels) {
                         movies.add(new CategoryItem(mm.getId(),mm.getPoster_path(),"tv",""));
                     }
                     double size = movies.size();
                     for (int j = 0; j < Math.ceil(size / 3); j++) {
-                        Log.v("msggg", Math.ceil(size / 3)+"");
+
                         if (movies.size() < 3) {
                             for (int i = 0; i < movies.size(); i++) {
                                 tmp.add(movies.get(i));
 
                             }
                             allCategoryList.add(new AllCategory("", tmp));
-                            Log.v("msggg",allCategoryList.toString());
+
                             movies.removeAll(tmp);
                             tmp.clear();
                         } else {
 
                             for (int i = 0; i < 3; i++) {
                                 tmp.add(movies.get(i));
-                                Log.v("msggg",tmp.toString());
+
                             }
-                            Log.v("msggg",tmp.toString());
-
-
 
                         }
                         allCategoryList.add(new AllCategory("", tmp));
-                        Log.v("msggg",allCategoryList.toString());
+
                         movies.removeAll(tmp);
                         tmp.clear();
 
                     }
 
-
-
-
-                    Log.v("msgggggggg",allCategoryList.toString());
                     adapter2 = new GenresMainRecyclerAdapter(SearchGenre.this, allCategoryList, SearchGenre.this, SearchGenre.this);
                     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(SearchGenre.this);
                     recyclerView.setAdapter(adapter2);
@@ -222,14 +209,17 @@ public class SearchGenre extends AppCompatActivity implements GenresItemRecycler
     @Override
     public void onResume() {
         super.onResume();
-        Log.v("msgggggggg",allCategoryList.toString());
+
 
         getSerie();
         getMovie();
 
 
-        AppExecutor.getInstance().networkIO().schedule(() -> movieListViewModel.getMoviesByGenre(genres.get(genre.toLowerCase()), Constants.PAGE) , 0,  TimeUnit.MILLISECONDS);
-        AppExecutor.getInstance().networkIO().schedule(() -> movieListViewModel.getTvSeriesByGenre(genres.get(genre.toLowerCase()), Constants.PAGE), 100,  TimeUnit.MILLISECONDS);
+        AppExecutor.getInstance().networkIO().schedule(() ->
+                movieListViewModel.getMoviesByGenre(genres.get(genre.toLowerCase()), Constants.PAGE) , 0,  TimeUnit.MILLISECONDS);
+
+        AppExecutor.getInstance().networkIO().schedule(() ->
+                movieListViewModel.getTvSeriesByGenre(genres.get(genre.toLowerCase()), Constants.PAGE), 100,  TimeUnit.MILLISECONDS);
 
         textView = (TextView) findViewById(R.id.textView);
         textView.setText(genre);
@@ -250,7 +240,7 @@ public class SearchGenre extends AppCompatActivity implements GenresItemRecycler
 
     @Override
     public void onClick(int position, String type) {
-        Log.v("msgggg",type);
+
         if(type.equals("movie")){
             Intent intent = new Intent(this, FilmSpec.class);
             intent.putExtra("id", position);

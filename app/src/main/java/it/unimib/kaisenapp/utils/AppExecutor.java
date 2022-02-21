@@ -1,9 +1,7 @@
-package it.unimib.kaisenapp;
+package it.unimib.kaisenapp.utils;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-
-import it.unimib.kaisenapp.utils.Constants;
 
 //PATTERN SINGLETON
 public class AppExecutor {

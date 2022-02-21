@@ -42,7 +42,6 @@ public interface TvShowDao {
     @Query("SELECT numEpisode FROM tv_show WHERE id = id")
     int getnumEpisodeTvShows();
 
-
     @Delete
     void deleteTvShow(TvShowEntity tvShowEntity);
 

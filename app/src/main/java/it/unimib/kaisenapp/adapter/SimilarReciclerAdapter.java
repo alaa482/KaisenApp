@@ -16,6 +16,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import it.unimib.kaisenapp.R;
 import it.unimib.kaisenapp.models.MovieModel;
+import it.unimib.kaisenapp.utils.Constants;
 
 public class SimilarReciclerAdapter extends RecyclerView.Adapter<SimilarReciclerAdapter.ItemViewHolder> {
 
@@ -38,7 +39,7 @@ public class SimilarReciclerAdapter extends RecyclerView.Adapter<SimilarRecicler
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
         String prefix="https://image.tmdb.org/t/p/w500";
         Glide.with(holder.itemImage)
-                .load(prefix+recommendations.get(position).getPoster_path())
+                .load(Constants.PREFIX+recommendations.get(position).getPoster_path())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.itemImage);
 

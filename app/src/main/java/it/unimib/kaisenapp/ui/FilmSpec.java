@@ -110,7 +110,6 @@ public class FilmSpec extends AppCompatActivity implements SimilarReciclerAdapte
                                     mm.setWatched(!bookmarked);
                                     m.setWatched(!bookmarked);
                                     movieDatabaseViewModel.updateMovie(mm);
-                                    Log.v("test", String.valueOf(mm.isWatched()));
 
                                     icon = R.drawable.watched_border;
                                     bookmarked=!bookmarked;
@@ -121,7 +120,6 @@ public class FilmSpec extends AppCompatActivity implements SimilarReciclerAdapte
                                     mm.setWatched(!bookmarked);
                                     m.setWatched(!bookmarked);
                                     movieDatabaseViewModel.updateMovie(mm);
-                                    Log.v("test", String.valueOf(mm.isWatched()));
                                     icon = R.drawable.watched;
                                     bookmarked=!bookmarked;
                                 }
@@ -151,7 +149,6 @@ public class FilmSpec extends AppCompatActivity implements SimilarReciclerAdapte
                                                                   mm.setSaved(!favorite);
                                                                   m.setSaved(!favorite);
                                                                   movieDatabaseViewModel.updateMovie(mm);
-                                                                  Log.v("test", String.valueOf(mm.isSaved()));
 
                                                                   icon = R.drawable.saved_border;
                                                                   favorite=!favorite;
@@ -162,7 +159,6 @@ public class FilmSpec extends AppCompatActivity implements SimilarReciclerAdapte
                                                                   mm.setSaved(!favorite);
                                                                   m.setSaved(!favorite);
                                                                   movieDatabaseViewModel.updateMovie(mm);
-                                                                  Log.v("test", String.valueOf(mm.isSaved()));
                                                                   icon = R.drawable.saved;
                                                                   favorite=!favorite;
                                                               }
@@ -190,7 +186,6 @@ public class FilmSpec extends AppCompatActivity implements SimilarReciclerAdapte
                                                               mm.setFavorite(!star);
                                                               m.setFavorite(!star);
                                                               movieDatabaseViewModel.updateMovie(mm);
-                                                              Log.v("test", String.valueOf(mm.isFavorite()));
 
                                                               icon = R.drawable.favourite_border;
                                                               star = !star;
@@ -200,7 +195,6 @@ public class FilmSpec extends AppCompatActivity implements SimilarReciclerAdapte
                                                               mm.setFavorite(!star);
                                                               m.setFavorite(!star);
                                                               movieDatabaseViewModel.updateMovie(mm);
-                                                              Log.v("test", String.valueOf(mm.isFavorite()));
                                                               icon = R.drawable.favourite;
                                                               star = !star;
                                                           }
@@ -278,7 +272,7 @@ public class FilmSpec extends AppCompatActivity implements SimilarReciclerAdapte
 
 
 
-                Log.v("test",m.toString());
+
                 movieDatabaseViewModel.getAllMovies().observe(FilmSpec.this, new Observer<List<MovieEntity>>() {
                     @Override
                     public void onChanged(List<MovieEntity> movieEntityList) {
@@ -289,7 +283,7 @@ public class FilmSpec extends AppCompatActivity implements SimilarReciclerAdapte
 
 
                                 if(mm.equals(m)){
-                                    Log.v("test",mm.toString()+" mm");
+
                                     favorite = mm.isSaved();
                                     bookmarked = mm.isWatched();
                                     star = mm.isFavorite();

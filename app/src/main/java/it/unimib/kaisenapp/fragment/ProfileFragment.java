@@ -2,7 +2,6 @@ package it.unimib.kaisenapp.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,12 +29,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import it.unimib.kaisenapp.LoginUser;
-import it.unimib.kaisenapp.ProfileActivity;
+import it.unimib.kaisenapp.ui.LoginUser;
 import it.unimib.kaisenapp.R;
-import it.unimib.kaisenapp.RegisterUser;
-import it.unimib.kaisenapp.User;
-import it.unimib.kaisenapp.listProfilePic;
+import it.unimib.kaisenapp.models.User;
+import it.unimib.kaisenapp.ui.listProfilePic;
 
 public class ProfileFragment extends Fragment {
     private ImageButton backButton;
@@ -70,8 +67,6 @@ public class ProfileFragment extends Fragment {
                     int numSf =  userProfile.numSf;
                     int ore = userProfile.ore;
                     String iid = userProfile.imId;
-                    Log.v("msg", userProfile.imId+"in profilo");
-
 
                     //greetingTextView.setText("Welcome, " + fullName + "!");
                     txtFullName.setText(fullName);
@@ -83,7 +78,7 @@ public class ProfileFragment extends Fragment {
 
                     //String iid = "pp1";
                     int path = getResources().getIdentifier("it.unimib.kaisenapp:drawable/" + iid, null, null);
-                    Log.d("msg", String.valueOf(path));
+
                     imageProfile.setImageResource(path);
 
 

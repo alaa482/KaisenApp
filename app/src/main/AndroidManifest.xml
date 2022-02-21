@@ -19,30 +19,30 @@
         android:theme="@style/Theme.KaisenApp">
 
         <activity
-            android:name=".ForgotPassword"
+            android:name=".ui.ForgotPassword"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
-            android:name=".ProfileActivity"
+            android:name=".ui.ProfileActivity"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
-            android:name=".Explore"
+            android:name=".ui.Explore"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             tools:ignore="Instantiatable" />
         <activity
-            android:name=".listProfilePic"
+            android:name=".ui.listProfilePic"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
-            android:name=".RegisterUser"
+            android:name=".ui.RegisterUser"
             android:exported="false" />
         <activity
-            android:name=".LoginUser"
+            android:name=".ui.LoginUser"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
@@ -58,16 +58,16 @@
             android:exported="false"
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity
-            android:name=".SearchedMovies"
+            android:name=".ui.SearchedMovies"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity
-            android:name=".SearchGenre"
+            android:name=".ui.SearchGenre"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
 
         <activity
-            android:name=".SplashScreen"
+            android:name=".ui.SplashScreen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

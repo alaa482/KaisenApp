@@ -1,4 +1,4 @@
-package it.unimib.kaisenapp;
+package it.unimib.kaisenapp.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,12 +12,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
+
+import it.unimib.kaisenapp.R;
 import it.unimib.kaisenapp.adapter.SearchedMovieRecycleAdapter;
 import it.unimib.kaisenapp.fragment.SearchFragment;
 import it.unimib.kaisenapp.models.CategoryItem;
 import it.unimib.kaisenapp.models.SearchMultiModel;
-import it.unimib.kaisenapp.ui.FilmSpec;
-import it.unimib.kaisenapp.ui.SeriesSpec;
 
 public class SearchedMovies extends AppCompatActivity implements SearchedMovieRecycleAdapter.OnClickListener {
     private RecyclerView recyclerView;

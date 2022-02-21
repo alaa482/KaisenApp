@@ -42,7 +42,9 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
 
     @Override
     public int getItemCount() {
-        return allCategoryList.size();
+        if(allCategoryList!=null)
+            return allCategoryList.size();
+        return 0;
     }
 
     private void setCategoryItemRecycler(RecyclerView recyclerView, List<CategoryItem> categoryItemList){

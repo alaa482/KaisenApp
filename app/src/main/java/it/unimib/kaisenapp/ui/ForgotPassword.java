@@ -1,4 +1,4 @@
-package it.unimib.kaisenapp;
+package it.unimib.kaisenapp.ui;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,7 +17,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
-import org.w3c.dom.Text;
+import it.unimib.kaisenapp.R;
 
 public class ForgotPassword extends AppCompatActivity {
 

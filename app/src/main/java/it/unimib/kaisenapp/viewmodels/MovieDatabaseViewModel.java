@@ -1,7 +1,6 @@
 package it.unimib.kaisenapp.viewmodels;
 
 import android.app.Application;
-import android.provider.ContactsContract;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -10,7 +9,7 @@ import androidx.lifecycle.LiveData;
 import java.util.List;
 import java.util.concurrent.Future;
 
-import it.unimib.kaisenapp.AppExecutor;
+import it.unimib.kaisenapp.utils.AppExecutor;
 import it.unimib.kaisenapp.database.Database;
 import it.unimib.kaisenapp.database.MovieDao;
 import it.unimib.kaisenapp.database.MovieEntity;
@@ -22,7 +21,6 @@ import it.unimib.kaisenapp.repository.TvSerieDatabaseRepository;
 public class MovieDatabaseViewModel extends AndroidViewModel {
     private MovieDatabaseRepository movieDatabaseRepository;
     private TvSerieDatabaseRepository tvShowDatabaseRepository;
-
 
     public MovieDatabaseViewModel(@NonNull Application application) {
         super(application);
@@ -111,7 +109,6 @@ public class MovieDatabaseViewModel extends AndroidViewModel {
     }
 
     public void addAllMovies(List<MovieEntity> movieEntityList){
-
         final Future myHandler = AppExecutor.getInstance().networkIO().submit(new Runnable() {
             @Override
             public void run() {

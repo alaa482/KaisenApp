@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
-import it.unimib.kaisenapp.AppExecutor;
+import it.unimib.kaisenapp.utils.AppExecutor;
 import it.unimib.kaisenapp.models.SearchMultiModel;
 import it.unimib.kaisenapp.models.TvSerieModel;
 import it.unimib.kaisenapp.models.TvShowModel;
@@ -23,7 +23,6 @@ import it.unimib.kaisenapp.response.TvShowSearchResponse;
 import it.unimib.kaisenapp.utils.Credentials;
 import retrofit2.Call;
 import retrofit2.Response;
-import retrofit2.http.GET;
 
 //Classe che fa da ponte tra retrofit e livedata
 
@@ -422,8 +421,7 @@ public class MovieApiClient{
                 if(response.code() == 200){
                     List<SearchMultiModel> searchedList = new ArrayList<>(((SearchMultiResponse) response.body()).getAll());
                     mSearchMulti.postValue(searchedList);
-                    for(SearchMultiModel s: searchedList)
-                        Log.v("Test", s.toString());
+
 
                 }else
                     Log.v("Tag", "Response error: " + response.errorBody().string());
@@ -511,11 +509,10 @@ public class MovieApiClient{
                 Response response=getTvSeriesByGenre(genre,page).execute();
                 if(cancelRequest)
                     return;
-Log.v("msggggg",response.code()+"");
-Log.v("msggggg",response.body().toString());
+
                 if(response.code() == 200){
                     List<TvShowModel> l = new ArrayList<>(((TvShowSearchResponse)response.body()).getTvShows());
-                    Log.v("msggggg",l.toString());
+
                     mGenresTv.postValue(l);
                 }
             } catch (IOException e) {

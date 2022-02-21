@@ -31,5 +31,7 @@ public class Constants {
 
     public static final String CONNECTION = "Connessione spenta";
 
+    public static final String PREFIX="https://image.tmdb.org/t/p/w500";
+
 
 }

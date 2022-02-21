@@ -17,6 +17,7 @@ import java.util.List;
 
 import it.unimib.kaisenapp.R;
 import it.unimib.kaisenapp.models.CategoryItem;
+import it.unimib.kaisenapp.utils.Constants;
 
 public class GenresItemRecyclerAdapter  extends RecyclerView.Adapter<GenresItemRecyclerAdapter.CategoryItemViewHolder> {
     private final Context context;
@@ -38,7 +39,7 @@ public class GenresItemRecyclerAdapter  extends RecyclerView.Adapter<GenresItemR
     public void onBindViewHolder(@NonNull GenresItemRecyclerAdapter.CategoryItemViewHolder holder, int position) {
         String prefix="https://image.tmdb.org/t/p/w500";
         Glide.with(holder.itemImage)
-                .load(prefix+categoryItemList.get(position).getImageUrl())
+                .load(Constants.PREFIX+categoryItemList.get(position).getImageUrl())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.itemImage);
         holder.id.setText(categoryItemList.get(position).getItemId().toString());

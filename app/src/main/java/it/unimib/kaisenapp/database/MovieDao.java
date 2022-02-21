@@ -20,7 +20,6 @@ public interface MovieDao {
     @Insert
     void insertAllMovies(List<MovieEntity> movieEntities);
 
-
     @Query("SELECT * FROM movie")
     List<MovieEntity> getAllMovies();
 

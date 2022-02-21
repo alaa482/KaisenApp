@@ -120,7 +120,6 @@ public class SeriesSpec extends AppCompatActivity implements SimilarReciclerAdap
                                     mm.setWatched(!bookmarked);
                                     m.setWatched(!bookmarked);
                                     movieDatabaseViewModel.updateSerie(mm);
-                                    Log.v("test", String.valueOf(mm.isWatched()));
 
                                     icon = R.drawable.watched_border;
                                     bookmarked=!bookmarked;
@@ -131,7 +130,7 @@ public class SeriesSpec extends AppCompatActivity implements SimilarReciclerAdap
                                     mm.setWatched(!bookmarked);
                                     m.setWatched(!bookmarked);
                                     movieDatabaseViewModel.updateSerie(mm);
-                                    Log.v("test", String.valueOf(mm.isWatched()));
+
                                     icon = R.drawable.watched;
                                     bookmarked=!bookmarked;
                                 }
@@ -161,7 +160,7 @@ public class SeriesSpec extends AppCompatActivity implements SimilarReciclerAdap
                                     mm.setSaved(!favorite);
                                     m.setSaved(!favorite);
                                     movieDatabaseViewModel.updateSerie(mm);
-                                    Log.v("test", String.valueOf(mm.isSaved()));
+
 
                                     icon = R.drawable.saved_border;
                                     favorite=!favorite;
@@ -172,7 +171,6 @@ public class SeriesSpec extends AppCompatActivity implements SimilarReciclerAdap
                                     mm.setSaved(!favorite);
                                     m.setSaved(!favorite);
                                     movieDatabaseViewModel.updateSerie(mm);
-                                    Log.v("test", String.valueOf(mm.isSaved()));
                                     icon = R.drawable.saved;
                                     favorite=!favorite;
                                 }
@@ -189,7 +187,7 @@ public class SeriesSpec extends AppCompatActivity implements SimilarReciclerAdap
             @Override
             public void onClick(View v) {
 
-                Log.v("test",movieDatabaseViewModel.toString());
+
                 movieDatabaseViewModel.getAllTvShows().observe(SeriesSpec.this, new Observer<List<TvShowEntity>>() {
                     @Override
                     public void onChanged(List<TvShowEntity> movieEntities) {
@@ -200,7 +198,7 @@ public class SeriesSpec extends AppCompatActivity implements SimilarReciclerAdap
                                     mm.setFavorite(!star);
                                     m.setFavorite(!star);
                                     movieDatabaseViewModel.updateSerie(mm);
-                                    Log.v("test", String.valueOf(mm.isFavorite()));
+
 
                                     icon = R.drawable.favourite_border;
                                     star = !star;
@@ -210,7 +208,6 @@ public class SeriesSpec extends AppCompatActivity implements SimilarReciclerAdap
                                     mm.setFavorite(!star);
                                     m.setFavorite(!star);
                                     movieDatabaseViewModel.updateSerie(mm);
-                                    Log.v("test", String.valueOf(mm.isFavorite()));
                                     icon = R.drawable.favourite;
                                     star = !star;
                                 }
@@ -310,12 +307,12 @@ public class SeriesSpec extends AppCompatActivity implements SimilarReciclerAdap
                         if(movieEntityList!=null){
 
                             for (TvShowEntity mm: movieEntityList) {
-                                Log.v("msggg",mm.toString());
+
 
 
 
                                 if(mm.equals(m)){
-                                    Log.v("test",mm.toString()+" mm");
+
                                     favorite = mm.isSaved();
                                     bookmarked = mm.isWatched();
                                     star = mm.isFavorite();
@@ -370,7 +367,7 @@ public class SeriesSpec extends AppCompatActivity implements SimilarReciclerAdap
 
             @Override
             public void onFailure(Call<SerieDetailsResponse> call, Throwable t) {
-                Log.v("test",t.toString());
+
             }
         });
 

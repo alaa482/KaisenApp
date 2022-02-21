@@ -1,30 +1,20 @@
-package it.unimib.kaisenapp;
+package it.unimib.kaisenapp.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.annotation.NonNull;
 
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
-import android.os.Bundle;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
+import it.unimib.kaisenapp.R;
 import it.unimib.kaisenapp.fragment.ProfileFragment;
 
 
@@ -75,7 +65,7 @@ public class listProfilePic extends AppCompatActivity {
     View.OnClickListener mCorkyListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            Log.v("msg",String.valueOf(view.getId()));
+
             String id = String.valueOf(view.getId());
             String app = id.substring(id.length() - 2, id.length());
             if (view.getId()==R.id.pp1) {

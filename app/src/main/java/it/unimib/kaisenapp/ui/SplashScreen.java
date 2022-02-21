@@ -1,6 +1,5 @@
-package it.unimib.kaisenapp;
+package it.unimib.kaisenapp.ui;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import android.content.Context;
@@ -15,6 +14,9 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
+import it.unimib.kaisenapp.utils.AppExecutor;
+import it.unimib.kaisenapp.R;
 import it.unimib.kaisenapp.models.CategoryItem;
 import it.unimib.kaisenapp.models.TvShowModel;
 import it.unimib.kaisenapp.utils.Constants;
